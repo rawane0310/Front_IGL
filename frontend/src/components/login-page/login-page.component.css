@@ -58,14 +58,14 @@
     border: 2px solid #28A7B8;
     border-radius: 10px;
     padding: 0.5rem;
-    background-color: #f9f9f9;
+    background-color: white;
 }
 
 .input-icon {
     width: 20px;
     height: 20px;
     margin-right: 0.4rem;
-    background-color: transparent;
+ 
 
 }
 
