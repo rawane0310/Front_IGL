@@ -1,0 +1,29 @@
+<div class="login-container">
+  <app-header></app-header>
+  <div class="illustration">
+    <img src="../../assets/Medical prescription-pana.png" alt="Doctor Illustration" />
+  </div>
+  <div class="login-form">
+    <h1>Bienvenue!</h1>
+    <p>connectez-vous à votre compte.</p>
+    <form (ngSubmit)="onSubmit()">
+
+       <!-- Input Group for Email -->
+       <div class="input-group">
+        <img src="../../assets/@.png" alt="Email Icon" class="input-icon" />
+        <input type="email" placeholder="adresse mail" [(ngModel)]="email" name="email" required />
+      </div>
+
+      <!-- Input Group for Password -->
+      <div class="input-group">
+        <img src="../../assets/icons8-mot-de-passe-50 1.png" alt="Password Icon" class="input-icon" />
+        <input type="password" placeholder="mot de passe" [(ngModel)]="password" name="password" required />
+      </div>
+
+      <div class="forgot-password">
+        <a href="#">mot de passe oublié?</a>
+      </div>
+      <button type="submit">se connecter</button>
+    </form>
+  </div>
+</div>

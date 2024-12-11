@@ -1,0 +1,18 @@
+.header {
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: flex;
+    align-items: start;
+    justify-content: start;
+    padding-left: 20px;
+    gap: 0.5rem;
+}
+
+.logo {
+    height: 70px;
+    width: 170px;
+    object-fit: cover;
+    max-width: 100%;
+    width: auto;
+}
