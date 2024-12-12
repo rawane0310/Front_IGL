@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { HeaderComponent } from '../header/header.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login-page',
@@ -19,6 +20,12 @@ export class LoginPageComponent {
   onSubmit(): void {
     console.log('Email:', this.email);
     console.log('Password:', this.password);
+  }
+  
+  constructor(private router: Router) { }
+
+  navigateToLogin() {
+    this.router.navigate(['/recherche']);
   }
 }
 
