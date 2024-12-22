@@ -5,7 +5,7 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    width: 100%
+    width: 100%;
 }
 
 .logo {
@@ -17,6 +17,12 @@
     width: auto;
 }
 
+.header-img {
+    display: flex;
+    align-items: center;
+    padding-right: 20px;
+}
+
 .profile-pic {
     height: 50px;
     width: 50px;
@@ -25,10 +31,46 @@
     transition: opacity 0.3s;
     object-fit: cover;
 }
-.header-img{
- padding-right: 20px;
 
-}
 .profile-pic:hover {
     opacity: 0.8;
+}
+
+.add-dpi-btn {
+    background-color: #28A7B8;
+    color: white;
+    border: none;
+    border-radius: 9px;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-family: Urbanist, sans-serif;
+    font-size: 1.1rem;
+    margin-right: 10px;
+
+}
+
+.add-dpi-btn:hover {
+    background-color: #1E8A9C;
+}
+
+@media (max-width: 800px) {
+    .add-dpi-btn {
+        padding: 5px 10px;
+        font-size: 0.8rem;
+    }
+
+    .profile-pic {
+        height: 40px;
+        width: 40px;
+        border-radius: 50%;
+    }
+
+    .logo {
+        height: 50px;
+        width: 150px;
+        object-fit: cover;
+        max-width: 90%;
+        width: auto;
+    }
+
 }

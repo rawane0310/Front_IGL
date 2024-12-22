@@ -93,6 +93,7 @@
     color: #05445E;
 }
 
+
 .qr-button {
     display: flex;
     align-items: center;
@@ -104,6 +105,7 @@
     padding: 10px 30px;
     font-size: 16px;
     cursor: pointer;
+    transition: all 0.3s ease-in-out;
 }
 
 .qr-text {
@@ -135,6 +137,49 @@
 }
 
 
+.qr-scanner-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    transition: all 0.3s ease-in-out;
+}
+
+.qr-scanner {
+    width: 80%;
+    max-width: 500px;
+    border: 2px solid #28A7B8;
+
+}
+
+.close-button {
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    background-color: #28A7B8;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    font-size: 20px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.close-button:hover {
+    background-color: #003f5c;
+}
+
 
 
 @media (max-width: 1000px) {
@@ -165,6 +210,20 @@
 
     .search-button {
         border-radius: 8px;
+    }
+
+    .qr-scanner {
+        width: 90%;
+    }
+
+    .close-button {
+        width: 35px;
+        height: 35px;
+        font-size: 18px;
+    }
+
+    .result {
+        max-width: 40%;
     }
 }
 

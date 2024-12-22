@@ -1,6 +1,10 @@
 <header class="header">
     <img src="../../assets/logo.png" alt="Logo" class="logo" />
+
     <div class="header-img" id="profile-pic-container" *ngIf="!isLandingPage && !isLoginPage">
+        <button class="add-dpi-btn" *ngIf="isAdministrativeRole" (click)="redirectToCreateDpi()">Ajouter DPI</button>
         <img src="../../assets/Ellipse 19(1).png" alt="Profile Picture" class="profile-pic" />
+
     </div>
+
 </header>

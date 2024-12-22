@@ -1,7 +1,6 @@
 <div class="recherche-page">
     <app-header></app-header>
 
-
     <main class="main-content">
         <h1>
             <span class="highlight">Recherchez</span> Un Dossier Patient en toute simplicité
@@ -10,14 +9,19 @@
             Accédez aux informations médicales des patients grâce à leur numéro de sécurité sociale ou QR code.
         </p>
 
+        <!-- Barre de recherche -->
         <div class="search-bar">
-            <input type="text" placeholder="Entrez le numéro de sécurité social NSS du patient" class="search-input" />
-            <button class="search-button">
-                <div class="shr-div"><img src="../../assets/Group.png" alt="Search Icon" /></div>
+            <input type="text" placeholder="Entrez le numéro de sécurité social NSS du patient" class="search-input"
+                [(ngModel)]="nss" />
+            <button class="search-button" (click)="searchByNSS()">
+                <div class="shr-div">
+                    <img src="../../assets/Group.png" alt="Search Icon" />
+                </div>
             </button>
         </div>
 
-        <button class="qr-button">
+        <!-- Bouton pour scanner le QR -->
+        <button class="qr-button" (click)="toggleQRScanner()">
             <span class="qr-text">ou Scannez un code QR</span>
             <img src="../../assets/icons8-qr-50 (1) 1.png" alt="QR Code Icon" class="qr-icon" />
         </button>
@@ -25,5 +29,28 @@
         <div class="qr-image">
             <img src="../../assets/png.png" alt="QR Code Image" />
         </div>
+
+        <!-- I WILL USE THIS WHEN HAVING THE BACKEND -->
+
+        <!-- Scanner QR Code -->
+        <!-- <div class="qr-scanner" *ngIf="showScanner">
+            <zxing-scanner [start]="scannerEnabled" (scanSuccess)="onQRCodeScanned($event)"></zxing-scanner>
+        </div>
+        <button (click)="toggleQRScanner()">Scanner un QR Code</button> -->
+
+        
+
+
+
+        <!-- JUST FOR TESTING BEACAUSE I DON'T HAVE THE BACKEND YET  -->
+        <div class="qr-scanner-container" *ngIf="scannerEnabled">
+            <button class="close-button" (click)="toggleQRScanner()">X</button>
+            <zxing-scanner class="qr-scanner" [formats]="formats" (scanSuccess)="onCodeResult($event)">
+            </zxing-scanner>
+        </div>
+
+     
+
+
     </main>
 </div>

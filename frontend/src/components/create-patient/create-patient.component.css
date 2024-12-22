@@ -1,0 +1,126 @@
+.create-patient-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 130vh;
+    background-color: white;
+    flex-direction: row;
+    position: relative;
+    overflow: hidden;
+    padding: 30px;
+}
+
+.illustration {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 30px;
+    max-width: 40%;
+}
+
+.illustration img {
+    width: 100%;
+    object-fit: cover;
+}
+
+.form-container {
+    flex: 1;
+    max-width: 450px;
+    text-align: center;
+    padding-top: 20px;
+    margin: 10px;
+}
+
+.form-container h1 {
+    font-size: 2rem;
+    color: #28A7B8;
+    margin-bottom: 8px;
+    font-weight: bold;
+    font-family: Popins, sans-serif;
+}
+
+.form-container p {
+    font-size: 1rem;
+    color: #28A7B8;
+    margin-bottom: 10px;
+    font-family: Urbanist, sans-serif;
+}
+
+.input-group {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1rem;
+    border: 2px solid #28A7B8;
+    border-radius: 10px;
+    padding: 0.4rem;
+    background-color: white;
+}
+
+.input-icon {
+    width: 20px;
+    height: 20px;
+    margin-right: 0.4rem;
+}
+
+.input-group input {
+    width: 150px;
+    padding: 5px 5px;
+    font-size: 0.8rem;
+    outline: none;
+    border: none;
+    font-family: Urbanist, sans-serif;
+}
+
+.input-group input:focus {
+    border-color: #28A7B8;
+}
+
+button {
+    background-color: #28A7B8;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 9px;
+    font-size: 1.3rem;
+    cursor: pointer;
+    width: 35%;
+    font-family: Urbanist, sans-serif;
+}
+
+button:hover {
+    background-color: #1E8A9C;
+}
+
+
+/* Responsive Styles */
+@media screen and (max-width: 768px) {
+
+    .create-patient-container {
+        flex-direction: column;
+        height: auto;
+        padding: 20px;
+    }
+
+    .illustration {
+        display: none;
+    }
+
+    .form-container {
+        max-width: 100%;
+        padding: 10px;
+        margin-top: 40px;
+    }
+
+    .form-container h1 {
+        font-size: 1.5rem;
+    }
+
+    .form-container p {
+        font-size: 0.9rem;
+    }
+
+    button {
+        width: 100%;
+    }
+}
