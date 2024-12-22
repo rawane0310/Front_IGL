@@ -1,0 +1,95 @@
+.patient-file {
+    font-family: 'Poppins', sans-serif;
+    margin: 20px;
+  }
+  
+  .header {
+  
+    display: flex;
+    justify-content: center;
+    align-items: center; 
+    text-align: center; 
+    margin-bottom: 20px; 
+  }
+  
+  .header img {
+    width: 50px; 
+    height: auto;
+    margin-bottom: 10px; 
+  }
+  
+  .title {
+    font-size: 32px;
+    font-weight: bold;
+    color: #263238;
+    margin: 0; 
+  }
+  
+  .tabs {
+    display: flex;
+    justify-content: space-between; 
+    align-items: center; 
+    border-bottom: 1px solid #ccc;
+    margin-left: 50px;
+    margin-right: 20px ;
+     
+  }
+  
+  .tab {
+   
+    align-items: center;
+    text-decoration: none;
+    color: #28A7B8;
+    border-bottom: 2px solid transparent;
+    cursor: pointer;
+    flex: 1;
+    text-align: center;
+}
+
+  
+  .tab:hover {
+    color: #28A7B8;
+  }
+  
+  .tab.active {
+    color: #28A7B8;
+    border-bottom-color: #28A7B8;
+    font-weight: bold;
+  }
+  
+  .tab i {
+    margin-right: 5px;
+  }
+  
+   .icon-chart {
+    background-image: url('../../assets/Examen.svg');
+    background-size: cover;
+    width: 16px;
+    height: 16px;
+    display: inline-block;
+  }
+
+  .icon-user{
+    background-image: url('../../assets/folderr.svg');
+    background-size: cover;
+    width: 16px;
+    height: 16px;
+    display: inline-block;
+  }
+
+   .icon-chat {
+    background-image: url('../../assets/Consultation.svg');
+    background-size: cover;
+    width: 16px;
+    height: 16px;
+    display: inline-block;
+  }
+   .icon-nurse {
+    background-image: url('../../assets/NurseFR.svg');
+    background-size: cover;
+    width: 16px;
+    height: 16px;
+    display: inline-block;
+  }
+  
+  

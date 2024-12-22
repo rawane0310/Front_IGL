@@ -1,0 +1,26 @@
+
+
+<div class="patient-file" >
+    <div class="header">
+      
+        <img src="../../assets/Dossierfr.svg" alt="dossier" />
+      <h1 class="title" >Dossier de Belaid Meriem</h1>
+      
+    </div>
+    <nav class="tabs" >
+      <a class="tab" (click)="navigateTo('info', '/infos-dpi', $event)" >
+        <i class="icon-user"></i> Informations personnelles
+      </a>
+      <a class="tab" (click)="navigateTo('consultation', '/consultations-dpi', $event)">
+        <i class="icon-chat"></i> Consultations
+      </a>
+      <a class="tab"  (click)="navigateTo('soins', '/soins-dpi', $event)">
+        <i class="icon-nurse"></i> Soins Infirmiers
+      </a>
+      <a class="tab"  (click)="navigateTo('examen', '/examens-dpi', $event)" >
+        <i class="icon-chart"></i> Examens
+      </a>
+    </nav>
+    
+  </div>
+  
