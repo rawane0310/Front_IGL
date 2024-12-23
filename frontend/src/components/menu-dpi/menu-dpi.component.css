@@ -1,10 +1,10 @@
 .patient-file {
+  
     font-family: 'Poppins', sans-serif;
     margin: 20px;
   }
   
   .header {
-  
     display: flex;
     justify-content: center;
     align-items: center; 

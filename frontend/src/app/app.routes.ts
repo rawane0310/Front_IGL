@@ -9,7 +9,6 @@ import { SoinsDpiComponent } from '../components/soins-dpi/soins-dpi.component';
 import { ExamensDpiComponent } from '../components/examens-dpi/examens-dpi.component';
 export const routes: Routes = [
     { path: '', component: InfosDpiComponent },
-  
         { path: 'infos-dpi', component: InfosDpiComponent },
         { path: 'consultations-dpi', component: ConsultationsDpiComponent },
         { path: 'soins-dpi', component: SoinsDpiComponent },

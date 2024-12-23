@@ -1,0 +1,62 @@
+@import url('https://fonts.googleapis.com/css2?family=Urbanist:wght@400;700&display=swap');
+
+.ligne {
+    display: flex;
+   align-items: center;
+    gap: 20px;
+  
+}
+.bigcontainer{
+    display: flex;
+   align-items: center;
+    gap: 10px;
+    size: 500px;
+    width: 1200px;
+    margin: 30px 30px 30px 30px;
+    border-radius: 15px; 
+}
+
+
+
+.container {
+    margin: 50px 50px 100px 150px;
+    padding: 10px 10px 10px 10px;
+}
+
+.title {
+    size: 24px;
+    color: #05445E;
+    font-family: 'Urbanist';
+    font-weight: bold;}
+
+    .content{
+        size: 24px;
+        color: #05445E;
+        font-family: 'Urbanist';
+        
+    }
+
+
+ .image{
+    margin: 0px;
+    padding-right: 20px;
+    margin: -15px -15px ;
+    display: block; /* Ensures proper spacing */
+   
+ }   
+
+
+ .qr-code-container {
+   
+    margin: 40px 50px 100px 200px;
+   /* Makes the container fit the image size */
+    width: 220px;
+    height: 220px;
+    padding: 20px; /* Adds space around the image */
+    background-color: #f9f9f9; /* A very light gray close to white */
+    border-radius: 15px; /* Smooth corners for the rectangle */
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2); /* Creates a 3D popping effect */
+    border: 1px solid #eee; /* Subtle border to define edges */
+    text-align: center; /* Centers the content inside */
+  }
+  

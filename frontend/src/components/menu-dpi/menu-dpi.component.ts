@@ -18,22 +18,22 @@ export class MenuDpiComponent {
 
   }
   navigateTo(tab: string, route: string, event: Event) {
-    // Get the clicked element or its closest parent with the .tab class
+   
     const clickedTab = (event.target as HTMLElement).closest('.tab') as HTMLElement;
   
-    // Remove 'active' class from all tabs
+    
     const tabs = document.querySelectorAll('.tab');
     tabs.forEach(tabElement => tabElement.classList.remove('active'));
   
-    // Add 'active' class to the clicked tab
+    
     if (clickedTab) {
       clickedTab.classList.add('active');
     }
   
-    // Update activeTab state
+    
     this.activeTab = tab;
   
-    // Navigate to the desired route
+    
     this.router.navigate([route]);
   }
   /*activeTab: string = 'info';
