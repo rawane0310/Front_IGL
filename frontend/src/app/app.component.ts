@@ -6,15 +6,21 @@ import { RouterOutlet } from '@angular/router';
 import { MenuDpiComponent } from '../components/menu-dpi/menu-dpi.component';
 import { HeaderComponent } from '../components/header/header.component';
 import { InfosDpiComponent } from '../components/infos-dpi/infos-dpi.component';
+import { UserIndicatorsServiceService } from '../services/user-indicators-service.service';
+import { LoadingIndicatorComponent } from '../components/loading-indicator/loading-indicator.component';
+import { SuccesIndicatorComponent } from '../components/succes-indicator/succes-indicator.component';
+import { ErrorIndicatorComponent } from '../components/error-indicator/error-indicator.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [CommonModule, LoginPageComponent, LandingPageComponent,RouterOutlet,HeaderComponent, MenuDpiComponent , InfosDpiComponent],
+  imports: [CommonModule,RouterOutlet, LoadingIndicatorComponent, SuccesIndicatorComponent, ErrorIndicatorComponent ],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
   title = 'frontend';
+
+  constructor(public userIndicatorService: UserIndicatorsServiceService) {} 
 }
 

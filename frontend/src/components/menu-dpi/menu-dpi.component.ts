@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, input } from '@angular/core';
 import { NgIf } from '@angular/common';
 import { Router, RouterModule, RouterOutlet } from '@angular/router';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
@@ -16,4 +16,6 @@ export class MenuDpiComponent {
  faNotesMedical= faNotesMedical;
  faUserNurse= faUserNurse;
  faChartBar= faChartBar;
+
+ dpiId = input.required()
 }

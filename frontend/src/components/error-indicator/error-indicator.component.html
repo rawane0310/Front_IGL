@@ -1,0 +1,9 @@
+<div class="container">
+
+    <div class="left">
+        <fa-icon [icon]="faCircleExclamation" class="icon"></fa-icon>
+        <p class="msg">{{userIndicatorService.errorData().errorMessage}}</p>
+    </div>
+   
+    <fa-icon [icon]="faXmark" class="icon close" (click)="closeError($event)"></fa-icon>
+</div>

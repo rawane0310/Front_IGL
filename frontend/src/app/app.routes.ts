@@ -12,7 +12,7 @@ import { DpiPageComponent } from '../components/dpi-page/dpi-page.component';
 
 
 export const routes: Routes = [
-    { path: 'dpi',
+    { path: 'dpi/:dpiId',
         component: DpiPageComponent,
         children: [
             { path: '', redirectTo: 'infos-dpi', pathMatch: 'full' },
