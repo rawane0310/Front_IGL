@@ -1,0 +1,11 @@
+<div class="dialog-bg" (click)="closeDialog()">
+    <div class="dialog-container"(click)="$event.stopPropagation()">
+        <h3 class="dialog-title">Confirmation</h3>
+        <fa-icon [icon]="faTrashCan" class="icon"></fa-icon>
+        <p class="dialog-text">etes-vous sur de vouloir supprimer cet élément?</p>
+        <div class="dialog-btns">
+            <button class="btn close" (click)="closeDialog()">Annuler</button>
+            <button class="btn supp">Supprimer</button>
+        </div>
+    </div>
+</div>

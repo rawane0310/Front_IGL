@@ -27,7 +27,7 @@
     display: flex;
     justify-content: space-around; 
     align-items: center; 
-    gap:1rem;
+    gap:2rem;
     border-bottom: .0001rem solid #C1D1DC;
     color: #6C757D;
   }
@@ -42,11 +42,15 @@
     color:#6C757D;
     font-weight: 500;
     transition: all 0.1s ease;
-    
   }
 
-  .tab:hover {
-    color: #28A7B8;
+  .icon{
+    rotate:0deg;
+    transition: rotate 0.2s ease;
+  }
+
+  .tab:hover .icon{
+    rotate: -10deg;
   }
 
   .tab.active{

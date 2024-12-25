@@ -4,4 +4,32 @@
 body{
     font-family: Urbanist, sans-serif;
     font-size: 1rem;
+    color: #263238;
 }
+
+/*Scrollbar styling*/
+
+/* For WebKit Browsers (Chrome, Edge, Safari) */
+  ::-webkit-scrollbar {
+    width: .5rem; /* Adjust the scrollbar width */
+  }
+  
+  ::-webkit-scrollbar-track {
+    background: #f1f1f1; /* Track color */
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    background: #C1D1DC; /* Thumb color */
+    transition: all 0.5s ease; /* Transition effect to reveal the thumb */
+  }
+  
+  ::-webkit-scrollbar-thumb:hover {
+    background: #95a1a9; /* Thumb color on hover */
+  }
+  
+  /* For Firefox */
+  body {
+    scrollbar-width: thin; /* Thin scrollbar for better appearance */
+    scrollbar-color: #C1D1DC #f1f1f1; /* Thumb color, Track color */
+  }
+  

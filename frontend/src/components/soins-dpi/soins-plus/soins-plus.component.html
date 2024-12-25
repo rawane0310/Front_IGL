@@ -1,0 +1,54 @@
+<div class="soin-plus-container" (click)="closeSoin()">
+    <div class="soin-plus-card" (click)="$event.stopPropagation()">
+        <p class="soin-time">06 décembre 2024 16:30</p>
+        <div class="soin-plus-content">
+            <div class="menu">
+                <div class="menu-link" (click)="unSetActive($event)" [class]="activeMedicament() ? '' : 'active'">
+                    Details
+                </div>
+                <div class="menu-link" (click)="setActive($event)" [class]="activeMedicament() ? 'active' : ''">
+                    Administration des médicaments
+                </div>
+            </div>
+
+            @if (activeMedicament()) {
+                <div class="med-admin">
+                    <p class="soin-plus-text">Médicaments utilisés</p>
+                    <app-medicaments></app-medicaments>
+                </div>
+            } @else {
+                <div class="details">
+                    <div class="icons">
+                        <fa-icon [icon]="faTrashCan" class="icon" (click)="opendeleteDialog($event)"></fa-icon>
+                        <fa-icon [icon]="faPenToSquare" class="icon" (click)="openSoinForm($event)"></fa-icon>
+                    </div>
+                    <div class="row">
+                        <p class="soin-plus-text">Infermier</p>
+                        <p class="soin-plus-text gray">Nekaa Ouissal</p>
+                    </div>
+            
+                    <div class="row">
+                        <p class="soin-plus-text">Soins Réalisés</p>
+                        <p class="soin-plus-text gray">Injection, changement de pensement</p>
+                    </div>
+            
+                    <div class="row">
+                        <p class="soin-plus-text">Observation</p>
+                        <p class="soin-plus-text gray"> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla nec purus feugiat, vestibulum mi id, ultricies mi. Donec nec nunc nec nunc.</p>
+                    </div>
+                    @if(soinForm()){
+                        <app-modifier-soin (modifierSoinCloseEvent)="closeSoinForm()"></app-modifier-soin>
+                      }
+                      @if(deleteDialog()){
+                        <app-delete-dialog (closeDialogEvent)="closeDeleteDialog()"></app-delete-dialog>
+                      }
+                </div>
+            }
+
+            <div class="btn-container">
+                <button class="btn close" (click)="closeSoin()">Fermer</button>
+            </div>         
+        </div>
+        
+    </div>
+</div>

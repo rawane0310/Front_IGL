@@ -1,0 +1,164 @@
+.soin-plus-container{
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: rgba(33, 37, 41, 0.5);
+    width: 100vw;
+    height: 100vh;
+    z-index: 20;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.soin-plus-card{
+    background-color: white;
+    border-radius: 10px;
+    color:#263238;
+    font-weight: 500;
+    padding: .5rem;
+    transition: all 0.2s ease;
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    width: 80%;
+    height: 80%;
+    overflow: auto;
+    padding-bottom: 1;
+}
+
+.soin-plus-content{
+    display:flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    
+}
+
+.soin-time{
+    font-size: 1.25rem;
+    text-align: center;
+    font-weight: 600;
+}
+
+.row{
+    display: flex;
+    flex-direction: column;
+    gap:.5rem
+}
+
+.soin-plus-text{
+    font-weight: 600;
+    margin: 0;
+}
+
+.gray{
+    font-weight: 500;
+    color: #6C757D;
+    margin-left: 2rem;
+    max-width: 50vw;
+}
+
+.menu{
+    position: sticky;
+    top: 0;
+    left: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #6C757D;
+    gap:2rem;
+    font-size: 1.01rem;
+    cursor: pointer;
+}
+
+.active{
+    color: #28A7B8;
+    box-shadow: 0 0.15rem 0 #28A7B8;
+    transition: all 0.2s ease;
+}
+
+.details{
+    margin-left: 3rem;
+    display:flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.med-admin{
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.med-admin p{
+    margin-left: 3rem;
+}
+
+.icon{
+    display: block;
+    color: #263238;
+}
+
+.icons{
+    display: flex;
+    justify-content:end;
+    align-items: center;
+    gap: 2rem;
+    margin-right: 1rem;
+}
+
+.btn{
+    background-color: #28A7B8;
+    color: #fff;
+    padding: .8rem 1.5rem;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: 500;
+    font-family: inherit;
+    margin: 0 1rem 1rem 0;
+}
+
+
+.close{
+    background-color: #fff;
+    color: #263238;
+    border: 1px solid #263238;
+    transition: all 0.5s ease;
+}
+
+.close:hover{
+    background-color: #2632381d;
+    
+}
+
+.btn-container{
+    display: flex;
+    justify-content: end;
+    align-items: center;
+}
+
+
+@media (max-width: 768px){
+    .soin-plus-card{
+        width: 90%;
+        height: 90%;
+    }
+}
+
+@media (max-width: 425px){
+    .gray{
+        max-width: 70vw;
+    }
+    .details{
+        margin-left: 1.5rem;
+    }
+    .med-admin p{
+        margin-left: 1.5rem;
+    }
+    .menu-link{
+        text-align: center;
+        width: fit-content;
+    }
+}

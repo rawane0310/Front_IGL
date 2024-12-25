@@ -1,0 +1,44 @@
+<div class="table-container">
+    <table class="custom-table">
+      <thead>
+        <tr>
+          <th>Nom</th>
+          <th>Dose</th>
+          <th>Fréquence</th>
+          <th>Durée</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td data-title="Nom">Doliprane</td>
+          <td data-title="Dose">1000mg</td>
+          <td data-title="Fréquence">/</td>
+          <td data-title="Durée">/</td>
+          <td> 
+            <div class="icons">
+              <fa-icon [icon]="faTrashCan" class="icon"></fa-icon>
+              <fa-icon [icon]="faPenToSquare" class="icon"></fa-icon>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td data-title="Nom">Paracétamol</td>
+          <td data-title="Dose">500mg</td>
+          <td data-title="Fréquence">3/jour</td>
+          <td data-title="Durée">5 jours</td>
+          <td> 
+            <div class="icons">
+              <fa-icon [icon]="faTrashCan" class="icon" (click)="opendeleteDialog($event)"></fa-icon>
+              <fa-icon [icon]="faPenToSquare" class="icon" (click)="openMedForm($event)"></fa-icon>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    @if(medForm()){
+      <app-ajouter-medicament (ajouterMedCloseEvent)="closeMedForm()" ></app-ajouter-medicament>
+    }
+    @if(deleteDialog()){
+      <app-delete-dialog (closeDialogEvent)="closeDeleteDialog()"></app-delete-dialog>
+    }
+</div>

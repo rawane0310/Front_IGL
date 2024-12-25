@@ -1,0 +1,58 @@
+<div class="form-bg" (click)="closeAddSoin()">
+    <div class="form-container" (click)="$event.stopPropagation()">
+        <div class="steps">
+            <div class="step" [class]="next() ? 'step-done' : 'step-active'">
+                <div class="step-number">1</div>
+                <div class="step-title">Détails du soin</div>
+            </div>
+            <div class="bar" [class]="next() ? 'bar-done' : 'bar-active'" ></div>
+            <div class="step" [class]="next() ? 'step-active' : ''">
+                <div class="step-number">2</div>
+                <div class="step-title">Administration des médicaments</div>
+            </div>
+        </div>
+        <div class="content">
+            @if(!next()){
+               <div class="details-container">
+                    <form>
+                        <h3 class="form-title">Remplissez les détails du soin ! </h3>
+
+                        <div class="form-inputs">
+                            <div class="form-group">
+                                <label for="datetime">Date et heure</label>
+                                <input type="datetime-local" id="datetime" name="datetime"  required>
+                            </div>
+    
+                            <div class="form-group">
+                                <label for="soins">Soins Réalisés</label>
+                                <input type="text" id="soins" name="soins" placeholder="ex: Injection" required>
+                            </div>
+    
+                            <div class="form-group">
+                                <label for="observation">Observation</label>
+                                <textarea id="observation" name="observation" placeholder="ex: Le malade réagit positivement au traitement" required></textarea>
+                            </div>
+                        </div>
+                        
+                        <div class="next">
+                            <button type="submit" class="btn" (click)="nextStep($event)">Suivant</button>
+                        </div>
+
+                    </form>
+               </div>
+            }@else {
+                <div class="med-container">
+                    <h3 class="form-title align">Ajoutez des médicaments <fa-icon [icon]="faPlusCircle" class="plus-icon" (click)="openAjouterMedicament($event)" > </fa-icon></h3>
+                    <app-medicaments></app-medicaments>
+                    @if(ajouterMed()){
+                        <app-ajouter-medicament (ajouterMedCloseEvent)="closeAjouterMedicament()"></app-ajouter-medicament>
+                    }  
+                    <div class="next">
+                        <button class="btn" >Terminer</button>
+                    </div>
+                </div>
+            }
+        </div>
+        
+    </div>
+</div>

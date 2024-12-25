@@ -1,1 +1,12 @@
-
+<div class="soins-container">
+    <app-card></app-card>
+    <app-card></app-card>
+    <app-card></app-card>
+    <app-card></app-card>
+    <app-card></app-card>
+    <app-card></app-card>
+    <fa-icon [icon]="faCirclePlus" class="plus-icon" (click)="openAddForm($event)"></fa-icon>
+    @if(addFormOpened()){
+        <app-add-soin-form (closeEvent)="closeAddForm()"></app-add-soin-form>
+    }
+</div>
