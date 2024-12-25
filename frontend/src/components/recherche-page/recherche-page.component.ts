@@ -5,6 +5,7 @@ import { CommonModule, NgIf } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { BarcodeFormat } from '@zxing/library';
 import { PatientService } from '../../services/patient_service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-recherche-page',
@@ -19,91 +20,94 @@ export class RecherchePageComponent {
   showScanner: boolean = false;
   scannerEnabled: boolean = false;
 
-  nss: string = ''; // Variable pour stocker le NSS saisi
-  patientData: any; // Variable pour stocker les données du patient
-  errorMessage: string | null = null; // Variable pour les erreurs
+  nss: string = ''; 
+  patientData: any; 
+  message: string = '';
+  messageType: string = '';
 
-  constructor(private patientService: PatientService) { }
+  constructor(private patientService: PatientService, private router: Router) { }
 
 
+  /**
+   * Search for a patient using NSS.
+   */
   searchByNSS() {
-    if (!this.nss) {
-      this.errorMessage = 'Veuillez entrer un NSS valide.';
-      return;
+    this.patientData = null;
+
+    if (!this.nss.trim()) {
+      this.showMessage('Veuillez saisir le NSS, svp!', 'error');
+      return; 
     }
 
+    this.patientService.searchPatientByNSS(this.nss).subscribe({
+      next: (data) => {
+        this.showMessage('Patient trouvé!', 'success');
+        this.patientData = data;
+       setTimeout(() => {
+        this.router.navigate(['/dpi/', data.id]);
+       }, 3000);
+        console.log(data);
+      },
+      error: (err) => {
+        this.showMessage(err.error?.detail || 'Une erreur est produite lors dela recherche', 'error');
+      },
+    });
   }
 
-
-
-
-
-  //I WILL HANDLE THIS WHEN THE BDD IS DONE
-  // searchByNSS() {
-  //   if (!this.nssInput.trim()) return;
-
-  // this.http.get(`/api/patients/search?nss=${this.nssInput}`).subscribe(
-  //   (data) => {
-  //     console.log('Patient trouvé : ', data);
-  //     // Rediriger ou afficher les informations du patient
-  //   },
-  //   (error) => {
-  //     console.error('Erreur lors de la recherche du NSS', error);
-  //   }
-  // );
-  //}
-
-
-
+  /**
+   * Toggle the QR scanner on/off.
+   */
 
   toggleQRScanner() {
     this.showScanner = !this.showScanner;
     this.scannerEnabled = this.showScanner;
   }
 
-  //I WILL USE THIS WHEN THE BDD IS READY 
+  /**
+    * Handle successful QR code scan.
+    * @param result The QR code scan result containing id and name.
+    */
+  onQRCodeScanned(result: string) {
+    this.scannerEnabled = false;
+
+    try {
+      // console.log('QR code scanned:', result);
+      const qrData = JSON.parse(result);
+      const id = qrData.id;
+      const name = qrData.nom;
+
+      this.patientData = null;
+
+      this.patientService.searchPatientByQRCode(id, name).subscribe({
+        next: (data) => {
+          this.showMessage('Patient trouvé!', 'success');
+          this.patientData = data;
+          setTimeout(() => {
+            this.router.navigate(['/dpi/', data.id]);
+     
+           }, 3000);
+          console.log(data);
+        },
+        error: (err) => {
+          this.showMessage(err.error?.detail || 'Une erreur est produite lors de scan du code QR!', 'error');
+        },
+      });
+    } catch (e) {
+      console.error('Error parsing QR code:', e);
+      this.showMessage("QR code invalide. Ressayez svp!.", 'error');
+    }
+  }
 
 
-  // Cette fonction sera appelée lorsque le QR code est scanné
-
-  // onQRCodeScanned(result: string) {
-  //   console.log('QR Code scanné : ', result);
-  //   this.scannerEnabled = false;
-  //   this.showScanner = false;
-
-  //   // Supposons que le QR code contienne un JSON avec l'ID et le nom du patient
-  //   const qrData = JSON.parse(result);
-  //   const { id, name } = qrData;
-
-  //   // Envoie du JSON contenant l'ID et le nom du patient au backend
-  //   this.http.post('/api/search-patient', { id, name }).subscribe(
-  //     (response: any) => {
-  //       console.log('Réponse du backend : ', response);
-
-  //       // Si la recherche réussit, tu peux rediriger vers la page du patient
-  //       window.location.href = `/dossier-patient/${response.patientId}`;  // Redirection vers la page du DPI
-  //     },
-  //     (error) => {
-  //       console.error('Erreur lors de la recherche du patient', error);
-  //     }
-  //   );
-  // }
-
-
-  //I'M USING THIS TEMPORARY SOLUTION JUST FOR TESTING THE SCAN I WILL DELETE IT WHEN THE BACKEND IS READY
-
-
-  scannedResult: any;
   formats = [BarcodeFormat.QR_CODE];
 
-  onCodeResult(result: string): void {
-    try {
-      this.scannedResult = JSON.parse(result);
-      this.scannerEnabled = false
-      console.log('QR Code Scanné:', this.scannedResult);
-    } catch (error) {
-      console.error('Invalid QR Code data:', result);
-    }
+  // Method to show success or error messages
+  showMessage(message: string, type: 'success' | 'error') {
+    this.message = message;
+    this.messageType = type;
+    setTimeout(() => {
+      this.message = '';
+    }, 3000); // Clear the message after 3 seconds
   }
 
 }

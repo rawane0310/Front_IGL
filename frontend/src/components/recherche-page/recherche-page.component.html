@@ -20,6 +20,11 @@
             </button>
         </div>
 
+        <div *ngIf="message"
+            [ngClass]="{'success-message': messageType === 'success', 'error-message': messageType === 'error'}">
+            {{ message }}
+        </div>
+
         <!-- Bouton pour scanner le QR -->
         <button class="qr-button" (click)="toggleQRScanner()">
             <span class="qr-text">ou Scannez un code QR</span>
@@ -30,26 +35,18 @@
             <img src="../../assets/png.png" alt="QR Code Image" />
         </div>
 
-        <!-- I WILL USE THIS WHEN HAVING THE BACKEND -->
 
-        <!-- Scanner QR Code -->
-        <!-- <div class="qr-scanner" *ngIf="showScanner">
-            <zxing-scanner [start]="scannerEnabled" (scanSuccess)="onQRCodeScanned($event)"></zxing-scanner>
-        </div>
-        <button (click)="toggleQRScanner()">Scanner un QR Code</button> -->
-
-        
 
 
 
         <!-- JUST FOR TESTING BEACAUSE I DON'T HAVE THE BACKEND YET  -->
         <div class="qr-scanner-container" *ngIf="scannerEnabled">
             <button class="close-button" (click)="toggleQRScanner()">X</button>
-            <zxing-scanner class="qr-scanner" [formats]="formats" (scanSuccess)="onCodeResult($event)">
+            <zxing-scanner class="qr-scanner" [formats]="formats" (scanSuccess)="onQRCodeScanned($event)">
             </zxing-scanner>
         </div>
 
-     
+
 
 
     </main>

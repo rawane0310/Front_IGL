@@ -180,6 +180,20 @@
     background-color: #003f5c;
 }
 
+/* Message box styling */
+.success-message {
+    color: #05445E;
+    font-size: 1.1rem;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.error-message {
+    color: red;
+    font-size: 1.1rem;
+    text-align: center;
+    margin-bottom: 10px;
+}
 
 
 @media (max-width: 1000px) {

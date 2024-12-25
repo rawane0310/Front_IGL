@@ -33,7 +33,7 @@ export class LoginPageComponent {
 
   message: string = '';
   messageType: string = '';
-  isSuccess: boolean = false;
+  
 
   constructor(private http: HttpClient, private router: Router) { }
 
@@ -42,7 +42,7 @@ export class LoginPageComponent {
 
     if (!this.email.trim() || !this.password.trim()) {
       this.showMessage('Veuillez remplir tous les champs, svp!', 'error');
-      return; // Stop execution if fields are empty
+      return; 
     }
 
     const loginData = {
@@ -52,27 +52,28 @@ export class LoginPageComponent {
 
     this.http.post('http://localhost:8000/accounts/login/', loginData, { withCredentials: true }).subscribe(
       (response: any) => {
-        // Save the access token and roles in localStorage
-
-
-
+        // Save in localStorage
         const userRole = response.role;
 
         localStorage.setItem('accessToken', response.access);
         localStorage.setItem('userRole', userRole);
-        console.log('User role saved in localStorage:', response.role);
+        localStorage.setItem('technicianRole', response.technician_role);
+        localStorage.setItem('nom', response.nom);
+        localStorage.setItem('prenom', response.prenom);
+        localStorage.setItem('userID', response.userID);
+        localStorage.setItem('dpiID', response.dossier_id);
 
         // Show success message
         this.showMessage('Connexion réussie!', 'success');
 
         // Delay the navigation
         setTimeout(() => {
-          if (userRole === 'medecin' || userRole === 'infermier' || userRole === 'pharmacien' || userRole === 'laborantin' || userRole === 'radiologue') {
+          if (userRole === 'technicien') {
             this.router.navigate(['/recherche']);
           } else if (userRole === 'administratif') {
             this.router.navigate(['/create-patient']);
           } else if (userRole === 'patient') {
-            this.router.navigate(['/dpi']);
+            this.router.navigate(['/dpi/',response.dossier_id]);
           }
         }, 2000);
       },
