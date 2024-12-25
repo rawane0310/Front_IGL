@@ -31,10 +31,20 @@ export class LoginPageComponent {
    */
   password: string = '';
 
+  message: string = '';
+  messageType: string = '';
+  isSuccess: boolean = false;
+
   constructor(private http: HttpClient, private router: Router) { }
 
 
   onSubmit() {
+
+    if (!this.email.trim() || !this.password.trim()) {
+      this.showMessage('Veuillez remplir tous les champs, svp!', 'error');
+      return; // Stop execution if fields are empty
+    }
+
     const loginData = {
       email: this.email,
       password: this.password,
@@ -42,42 +52,43 @@ export class LoginPageComponent {
 
     this.http.post('http://localhost:8000/accounts/login/', loginData, { withCredentials: true }).subscribe(
       (response: any) => {
-        console.log('Login successful:', response);
+        // Save the access token and roles in localStorage
 
-        // Save the access token in localStorage
-        localStorage.setItem('accessToken', response.access);
-        localStorage.setItem('userRole', response.role);
-        console.log('User role saved in localStorage:', response.role);
-
-        // Tokens are saved automatically in cookies by the backend ( login api )
-        console.log('Tokens saved in cookies');
 
 
         const userRole = response.role;
 
-        // Vérification du rôle et redirection en conséquence
-        if (userRole === 'medcin') {
-          this.router.navigate(['/recherche']);
-        } else if (userRole === 'administratif') {
-          this.router.navigate(['/create-patient']);
-        } else if (userRole === 'patient') {
-          // Redirection vers la page de dossier patient creer par BOUCHRA ET MERIEM
-          this.router.navigate(['/dossier-patient']);
-        } else {
-          // Optionnel : gestion du cas où le rôle est inconnu ou inexistant
-          console.error('Rôle utilisateur non reconnu :', userRole);
-          this.router.navigate(['/']);
-        }
+        localStorage.setItem('accessToken', response.access);
+        localStorage.setItem('userRole', userRole);
+        console.log('User role saved in localStorage:', response.role);
 
+        // Show success message
+        this.showMessage('Connexion réussie!', 'success');
 
+        // Delay the navigation
+        setTimeout(() => {
+          if (userRole === 'medecin' || userRole === 'infermier' || userRole === 'pharmacien' || userRole === 'laborantin' || userRole === 'radiologue') {
+            this.router.navigate(['/recherche']);
+          } else if (userRole === 'administratif') {
+            this.router.navigate(['/create-patient']);
+          } else if (userRole === 'patient') {
+            this.router.navigate(['/dpi']);
+          }
+        }, 2000);
       },
       (error) => {
+        this.showMessage('Échec de la connexion. Veuillez vérifier vos informations!', 'error');
         console.error('Login failed:', error);
-        // Handle error response (e.g., show error message)
       }
     );
   }
 
+  // Method to show success or error messages
+  showMessage(message: string, type: 'success' | 'error') {
+    this.message = message;
+    this.messageType = type;
+    setTimeout(() => {
+      this.message = '';
+    }, 3000); // Clear the message after 3 seconds
+  }
 }
-
-
