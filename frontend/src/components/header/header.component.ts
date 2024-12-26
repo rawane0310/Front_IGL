@@ -1,5 +1,5 @@
 import { NgIf } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 
 /**
@@ -24,6 +24,9 @@ export class HeaderComponent {
   /** Variable pour vérifier si l'utilisateur a le rôle administratif */
   isAdministrativeRole: boolean = false;
 
+  userFullName: string = 'Guest';
+  userId: string = '-';
+
   /**
    * Constructeur du composant. Il initialise les vérifications de la route actuelle et du rôle utilisateur.
    * 
@@ -42,10 +45,23 @@ export class HeaderComponent {
     const currentRoute = this.router.url;
 
     // Vérifie si l'utilisateur est sur la page d'accueil
-    this.isLandingPage = currentRoute === '/' ;
+    this.isLandingPage = currentRoute === '/';
 
     // Vérifie si l'utilisateur est sur la page de connexion
     this.isLoginPage = currentRoute.includes('/login');
+  }
+
+  ngOnInit() {
+    const firstName = localStorage.getItem('nom');
+    const lastName = localStorage.getItem('prenom');
+    const userID = localStorage.getItem('userID');
+    if (firstName && lastName && userID) {
+      this.userFullName = `${firstName} ${lastName}`;
+      this.userId = userID;
+    } else {
+      this.userFullName = 'Guest';
+      this.userId = '-';
+    }
   }
 
   /**
@@ -62,6 +78,6 @@ export class HeaderComponent {
    * Cette méthode est appelée lors du clic sur le bouton "Ajouter DPI".
    */
   redirectToCreateDpi() {
-    this.router.navigate(['/create-patient']); 
+    this.router.navigate(['/create-patient']);
   }
 }

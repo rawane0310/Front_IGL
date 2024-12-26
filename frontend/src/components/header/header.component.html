@@ -1,10 +1,11 @@
 <header class="header">
     <img src="../../assets/logo.png" alt="Logo" class="logo" />
 
-    <div class="header-img" id="profile-pic-container" *ngIf="!isLandingPage && !isLoginPage">
+    <div class="header-user-info" *ngIf="!isLandingPage && !isLoginPage">
         <button class="add-dpi-btn" *ngIf="isAdministrativeRole" (click)="redirectToCreateDpi()">Ajouter DPI</button>
-        <img src="../../assets/Ellipse 19(1).png" alt="Profile Picture" class="profile-pic" />
-
+        <div class="user-details">
+            <span class="user-fullname">{{ userFullName }}</span>
+            <span class="user-id">ID : {{ userId }}</span>
+        </div>
     </div>
-
 </header>
