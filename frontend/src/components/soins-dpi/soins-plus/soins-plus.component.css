@@ -22,7 +22,7 @@
     flex-direction: column;
     gap: 1.25rem;
     width: 80%;
-    height: 80%;
+    height: 95%;
     overflow: auto;
     padding-bottom: 1;
 }
@@ -34,11 +34,16 @@
     
 }
 
-.soin-time{
+.soin-time {
     font-size: 1.25rem;
     text-align: center;
+    display:flex;
+    gap:.8rem;
     font-weight: 600;
+    justify-content: center;
+    align-items: center;
 }
+
 
 .row{
     display: flex;
@@ -49,6 +54,24 @@
 .soin-plus-text{
     font-weight: 600;
     margin: 0;
+}
+
+.align{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap:.5rem;
+}
+
+.plus-icon{
+    font-size: 2rem;
+    color: #28A7B8;
+    cursor: pointer;
+    transition: transform 1s ease;
+    transform: rotate(0deg);
+}
+.plus-icon:hover{
+    transform: rotate(-10deg);
 }
 
 .gray{
@@ -97,6 +120,7 @@
 .icon{
     display: block;
     color: #263238;
+    cursor: pointer;
 }
 
 .icons{

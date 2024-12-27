@@ -41,8 +41,11 @@ form{
     display: flex;
     justify-content: end;
     align-items: center;
+    gap: 1.5rem;
     margin-right: 1rem;
 }
+
+
 
 .btn{
     background-color: #28A7B8;
@@ -62,6 +65,17 @@ form{
     cursor: not-allowed;
 }
 
+.close{
+    background-color: #fff;
+    color: #263238;
+    border: 1px solid #263238;
+    transition: all 0.5s ease;
+}
+
+.close:hover{
+    background-color: #2632381d;
+    
+}
 
 .form-inputs{
     display: flex;
@@ -93,6 +107,10 @@ input:focus{
     flex-direction: column;
     gap: .25rem;
     width: 90%;
+}
+
+.error{
+    color:#ef4444
 }
 
 @media (max-width:650px){

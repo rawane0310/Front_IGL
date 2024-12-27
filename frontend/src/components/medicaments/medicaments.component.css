@@ -1,6 +1,6 @@
 .table-container {
     background-color: #fff;
-    margin: 0 1rem;
+    margin: 0 0rem;
 }
   
 .custom-table {
@@ -31,6 +31,7 @@
 .icon{
     display: block;
     color: #263238;
+    cursor: pointer;
 }
 
 .icons{
@@ -38,6 +39,25 @@
     justify-content: center;
     align-items: center;
     gap: 2rem;
+}
+
+.no-result{
+    text-align: center;
+    font-size: 1rem;
+    font-weight: 600;
+    color: #263238;
+}
+
+.no-result-img{
+    width: 15rem;
+    height: 15rem;
+}
+
+.no-result-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
 
 @media (max-width: 650px) {

@@ -1,6 +1,7 @@
 import { NgIf } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, input } from '@angular/core';
 import { SoinsPlusComponent } from "../soins-plus/soins-plus.component";
+import SoinInfermier from '../../../models/SoinInfermier';
 
 @Component({
   selector: 'app-card',
@@ -11,8 +12,11 @@ import { SoinsPlusComponent } from "../soins-plus/soins-plus.component";
 })
 export class CardComponent {
   opened: boolean = false;
+
+  soin = input.required<SoinInfermier>()
   openSoin(){
     this.opened = true;
+    console.log(this.soin());
   }
   closeSoin(){
     this.opened = false;

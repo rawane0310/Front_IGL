@@ -23,6 +23,8 @@
     align-items: center;
     justify-content: center;
     gap: 1rem;
+    max-height: 95%;
+    overflow-y: auto ;
 }
 
 form{
@@ -41,8 +43,8 @@ form{
     display: flex;
     justify-content: end;
     align-items: center;
-    margin-right: 1rem;
-    /* margin-bottom: 1rem; */
+    gap: 1.5rem;
+    /* margin-right: 1rem; */
 }
 
 .btn{
@@ -55,6 +57,18 @@ form{
     font-size: 1rem;
     font-weight: 500;
     font-family: inherit;
+}
+
+.close{
+    background-color: #fff;
+    color: #263238;
+    border: 1px solid #263238;
+    transition: all 0.5s ease;
+}
+
+.close:hover{
+    background-color: #2632381d;
+    
 }
 
 .btn:disabled{
@@ -94,6 +108,10 @@ input:focus{
     flex-direction: column;
     gap: .25rem;
     width: 90%;
+}
+
+.error{
+    color:#ef4444
 }
 
 @media (max-width:650px){

@@ -1,6 +1,10 @@
 <div class="soin-plus-container" (click)="closeSoin()">
     <div class="soin-plus-card" (click)="$event.stopPropagation()">
-        <p class="soin-time">06 décembre 2024 16:30</p>
+        <div class="soin-time">
+            <p>{{soin().date}}</p>
+            <p>{{soin().heure}}</p>
+        </div>
+        
         <div class="soin-plus-content">
             <div class="menu">
                 <div class="menu-link" (click)="unSetActive($event)" [class]="activeMedicament() ? '' : 'active'">
@@ -13,8 +17,16 @@
 
             @if (activeMedicament()) {
                 <div class="med-admin">
-                    <p class="soin-plus-text">Médicaments utilisés</p>
-                    <app-medicaments></app-medicaments>
+                    <div class="soin-plus-text align" >
+                        <p class="soin-plus-text">Médicaments utilisés</p>
+                        <fa-icon [icon]="faPlusCircle" class="plus-icon" (click)="openAjouterMedicament($event)" > </fa-icon>
+                    </div>
+                    
+                    <app-medicaments [soinId]="soin().id" ></app-medicaments>
+
+                    @if(ajouterMed()){
+                        <app-ajouter-medicament [soinId]="soin().id" (ajouterMedCloseEvent)="closeAjouterMedicament()"></app-ajouter-medicament>
+                    } 
                 </div>
             } @else {
                 <div class="details">
@@ -24,23 +36,23 @@
                     </div>
                     <div class="row">
                         <p class="soin-plus-text">Infermier</p>
-                        <p class="soin-plus-text gray">Nekaa Ouissal</p>
+                        <p class="soin-plus-text gray">{{soin().infirmier_id}}</p>
                     </div>
             
                     <div class="row">
                         <p class="soin-plus-text">Soins Réalisés</p>
-                        <p class="soin-plus-text gray">Injection, changement de pensement</p>
+                        <p class="soin-plus-text gray">{{soin().soin_realise}}</p>
                     </div>
             
                     <div class="row">
                         <p class="soin-plus-text">Observation</p>
-                        <p class="soin-plus-text gray"> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla nec purus feugiat, vestibulum mi id, ultricies mi. Donec nec nunc nec nunc.</p>
+                        <p class="soin-plus-text gray"> {{soin().observation}} </p>
                     </div>
                     @if(soinForm()){
-                        <app-modifier-soin (modifierSoinCloseEvent)="closeSoinForm()"></app-modifier-soin>
+                        <app-modifier-soin [soin]="soin()" (modifierSoinCloseEvent)="closeSoinForm()"></app-modifier-soin>
                       }
                       @if(deleteDialog()){
-                        <app-delete-dialog (closeDialogEvent)="closeDeleteDialog()"></app-delete-dialog>
+                        <app-delete-dialog [endpoint]="deleteEndpoint" [itemId]="soin().id" (closeDialogEvent)="closeDeleteDialog($event)"></app-delete-dialog>
                       }
                 </div>
             }

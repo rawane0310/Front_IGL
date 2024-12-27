@@ -1,11 +1,14 @@
 <div class="card-container">
-    <p class="soin-time">06 décembre 2024 16:30</p>
+    <div class="soin-time">
+        <p>{{soin().date}}</p>
+        <p>{{soin().heure}}</p>
+    </div>
     <div class="soin-content">
-        <p class="soin-text">Infermier: Nekaa Ouissal</p>
-        <p class="soin-text">Soins Réalisés: Injection, changement de pensement  </p>
+        <p class="soin-text">Infermier: {{soin().infirmier_id}}</p>
+        <p class="soin-text">Soins Réalisés: {{soin().soin_realise}} </p>
     </div>
     <div class="soin-action">
         <button class="soin-btn" (click)="openSoin()">voir plus</button>
     </div>
-    <app-soins-plus *ngIf="opened" (closeEvent)="closeSoin()"></app-soins-plus>
+    <app-soins-plus [soin]="soin()" *ngIf="opened" (closeEvent)="closeSoin()"></app-soins-plus>
 </div>

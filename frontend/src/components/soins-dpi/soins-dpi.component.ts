@@ -1,4 +1,4 @@
-import { Component, signal } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { MenuDpiComponent } from '../menu-dpi/menu-dpi.component';
 import { CardComponent } from "./card/card.component";
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
@@ -6,6 +6,9 @@ import { faCirclePlus } from '@fortawesome/free-solid-svg-icons';
 import { AddSoinFormComponent } from "../add-soin-form/add-soin-form.component";
 import { ActivatedRoute } from '@angular/router';
 import axios from 'axios';
+import SoinInfermier from '../../models/SoinInfermier';
+import { UserIndicatorsServiceService } from '../../services/user-indicators-service.service';
+import { SoinsInfermiersService } from '../../services/soins-infermiers.service';
 
 @Component({
   selector: 'app-soins-dpi',
@@ -15,11 +18,12 @@ import axios from 'axios';
   styleUrl: './soins-dpi.component.css'
 })
 export class SoinsDpiComponent {
+  soinsInfermiersService = inject(SoinsInfermiersService)
+
   faCirclePlus = faCirclePlus;
   addFormOpened = signal(false)
 
-  dpiId !: string;
-  soinsInfermiers = [];
+  
 
   openAddForm(event: Event) {
     event.stopPropagation()
@@ -29,22 +33,41 @@ export class SoinsDpiComponent {
     this.addFormOpened.set(false);
   }
 
-  constructor(private route: ActivatedRoute) {}
+  constructor(private route: ActivatedRoute, public userIndicatorService: UserIndicatorsServiceService) {}
 
   async ngOnInit() {
-    this.dpiId = this.route.parent?.snapshot.paramMap.get('dpiId')!;
+    
+    this.userIndicatorService.loadingData.set({
+      ...this.userIndicatorService.loadingData(),
+      isLoading: true
+    })
+
+    this.soinsInfermiersService.dpiId = this.route.parent?.snapshot.paramMap.get('dpiId')!;
     try{
-      const response = await axios.get('http://localhost:8000/traitements/soin-infirmier/search/?dossier='+this.dpiId,{
+      const response = await axios.get('http://localhost:8000/traitements/soin-infirmier/search/?dossier='+this.soinsInfermiersService.dpiId,{
         headers: {
-          'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzM1MTYzODc0LCJpYXQiOjE3MzUxNjM1NzQsImp0aSI6IjI1YjMzOTY3M2ViODRhYzc5N2QyYTRlZDc0YWQxMTRjIiwidXNlcl9pZCI6MTgsInJvbGUiOiJ0ZWNobmljaWVuIn0.dCcl-MQBtVhMuCviYouJXXDaAvgdcUYeokxDr27sUVU'
-        }
-      });
-      console.log(response);
-      if (response.status === 200) this.soinsInfermiers = response.data;
-      else console.error('Erreur lors de la récupération des soins');
+          'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxMDM3NTEyOTkxNCwiaWF0IjoxNzM1MjE2MzE0LCJqdGkiOiI5ZDM1Y2E3N2VlNDU0NTgyOTc5ZTY1MTlmMmEyNGM4MSIsInVzZXJfaWQiOjE4LCJyb2xlIjoidGVjaG5pY2llbiJ9.aWOwpVXLhWRkcQ33WAGdBPFiYd0g8QtDE4-zGiuEMnQ'
+          }  
+        });
+
+      if (response.status === 200) this.soinsInfermiersService.soinsInfermiers.set(response.data);
+      else this.userIndicatorService.errorData.set({
+        isError: true,
+        errorMessage: 'Erreur lors de la récupération des soins'
+      })
+      ;
     }
     catch(err){
-      console.log(err);
+      this.userIndicatorService.errorData.set({
+        isError: true,
+        errorMessage: 'Erreur lors de la récupération des soins'
+      })
+    }
+    finally{
+      this.userIndicatorService.loadingData.set({
+        ...this.userIndicatorService.loadingData(),
+        isLoading: false
+      })
     }
   }
 }
