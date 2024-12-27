@@ -2,7 +2,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 130vh;
+    height: 145vh;
     background-color: white;
     flex-direction: row;
     position: relative;
@@ -16,6 +16,7 @@
     justify-content: center;
     align-items: center;
     margin-right: 30px;
+    margin-bottom: 50px;
     max-width: 40%;
 }
 
@@ -34,15 +35,20 @@
 
 .form-container h1 {
     font-size: 2rem;
-    color: #28A7B8;
+    color: #263238;
     margin-bottom: 8px;
     font-weight: bold;
     font-family: Popins, sans-serif;
 }
 
+.highlight {
+    color: #28A7B8;
+    font-weight: bold;
+}
+
 .form-container p {
     font-size: 1rem;
-    color: #28A7B8;
+    color: #6C757D;
     margin-bottom: 10px;
     font-family: Urbanist, sans-serif;
 }
@@ -72,6 +78,17 @@
     font-family: Urbanist, sans-serif;
 }
 
+.input-group input:-webkit-autofill {
+    background-color: transparent !important;
+    -webkit-box-shadow: 0 0 0px 1000px white inset !important;
+    transition: background-color 5000s ease-in-out 0s;
+}
+
+.input-group input:-webkit-autofill:focus {
+    background-color: transparent !important;
+    -webkit-box-shadow: 0 0 0px 1000px white inset !important;
+}
+
 .input-group input:focus {
     border-color: #28A7B8;
 }
@@ -92,6 +109,12 @@ button:hover {
     background-color: #05445E;
 }
 
+
+.small-swal-popup {
+    font-size: 0.8rem;
+    border-radius: 8px;
+    width: 400px !important;
+}
 
 /* Responsive Styles */
 @media screen and (max-width: 768px) {
@@ -122,5 +145,9 @@ button:hover {
 
     button {
         width: 100%;
+    }
+
+    .small-swal-popup {
+        width: 100px !important;
     }
 }

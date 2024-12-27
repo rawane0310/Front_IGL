@@ -121,21 +121,20 @@ button {
 }
 
 button:hover {
-    background-color: #28A7B8;
+    background-color: #05445E;
 }
-
 
 /* Message box styling */
 .success-message {
     color: #05445E;
-    font-size: 1.2rem;
+    font-size: 1.4rem;
     text-align: center;
     margin-bottom: 20px;
 }
 
 .error-message {
     color: red;
-    font-size: 1.2rem;
+    font-size: 1.4rem;
     text-align: center;
     margin-bottom: 20px;
 }

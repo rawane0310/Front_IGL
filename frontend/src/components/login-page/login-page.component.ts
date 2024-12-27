@@ -33,7 +33,7 @@ export class LoginPageComponent {
 
   message: string = '';
   messageType: string = '';
-  
+
 
   constructor(private http: HttpClient, private router: Router) { }
 
@@ -42,7 +42,7 @@ export class LoginPageComponent {
 
     if (!this.email.trim() || !this.password.trim()) {
       this.showMessage('Veuillez remplir tous les champs, svp!', 'error');
-      return; 
+      return;
     }
 
     const loginData = {
@@ -54,14 +54,28 @@ export class LoginPageComponent {
       (response: any) => {
         // Save in localStorage
         const userRole = response.role;
+        localStorage.clear()
 
         localStorage.setItem('accessToken', response.access);
         localStorage.setItem('userRole', userRole);
-        localStorage.setItem('technicianRole', response.technician_role);
+        localStorage.setItem('userID', response.userID);
         localStorage.setItem('nom', response.nom);
         localStorage.setItem('prenom', response.prenom);
-        localStorage.setItem('userID', response.userID);
-        localStorage.setItem('dpiID', response.dossier_id);
+
+        if (userRole === 'technicien') {
+          localStorage.setItem('technicianRole', response.technician_role);
+          localStorage.setItem('technicianID', response.technicien_id);
+        } else if (userRole === 'patient') {
+          localStorage.setItem('dpiID', response.dossier_id);
+          localStorage.setItem('patientID', response.patient_id);
+
+        } else if (userRole === 'admin') {
+          localStorage.setItem('adminID', response.admin_id);
+
+        } else if (userRole === 'administratif') {
+          localStorage.setItem('administratifID', response.administratif_id);
+        }
+
 
         // Show success message
         this.showMessage('Connexion réussie!', 'success');
@@ -73,7 +87,7 @@ export class LoginPageComponent {
           } else if (userRole === 'administratif') {
             this.router.navigate(['/create-patient']);
           } else if (userRole === 'patient') {
-            this.router.navigate(['/dpi/',response.dossier_id]);
+            this.router.navigate(['/dpi/', response.dossier_id]);
           }
         }, 2000);
       },
@@ -92,4 +106,6 @@ export class LoginPageComponent {
       this.message = '';
     }, 3000); // Clear the message after 3 seconds
   }
+
+
 }

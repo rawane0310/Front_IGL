@@ -20,8 +20,8 @@ export class RecherchePageComponent {
   showScanner: boolean = false;
   scannerEnabled: boolean = false;
 
-  nss: string = ''; 
-  patientData: any; 
+  nss: string = '';
+  patientData: any;
   message: string = '';
   messageType: string = '';
 
@@ -36,19 +36,20 @@ export class RecherchePageComponent {
 
     if (!this.nss.trim()) {
       this.showMessage('Veuillez saisir le NSS, svp!', 'error');
-      return; 
+      return;
     }
 
     this.patientService.searchPatientByNSS(this.nss).subscribe({
       next: (data) => {
         this.showMessage('Patient trouvé!', 'success');
         this.patientData = data;
-       setTimeout(() => {
-        this.router.navigate(['/dpi/', data.id]);
-       }, 3000);
+        setTimeout(() => {
+          this.router.navigate(['/dpi/', data.id]);
+        }, 3000);
         console.log(data);
       },
       error: (err) => {
+        console.log(err.error);
         this.showMessage(err.error?.detail || 'Une erreur est produite lors dela recherche', 'error');
       },
     });
@@ -71,10 +72,10 @@ export class RecherchePageComponent {
     this.scannerEnabled = false;
 
     try {
-      // console.log('QR code scanned:', result);
+      //console.log('QR code scanned:', result);
       const qrData = JSON.parse(result);
-      const id = qrData.id;
-      const name = qrData.nom;
+      const id = qrData.ID;
+      const name = qrData.Patient;
 
       this.patientData = null;
 
@@ -84,8 +85,8 @@ export class RecherchePageComponent {
           this.patientData = data;
           setTimeout(() => {
             this.router.navigate(['/dpi/', data.id]);
-     
-           }, 3000);
+
+          }, 3000);
           console.log(data);
         },
         error: (err) => {

@@ -2,21 +2,26 @@ import { Component } from '@angular/core';
 import { HeaderComponent } from '../header/header.component';
 import { FormsModule } from '@angular/forms';
 import { NgFor } from '@angular/common';
+import { PatientService } from '../../services/patient_service';
+import Swal from 'sweetalert2'
+import 'sweetalert2/src/sweetalert2.scss'
 
 /**
  * Type définissant les clés possibles pour les champs du formulaire d'un patient.
  * Chaque clé représente un champ spécifique dans le formulaire.
  */
 type PatientFormKeys =
-  | 'numSecuriteSocial'
+  | 'nss'
   | 'nom'
   | 'prenom'
-  | 'dateNaissance'
-  | 'addresse'
-  | 'numTelephone'
+  | 'date_naissance'
+  | 'adresse'
+  | 'tel'
   | 'mutuelle'
-  | 'medcinTraitant'
-  | 'personneContacté';
+  | 'medecin_traitant'
+  | 'personne_a_contacter'
+  | 'email'
+  | 'password';
 
 /**
  * Interface représentant un champ dans le formulaire de création de patient.
@@ -46,15 +51,17 @@ export class CreatePatientComponent {
    * les valeurs sont de type `string`, initialisées à une chaîne vide.
    */
   formData: Record<PatientFormKeys, string> = {
-    numSecuriteSocial: '',
+    nss: '',
     nom: '',
     prenom: '',
-    dateNaissance: '',
-    addresse: '',
-    numTelephone: '',
+    date_naissance: '',
+    adresse: '',
+    tel: '',
     mutuelle: '',
-    medcinTraitant: '',
-    personneContacté: '',
+    medecin_traitant: '',
+    personne_a_contacter: '',
+    email: '',
+    password: ''
   };
 
   /**
@@ -62,22 +69,122 @@ export class CreatePatientComponent {
    * y compris la clé du champ et le texte à afficher comme `placeholder`.
    */
   fields: Field[] = [
-    { key: 'numSecuriteSocial', placeholder: 'Numéro de sécurité sociale' },
+    { key: 'nss', placeholder: 'Numéro de sécurité sociale' },
     { key: 'nom', placeholder: 'Nom' },
     { key: 'prenom', placeholder: 'Prénom' },
-    { key: 'dateNaissance', placeholder: 'Date de naissance' },
-    { key: 'addresse', placeholder: 'Adresse' },
-    { key: 'numTelephone', placeholder: 'Téléphone' },
+    { key: 'date_naissance', placeholder: 'Date de naissance' },
+    { key: 'adresse', placeholder: 'Adresse' },
+    { key: 'tel', placeholder: 'Téléphone' },
     { key: 'mutuelle', placeholder: 'Mutuelle' },
-    { key: 'medcinTraitant', placeholder: 'Médecin traitant' },
-    { key: 'personneContacté', placeholder: 'Personne à contacter' }
+    { key: 'medecin_traitant', placeholder: 'Médecin traitant' },
+    { key: 'personne_a_contacter', placeholder: 'Personne à contacter' },
+    { key: 'email', placeholder: 'Email' },
+    { key: 'password', placeholder: 'Password' },
   ];
 
- 
-  constructor() { }
+  constructor(private patientService: PatientService) { }
 
-  onSubmit() {
-    console.log('Dossier Patient créé:', this.formData);
-   
+
+  validateForm(): boolean {
+    // Check if all fields are filled
+    for (const key in this.formData) {
+      if (!this.formData[key as PatientFormKeys].trim()) {
+        Swal.fire({
+          icon: 'warning',
+          title: 'Erreur de validation',
+          text: 'Tous les champs doivent être remplis.',
+          confirmButtonColor: '#d33',
+          width: '400px',
+          iconColor: '#d33',
+          customClass: {
+            popup: 'small-swal-popup'
+          },
+          
+        });
+        return false;
+      }
+    }
+
+    // Validate date format
+    const dateRegex = /^\d{4}-\d{2}-\d{2}$/;
+    if (!dateRegex.test(this.formData.date_naissance)) {
+      Swal.fire({
+        icon: 'warning',
+        title: 'Erreur de validation',
+        text: 'La date de naissance doit être au format YYYY-MM-DD.',
+        confirmButtonColor: '#d33',
+        iconColor: '#d33',
+        width: '400px',
+        customClass: {
+          popup: 'small-swal-popup',
+        },
+      });
+      return false;
+    }
+
+    // Validate email format
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(this.formData.email)) {
+      Swal.fire({
+        icon: 'warning',
+        title: 'Erreur de validation',
+        text: 'Veuillez entrer une adresse email valide.',
+        confirmButtonColor: '#d33',
+        iconColor: '#d33',
+        width: '400px',
+        customClass: {
+          popup: 'small-swal-popup',
+        },
+      });
+      return false;
+    }
+
+    return true;
   }
+
+
+  onSubmit(): void {
+    if (!this.validateForm()) {
+      return;
+    }
+    this.patientService.createDossierPatient(this.formData).subscribe({
+      next: (response) => {
+        console.log('Dossier créé avec succès:', response);
+        Swal.fire({
+          icon: 'success',
+          title: 'Succès',
+          text: 'Dossier patient créé avec succès.',
+          confirmButtonColor: '#28A7B8',
+          iconColor: '#28A7B8',
+          confirmButtonText: 'Ok',
+          width: '400px',
+          padding: '1rem',
+          customClass: {
+            popup: 'small-swal-popup',
+          },
+        }).then((result) => {
+          if (result.isConfirmed) {
+            window.location.reload();
+          }
+        });
+      },
+      error: (error) => {
+        console.error('Erreur lors de la création du dossier:', error);
+        Swal.fire({
+          icon: 'error',
+          title: 'Erreur',
+          text: error.statusText || 'Une erreur est survenue. Veuillez vérifier les données saisies.',
+          confirmButtonColor: '#d33',
+          iconColor: '#d33',
+          confirmButtonText: 'Réessayer',
+          width: '400px',
+          padding: '1rem',
+          customClass: {
+            popup: 'small-swal-popup',
+          },
+        });
+      }
+    });
+  }
+
 }

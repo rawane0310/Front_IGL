@@ -54,7 +54,18 @@ export class HeaderComponent {
   ngOnInit() {
     const firstName = localStorage.getItem('nom');
     const lastName = localStorage.getItem('prenom');
-    const userID = localStorage.getItem('userID');
+    const userRole = localStorage.getItem('userRole');
+    let userID = ''
+
+    if (userRole === 'technicien') {
+      userID = localStorage.getItem('technicianID') || '';
+    } else if (userRole === 'administratif') {
+      userID = localStorage.getItem('administratifID') || '';
+    } else if (userRole === 'patient') {
+      userID = localStorage.getItem('patientID') || '';
+    } else if (userRole === 'admin') {
+      userID = localStorage.getItem('adminID') || '';
+    }
     if (firstName && lastName && userID) {
       this.userFullName = `${firstName} ${lastName}`;
       this.userId = userID;
@@ -70,7 +81,8 @@ export class HeaderComponent {
    */
   checkUserRole() {
     const userRole = localStorage.getItem('userRole'); // Le rôle est stocké dans localStorage
-    this.isAdministrativeRole = userRole === 'administratif';
+    const TechnicianRole = localStorage.getItem('technicianRole');
+    this.isAdministrativeRole = userRole === 'administratif' || TechnicianRole === 'medecin';
   }
 
   /**
