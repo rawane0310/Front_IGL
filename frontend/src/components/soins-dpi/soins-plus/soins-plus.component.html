@@ -1,0 +1,69 @@
+<div class="soin-plus-container" (click)="closeSoin()">
+    <div class="soin-plus-card" (click)="$event.stopPropagation()">
+        <div class="soin-time">
+            <p>{{soin().date}}</p>
+            <p>{{soin().heure}}</p>
+        </div>
+        
+        <div class="soin-plus-content">
+            <div class="menu">
+                <div class="menu-link" (click)="unSetActive($event)" [class]="activeMedicament() ? '' : 'active'">
+                    Details
+                </div>
+                <div class="menu-link" (click)="setActive($event)" [class]="activeMedicament() ? 'active' : ''">
+                    Administration des médicaments
+                </div>
+            </div>
+
+            @if (activeMedicament()) {
+                <div class="med-admin">
+                    <div class="soin-plus-text align" >
+                        <p class="soin-plus-text">Médicaments utilisés</p>
+                        <fa-icon [icon]="faPlusCircle" class="plus-icon" (click)="openAjouterMedicament($event)" > </fa-icon>
+                    </div>
+                    
+                    <app-medicaments [soinId]="soin().id" ></app-medicaments>
+
+                    @if(ajouterMed()){
+                        <app-ajouter-medicament [soinId]="soin().id" (ajouterMedCloseEvent)="closeAjouterMedicament()"></app-ajouter-medicament>
+                    } 
+                </div>
+            } @else {
+                <div class="details">
+                    <div class="icons">
+                        <fa-icon [icon]="faTrashCan" class="icon" (click)="opendeleteDialog($event)"></fa-icon>
+                        <fa-icon [icon]="faPenToSquare" class="icon" (click)="openSoinForm($event)"></fa-icon>
+                    </div>
+                    <div class="row">
+                        <p class="soin-plus-text">Infermier</p>
+                        <div class="nom-container">
+                            <p class="soin-plus-text gray">{{soin().infirmier_id}}</p>
+                            <p class="soin-plus-text gray">{{soin().infirmier_nom+' '+ soin().infirmier_prenom}}</p>
+                        </div>
+                    </div>
+            
+                    <div class="row">
+                        <p class="soin-plus-text">Soins Réalisés</p>
+                        <p class="soin-plus-text gray">{{soin().soin_realise}}</p>
+                    </div>
+            
+                    <div class="row">
+                        <p class="soin-plus-text">Observation</p>
+                        <p class="soin-plus-text gray"> {{soin().observation}} </p>
+                    </div>
+                    @if(soinForm()){
+                        <app-modifier-soin [soin]="soin()" (modifierSoinCloseEvent)="closeSoinForm()"></app-modifier-soin>
+                      }
+                      @if(deleteDialog()){
+                        <app-delete-dialog [endpoint]="deleteEndpoint" [itemId]="soin().id" (closeDialogEvent)="closeDeleteDialog($event)"></app-delete-dialog>
+                      }
+                </div>
+            }
+
+            <div class="btn-container">
+                <button class="btn close" (click)="closeSoin()">Fermer</button>
+            </div>         
+        </div>
+        
+    </div>
+</div>

@@ -1,1 +1,12 @@
-<router-outlet></router-outlet>
+<div>
+    <router-outlet></router-outlet>
+    @if(userIndicatorService.loadingData().isLoading){
+        <app-loading-indicator></app-loading-indicator>
+    }
+    @if(userIndicatorService.sucessData().isSuccess){
+        <app-succes-indicator></app-succes-indicator>
+    }
+    @if(userIndicatorService.errorData().isError){
+        <app-error-indicator></app-error-indicator>
+    }
+</div>

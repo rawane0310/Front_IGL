@@ -1,0 +1,43 @@
+<div class="table-container">
+  @if(medicamentsService.medicaments().length){
+    <table class="custom-table">
+      <thead>
+        <tr>
+          <th>Nom</th>
+          <th>Dose</th>
+          <th>Fréquence</th>
+          <th>Durée</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (medicament of medicamentsService.medicaments() ; track medicament.id ){
+          <tr>
+            <td data-title="Nom"> {{medicament.nom}} </td>
+            <td data-title="Dose"> {{medicament.dose}} </td>
+            <td data-title="Fréquence"> {{medicament.frequence}} </td>
+            <td data-title="Durée"> {{medicament.duree}} </td>
+            <td> 
+              <div class="icons">
+                <fa-icon [icon]="faTrashCan" class="icon" (click)="opendeleteDialog($event, medicament.id)"></fa-icon>
+                <fa-icon [icon]="faPenToSquare" class="icon" (click)="openMedForm($event, medicament)"></fa-icon>
+              </div>
+            </td>
+          </tr>
+        }
+      </tbody>
+    </table>       
+  }
+  @else {
+    <div class="no-result-container">
+      <img src="../../assets/noResult.svg" alt="no results" class="no-result-img">
+      <p class="no-result">Ajoutez un nouveau médicament en cliquant sur l'icône + ci-dessus.</p>
+    </div>
+  }
+    
+    @if(medForm()){
+      <app-ajouter-medicament [medicament]="medicament" [soinId]="soinId()" (ajouterMedCloseEvent)="closeMedForm()" ></app-ajouter-medicament>
+    }
+    @if(deleteDialog()){
+      <app-delete-dialog [endpoint]="deleteEndpoint" [itemId]="itemId" (closeDialogEvent)="closeDeleteDialog($event)"></app-delete-dialog>
+    }
+</div>

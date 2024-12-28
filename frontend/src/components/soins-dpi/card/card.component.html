@@ -1,0 +1,14 @@
+<div class="card-container">
+    <div class="soin-time">
+        <p>{{soin().date}}</p>
+        <p>{{soin().heure}}</p>
+    </div>
+    <div class="soin-content">
+        <p class="soin-text">Infermier: {{soin().infirmier_id}}</p>
+        <p class="soin-text">Soins Réalisés: {{soin().soin_realise}} </p>
+    </div>
+    <div class="soin-action">
+        <button class="soin-btn" (click)="openSoin()">voir plus</button>
+    </div>
+    <app-soins-plus [soin]="soin()" *ngIf="opened" (closeEvent)="closeSoin()"></app-soins-plus>
+</div>
