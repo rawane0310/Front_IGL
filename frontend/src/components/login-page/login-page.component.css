@@ -58,14 +58,14 @@
     border: 2px solid #28A7B8;
     border-radius: 10px;
     padding: 0.5rem;
-    background-color: white;
+    background-color: transparent;
 }
 
 .input-icon {
     width: 20px;
     height: 20px;
     margin-right: 0.4rem;
- 
+
 
 }
 
@@ -81,6 +81,17 @@
 
 .input-group input:focus {
     border-color: #28A7B8;
+}
+
+.input-group input:-webkit-autofill {
+    background-color: transparent !important;
+    -webkit-box-shadow: 0 0 0px 1000px white inset !important;
+    transition: background-color 5000s ease-in-out 0s;
+}
+
+.input-group input:-webkit-autofill:focus {
+    background-color: transparent !important;
+    -webkit-box-shadow: 0 0 0px 1000px white inset !important;
 }
 
 .forgot-password {
@@ -110,8 +121,25 @@ button {
 }
 
 button:hover {
-    background-color: #28A7B8;
+    background-color: #05445E;
 }
+
+/* Message box styling */
+.success-message {
+    color: #05445E;
+    font-size: 1.4rem;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.error-message {
+    color: red;
+    font-size: 1.4rem;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+
 
 @media (max-width: 800px) {
 
@@ -155,7 +183,7 @@ button:hover {
 
     .input-group input {
         font-size: 0.8rem;
-     
+
     }
 
     .input-icon {
@@ -178,7 +206,7 @@ button:hover {
 
     }
 
-   
+
 }
 
 
@@ -192,7 +220,7 @@ button:hover {
         display: none;
     }
 
-   
+
 
     .login-form {
         margin: 10px 0;
@@ -210,7 +238,7 @@ button:hover {
 
     .input-group input {
         font-size: 0.8rem;
-        
+
     }
 
     button {
@@ -218,5 +246,5 @@ button:hover {
         padding: 6px 12px;
     }
 
-   
+
 }
