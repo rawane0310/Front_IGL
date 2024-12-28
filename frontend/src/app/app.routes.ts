@@ -17,7 +17,7 @@ export const routes: Routes = [
     { path: '', component: LandingPageComponent },
     { path: 'login', component: LoginPageComponent },
     {path: 'recherche', component: RecherchePageComponent},
-    {path: 'create-patient', component: CreatePatientComponent}
+    {path: 'create-patient', component: CreatePatientComponent},
     { path: 'dpi/:dpiId',
       component: DpiPageComponent,
       children: [
