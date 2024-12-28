@@ -27,8 +27,6 @@ export class AppComponent   {
     localStorage.setItem('accessToken', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxMDM3NTEyOTkxNCwiaWF0IjoxNzM1MjE2MzE0LCJqdGkiOiI5ZDM1Y2E3N2VlNDU0NTgyOTc5ZTY1MTlmMmEyNGM4MSIsInVzZXJfaWQiOjE4LCJyb2xlIjoidGVjaG5pY2llbiJ9.aWOwpVXLhWRkcQ33WAGdBPFiYd0g8QtDE4-zGiuEMnQ');
     localStorage.setItem('userRole', 'technicien');
     localStorage.setItem('technicianRole', 'infermier');
-    // localStorage.setItem('nom', response.nom);
-    // localStorage.setItem('prenom', response.prenom);
     localStorage.setItem('userID', '3');
     localStorage.setItem('technicianID', '3');
     localStorage.setItem('dpiID', '1');

@@ -51,6 +51,11 @@
     gap:.5rem
 }
 
+.nom-container{
+    display: flex;
+    gap:.5rem;
+}
+
 .soin-plus-text{
     font-weight: 600;
     margin: 0;

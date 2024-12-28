@@ -46,7 +46,7 @@ export class SoinsDpiComponent {
     try{
       const response = await axios.get('http://localhost:8000/traitements/soin-infirmier/search/?dossier='+this.soinsInfermiersService.dpiId,{
         headers: {
-          'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxMDM3NTEyOTkxNCwiaWF0IjoxNzM1MjE2MzE0LCJqdGkiOiI5ZDM1Y2E3N2VlNDU0NTgyOTc5ZTY1MTlmMmEyNGM4MSIsInVzZXJfaWQiOjE4LCJyb2xlIjoidGVjaG5pY2llbiJ9.aWOwpVXLhWRkcQ33WAGdBPFiYd0g8QtDE4-zGiuEMnQ'
+          'Authorization': 'Bearer '+ localStorage.getItem('accessToken'),
           }  
         });
 

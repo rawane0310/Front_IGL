@@ -36,7 +36,10 @@
                     </div>
                     <div class="row">
                         <p class="soin-plus-text">Infermier</p>
-                        <p class="soin-plus-text gray">{{soin().infirmier_id}}</p>
+                        <div class="nom-container">
+                            <p class="soin-plus-text gray">{{soin().infirmier_id}}</p>
+                            <p class="soin-plus-text gray">{{soin().infirmier_nom+' '+ soin().infirmier_prenom}}</p>
+                        </div>
                     </div>
             
                     <div class="row">

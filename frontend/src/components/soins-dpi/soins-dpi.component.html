@@ -1,15 +1,18 @@
-<div class="soins-container">
-    <!-- <app-card></app-card>
-    <app-card></app-card>
-    <app-card></app-card>
-    <app-card></app-card>
-    <app-card></app-card>
-    <app-card></app-card> -->
-    @for (soin of soinsInfermiersService.soinsInfermiers(); track soin.id ){
-        <app-card [soin]="soin" ></app-card>
-    }
-    <fa-icon [icon]="faCirclePlus" class="plus-icon" (click)="openAddForm($event)"></fa-icon>
-    @if(addFormOpened()){
-        <app-add-soin-form (closeEvent)="closeAddForm()"></app-add-soin-form>
-    }
-</div>
+@if(!soinsInfermiersService.soinsInfermiers().length){
+    <div class="no-result-container">
+        <img src="../../assets/noResult.svg" alt="no results" class="no-result-img">
+        <p class="no-result">Ajoutez un nouveau soin en cliquant sur l'icône + ci-desous.</p>
+    </div>
+}
+@else {
+    <div class="soins-container">
+        @for (soin of soinsInfermiersService.soinsInfermiers(); track soin.id ){
+            <app-card [soin]="soin" ></app-card>
+        }
+    </div>
+}
+<fa-icon [icon]="faCirclePlus" class="plus-icon" (click)="openAddForm($event)"></fa-icon>
+@if(addFormOpened()){
+    <app-add-soin-form (closeEvent)="closeAddForm()"></app-add-soin-form>
+}
+
