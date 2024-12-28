@@ -8,19 +8,17 @@
       <h1> <span class="highlight">Créer</span> Un Dossier Patient</h1>
       <p>Remplissez les informations nécessaires pour créer un nouveau DPI.</p>
       <form (ngSubmit)="onSubmit()">
-  
+
         <!-- Input Fields -->
         <div *ngFor="let field of fields" class="input-group">
           <img src="../../assets/{{ field.key }}.png" alt="Icon" class="input-icon" />
-          <input [type]="field.key === 'email' ? 'email' : field.key === 'tel' ? 'tel' : field.key === 'password' ? 'password' : 'text'"
-            [placeholder]="field.placeholder" [(ngModel)]="formData[field.key]" [name]="field.key" [required]="true"
-            [pattern]="field.key === 'tel' ? '[0-9]+' : ''" />
-  
+          <input [type]="getInputType(field.key)" [placeholder]="field.placeholder" [(ngModel)]="formData[field.key]"
+            [name]="field.key" [required]="true" [pattern]="field.key === 'tel' ? '[0-9]+' : ''" />
         </div>
-  
+
         <button type="submit">Créer</button>
       </form>
     </div>
   </div>
-  
+
 </div>

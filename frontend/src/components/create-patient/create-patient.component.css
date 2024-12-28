@@ -5,13 +5,13 @@
     flex-direction: column;
 }
 
-.container{
+.container {
     display: flex;
     justify-content: center;
     align-items: center;
     background-color: white;
     flex-direction: row;
-    gap:1rem;
+    gap: 1rem;
 }
 
 .illustration {
@@ -65,6 +65,19 @@
     border-radius: 10px;
     padding: 0.4rem;
     background-color: white;
+}
+
+input[type="date"] {
+    font-family: inherit;
+    color: #6C757D;
+
+    &::-webkit-calendar-picker-indicator {
+        visibility: hidden;
+    }
+
+    &::-webkit-calendar-picker-indicator:hover {
+        opacity: 2;
+    }
 }
 
 .input-icon {

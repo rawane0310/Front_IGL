@@ -71,6 +71,7 @@
     color: #757575;
     font-family: Urbanist, sans-serif;
     font-weight: bold;
+    width:100%
 }
 
 .search-button {
@@ -216,7 +217,7 @@
     }
 
     .search-bar {
-        width: 75%;
+        width: 100%;
 
     }
 
@@ -254,18 +255,14 @@
     }
 
 
-    .search-bar {
-        width: 100%;
-    }
-
     .search-input {
         margin-bottom: 5px;
     }
 
-    .shr-div {
+    /* .shr-div {
         width: 25px;
         height: 45px;
-    }
+    } */
 
     .search-button {
         margin-left: 0px

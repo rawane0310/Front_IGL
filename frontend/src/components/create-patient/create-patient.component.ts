@@ -83,7 +83,21 @@ export class CreatePatientComponent {
   ];
 
   constructor(private patientService: PatientService) { }
-
+  
+  getInputType(key: PatientFormKeys): string {
+    switch (key) {
+      case 'email':
+        return 'email';
+      case 'tel':
+        return 'tel';
+      case 'password':
+        return 'password';
+      case 'date_naissance':
+        return 'date';
+      default:
+        return 'text';
+    }
+  }
 
   validateForm(): boolean {
     // Check if all fields are filled
@@ -99,7 +113,7 @@ export class CreatePatientComponent {
           customClass: {
             popup: 'small-swal-popup'
           },
-          
+
         });
         return false;
       }
