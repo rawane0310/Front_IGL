@@ -1,13 +1,17 @@
 .create-patient-container {
     display: flex;
     justify-content: center;
+    background-color: white;
+    flex-direction: column;
+}
+
+.container{
+    display: flex;
+    justify-content: center;
     align-items: center;
-    height: 145vh;
     background-color: white;
     flex-direction: row;
-    position: relative;
-    overflow: hidden;
-    padding: 30px;
+    gap:1rem;
 }
 
 .illustration {
@@ -38,7 +42,7 @@
     color: #263238;
     margin-bottom: 8px;
     font-weight: bold;
-    font-family: Popins, sans-serif;
+    font-family: Poppins, sans-serif;
 }
 
 .highlight {

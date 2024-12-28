@@ -1,37 +1,40 @@
-<div class="login-container">
+<div class="container">
   <app-header></app-header>
-  <div class="illustration">
-    <img src="../../assets/Medical prescription-pana.png" alt="Doctor Illustration" />
-  </div>
-  <div class="login-form">
-    <h1>Bienvenue!</h1>
-    <p>connectez-vous à votre compte.</p>
-
-    <!-- Display message above the form -->
-    <div *ngIf="message"
-      [ngClass]="{'success-message': messageType === 'success', 'error-message': messageType === 'error'}">
-      {{ message }}
+  <div class="login-container">
+    <div class="illustration">
+      <img src="../../assets/Medical prescription-pana.svg" alt="Doctor Illustration" />
     </div>
-
-    <form (ngSubmit)="onSubmit()">
-
-      <!-- Input Group for Email -->
-      <div class="input-group">
-        <img src="../../assets/signe-darroba.png" alt="Email Icon" class="input-icon" />
-        <input type="email" placeholder="adresse mail" [(ngModel)]="email" name="email" required />
+    <div class="login-form">
+      <h1>Bienvenue!</h1>
+      <p>connectez-vous à votre compte.</p>
+  
+      <!-- Display message above the form -->
+      <div *ngIf="message"
+        [ngClass]="{'success-message': messageType === 'success', 'error-message': messageType === 'error'}">
+        {{ message }}
       </div>
-
-      <!-- Input Group for Password -->
-      <div class="input-group">
-        <img src="../../assets/cadenas.png" alt="Password Icon" class="input-icon" />
-        <input type="password" placeholder="mot de passe" [(ngModel)]="password" name="password" required />
-      </div>
-
-      <div class="forgot-password">
-        <a>mot de passe oublié?</a>
-      </div>
-      <button type="submit">se connecter</button>
-
-    </form>
+  
+      <form (ngSubmit)="onSubmit()">
+  
+        <!-- Input Group for Email -->
+        <div class="input-group">
+          <img src="../../assets/signe-darroba.png" alt="Email Icon" class="input-icon" />
+          <input type="email" placeholder="adresse mail" [(ngModel)]="email" name="email" required />
+        </div>
+  
+        <!-- Input Group for Password -->
+        <div class="input-group">
+          <img src="../../assets/cadenas.png" alt="Password Icon" class="input-icon" />
+          <input type="password" placeholder="mot de passe" [(ngModel)]="password" name="password" required />
+        </div>
+  
+        <div class="forgot-password">
+          <a>mot de passe oublié?</a>
+        </div>
+        <button type="submit">se connecter</button>
+  
+      </form>
+    </div>
   </div>
+  
 </div>

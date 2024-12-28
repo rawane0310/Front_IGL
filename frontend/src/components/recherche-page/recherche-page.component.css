@@ -1,70 +1,72 @@
 .recherche-page {
     display: flex;
     flex-direction: column;
-    align-items: center;
     justify-content: center;
-    height: 100vh;
     background-color: white;
-    position: relative;
     overflow: hidden;
     padding-bottom: 20px;
 }
 
 
 .main-content {
-    padding: 40px;
+    padding: 1rem;
     text-align: center;
-    margin-top: 70px;
-    justify-content: center;
-    align-items: center;
     display: flex;
     flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 3rem;
 }
 
 .main-content p {
     color: #6C757D;
+    margin: 0;
     font-size: clamp(12px, 2vw, 16px);
-    font-style: Urbanist, sans-serif;
-    margin-bottom: 30px;
-    margin-top: 10px;
+    font-family: Urbanist, sans-serif;
 }
 
 .main-content h1 {
     font-size: 27px;
+    margin: 0;
     color: #263238;
-    margin-bottom: 0;
-    margin-top: 80px;
-    font-family: Popins, sans-serif;
+    font-family: Poppins, sans-serif;
     font-size: clamp(27px, 3vw, 35px);
 }
 
 
 .highlight {
     color: #28A7B8;
-    font-weight: bold;
 }
 
+.section2{
+    /* flex: 1; */
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    align-items: center;
+}
+
+.search-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    width: 100%;
+}
 
 .search-bar {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    align-self: center;
     border: 2px solid #05445E;
     border-radius: 14px;
     padding-left: 20px;
-    width: 70%;
-    margin: 0 auto 20px auto;
-
-
+    width: 100%;
 }
 
 .search-input {
     border: none;
     outline: none;
-    width: 100%;
-    margin-bottom: 10px;
-    margin-top: 10px;
     font-size: clamp(11px, 2vw, 16px);
     color: #757575;
     font-family: Urbanist, sans-serif;
@@ -103,6 +105,7 @@
     border: none;
     border-radius: 30px;
     padding: 10px 30px;
+    width: fit-content;
     font-size: 16px;
     cursor: pointer;
     transition: all 0.3s ease-in-out;
@@ -121,8 +124,8 @@
 }
 
 .qr-image {
-    margin-top: 5px;
-    width: 80%;
+    /* margin-top: 5px; */
+    /* width: 80%; */
     display: flex;
     justify-content: center;
     align-items: center;

@@ -1,12 +1,17 @@
-.login-container {
+.container {
+    display: flex;
+    justify-content: center;
+    /* align-items: center; */
+    background-color: white;
+    flex-direction: column;
+}
+
+.login-container{
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
     background-color: white;
     flex-direction: row;
-    position: relative;
-    overflow: hidden;
 }
 
 
@@ -144,9 +149,7 @@ button:hover {
 @media (max-width: 800px) {
 
     .login-container {
-        flex-direction: row;
-        padding: 0 20px;
-        height: 100vh;
+        gap: 0;
     }
 
     .illustration {
@@ -161,8 +164,9 @@ button:hover {
 
     .login-form {
         margin: 10px 0;
-        max-width: 60%;
+        /* max-width: 60%; */
         padding: 10px;
+
     }
 
     .login-form h1 {
