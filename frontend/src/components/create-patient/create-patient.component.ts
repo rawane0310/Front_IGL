@@ -187,7 +187,7 @@ export class CreatePatientComponent {
         Swal.fire({
           icon: 'error',
           title: 'Erreur',
-          text: error.statusText || 'Une erreur est survenue. Veuillez vérifier les données saisies.',
+          text: error.error.error || 'Une erreur est survenue. Veuillez vérifier les données saisies.',
           confirmButtonColor: '#d33',
           iconColor: '#d33',
           confirmButtonText: 'Réessayer',
