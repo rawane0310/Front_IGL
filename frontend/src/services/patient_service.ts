@@ -8,7 +8,7 @@ import { Observable } from 'rxjs';
 export class PatientService {
   private baseUrl = 'http://localhost:8000/dpi';
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   /**
    * Add authorization headers to the request.
@@ -57,5 +57,16 @@ export class PatientService {
     return this.http.post(`${this.baseUrl}/registerUserPatient/`, patientData, {
       headers: this.getAuthHeaders(),
     });
+  }
+
+
+  logout(refreshToken: string): Observable<any> {
+    const headers = this.getAuthHeaders()
+
+    return this.http.post(
+      'http://localhost:8000/accounts/logout/',
+      { refresh: refreshToken },
+      { headers }
+    );
   }
 }

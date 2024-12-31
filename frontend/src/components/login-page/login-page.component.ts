@@ -57,6 +57,7 @@ export class LoginPageComponent {
         localStorage.clear()
 
         localStorage.setItem('accessToken', response.access);
+        localStorage.setItem('refreshToken', response.refresh);
         localStorage.setItem('userRole', userRole);
         localStorage.setItem('userID', response.userID);
         localStorage.setItem('nom', response.nom);

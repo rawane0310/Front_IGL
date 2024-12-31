@@ -24,15 +24,6 @@ type PatientFormKeys =
   | 'password';
 
 /**
- * Interface représentant un champ dans le formulaire de création de patient.
- * Chaque champ est composé d'une clé correspondant à une `PatientFormKeys` et d'un `placeholder` pour l'affichage.
- */
-interface Field {
-  key: PatientFormKeys;        // La clé du champ (voir `PatientFormKeys`)
-  placeholder: string;         // Texte affiché dans le champ (placeholder)
-}
-
-/**
  * Composant Angular représentant le formulaire de création d'un patient.
  * Ce composant permet de capturer et de soumettre les informations relatives à un patient.
  * Il utilise une liste de champs définis avec des placeholders pour chaque entrée.
@@ -64,44 +55,14 @@ export class CreatePatientComponent {
     password: ''
   };
 
-  /**
-   * Tableau `fields` qui contient les informations des champs du formulaire,
-   * y compris la clé du champ et le texte à afficher comme `placeholder`.
-   */
-  fields: Field[] = [
-    { key: 'nss', placeholder: 'Numéro de sécurité sociale' },
-    { key: 'nom', placeholder: 'Nom' },
-    { key: 'prenom', placeholder: 'Prénom' },
-    { key: 'date_naissance', placeholder: 'Date de naissance' },
-    { key: 'adresse', placeholder: 'Adresse' },
-    { key: 'tel', placeholder: 'Téléphone' },
-    { key: 'mutuelle', placeholder: 'Mutuelle' },
-    { key: 'medecin_traitant', placeholder: 'Médecin traitant' },
-    { key: 'personne_a_contacter', placeholder: 'Personne à contacter' },
-    { key: 'email', placeholder: 'Email' },
-    { key: 'password', placeholder: 'Password' },
-  ];
 
   constructor(private patientService: PatientService) { }
-  
-  getInputType(key: PatientFormKeys): string {
-    switch (key) {
-      case 'email':
-        return 'email';
-      case 'tel':
-        return 'tel';
-      case 'password':
-        return 'password';
-      case 'date_naissance':
-        return 'date';
-      default:
-        return 'text';
-    }
-  }
+
 
   validateForm(): boolean {
     // Check if all fields are filled
     for (const key in this.formData) {
+      console.log('Key:', key);
       if (!this.formData[key as PatientFormKeys].trim()) {
         Swal.fire({
           icon: 'warning',
@@ -158,6 +119,7 @@ export class CreatePatientComponent {
 
 
   onSubmit(): void {
+    console.log('Form data:', this.formData);
     if (!this.validateForm()) {
       return;
     }
