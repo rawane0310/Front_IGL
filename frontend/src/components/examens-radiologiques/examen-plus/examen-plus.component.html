@@ -1,0 +1,91 @@
+<div class="examen-plus-container" (click)="closeExamen()">
+    <div class="examen-plus-card"(click)="$event.stopPropagation()">
+        <div class="examen-time">
+            <p> 06 décembre 2024</p>
+        </div>
+        <div class="examen-plus-content">
+            <div class="menu">
+                <div class="menu-link" (click)="setActive($event, 0)" [class]="active()===0 ? 'active' : ''">
+                    Details
+                </div>
+                <div class="menu-link" (click)="setActive($event, 1)" [class]="active()===1 ? 'active' : ''">
+                    Compte-rendu
+                </div>
+                <!-- <div class="menu-link" (click)="setActive($event, 2)" [class]="active()===2 ? 'active' : ''">
+                    Images médicales
+                </div> -->
+            </div>
+
+            @if (active()=== 0) {
+                <div class="details">
+                    <div class="icons">
+                        <fa-icon [icon]="faTrashCan" class="icon" (click)="opendeleteDialog($event)"></fa-icon>
+                        <fa-icon [icon]="faPenToSquare" class="icon"></fa-icon>
+                    </div>
+                    <div class="row">
+                        <p class="examen-plus-text">Médecin</p>
+                        <div class="nom-container">
+                            <p class="examen-plus-text gray">4</p>
+                            <p class="examen-plus-text gray">dr.mimi mimi</p>
+                        </div>
+                    </div>
+            
+                    <div class="row">
+                        <p class="examen-plus-text">Radiologue</p>
+                        <div class="nom-container">
+                            <p class="examen-plus-text gray">2</p>
+                            <p class="examen-plus-text gray">Meriem meriem</p>
+                        </div>
+                    </div>
+            
+                    <div class="row">
+                        <p class="examen-plus-text">Description</p>
+                        <p class="examen-plus-text gray"> Échographie abdominale  </p>
+                    </div>
+        
+                </div>
+            } @else {
+                @if(active()=== 1){
+                    <div class="compte-rendu-container">
+                        <div class="row blue-bg">
+                            <h3 class="examen-plus-title">Compte-rendu</h3>
+                            <p class="examen-plus-text less-bold">
+                                Cortex cérébral : Aucune anomalie focale identifiée.
+                                Substance blanche : Pas de signe de démyélinisation ni de lésion ischémique récente.
+                                Système ventriculaire : Ventricules de taille normale, symétriques, sans déviation de la ligne médiane.
+                                Région basale et tronc cérébral : Structures normales.
+                                Avec gadolinium : Absence de prise de contraste pathologique.
+                                Sinus veineux : Flux conservé, pas de thrombose visible.
+                                Conclusion :
+                                IRM cérébrale normale. Aucun signe de pathologie intracrânienne détecté.
+                            </p>
+                        </div>
+                        <div class="row">
+                            <h3 class="examen-plus-text">Images médicales</h3>
+                            <div class="imgs-container">
+                                <img src="../../../assets/image-médicale(1).jpg" alt="images médicales">
+                                <img src="../../../assets/image-médicale(2).jpg" alt="images médicales">
+                            </div>
+                        </div>
+                        
+                    </div>
+                   
+                }
+                <!-- @else {
+                    <div class="images-container">
+                        <div class="images-grid">
+                            images
+                        </div>
+                    </div>
+                }
+                 -->
+            }
+            @if(deleteDialog()){
+                <app-delete-dialog [endpoint]="''" [itemId]="2" (closeDialogEvent)="closeDeleteDialog()"></app-delete-dialog>
+            }
+            <div class="btn-container">
+                <button class="btn close" (click)="closeExamen()">Fermer</button>
+            </div>  
+        </div>
+    </div>
+</div>

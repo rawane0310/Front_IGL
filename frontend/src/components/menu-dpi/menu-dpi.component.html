@@ -18,9 +18,13 @@
         <fa-icon [icon]="faUserNurse" class="icon"></fa-icon>
         <p>Soins Infermiers</p>
       </a>
-      <a class="tab"  [routerLink]="'/dpi/'+ dpiId() +'/examens-dpi'" routerLinkActive="active">
+      <a class="tab"  [routerLink]="'/dpi/'+ dpiId() +'/analyses-biologiques-dpi'" routerLinkActive="active">
         <fa-icon [icon]="faChartBar" class="icon"></fa-icon>
-        <p>Examens</p>
+        <p>Analyses biologiques</p>
+      </a>
+      <a class="tab"  [routerLink]="'/dpi/'+ dpiId() +'/examens-radiologiques-dpi'" routerLinkActive="active">
+        <fa-icon [icon]="faBone" class="icon"></fa-icon>
+        <p>Examens Radiologiques</p>
       </a>
     </nav>
     

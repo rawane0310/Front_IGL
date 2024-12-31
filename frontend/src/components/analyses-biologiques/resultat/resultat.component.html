@@ -1,0 +1,49 @@
+<div class="resultats-container">
+    <div class="align">
+        <h3 class="resultats-title">Résultats d'analyses biologiques</h3>
+        <fa-icon [icon]="faPlusCircle" class="plus-icon" (click)="openAddForm($event)"></fa-icon>
+    </div>
+    <table>
+        <tbody>
+            @for ( resultat of resultatsAnalyseService.resultatsAnalyse(); let i = $index; track resultat.id ) {
+                <tr class="resultat-container" (click)="toggleCommentaire(i)">
+                    <td class="resultat-param"> {{resultat.parametre}} </td>
+                    <td class="resultat-value"> {{resultat.valeur}} <span class="resultat-unit"> {{resultat.unite}} </span> </td>
+                    <td class="resultat-actions">
+                        <fa-icon [icon]="faPenToSquare" class="icon" (click)="openModifyDialog($event, resultat)"></fa-icon>
+                        <fa-icon [icon]="faTrashCan" class="icon" (click)="openDeleteDialog($event, resultat.id)"></fa-icon>
+                    </td>
+                </tr>
+                @if(commentaire()[i]){
+                    <tr class="commentaire">
+                        <td class="resultat-comment" colspan="3">
+                            {{resultat.commentaire}}
+                        </td>
+                    </tr>
+                }
+            }
+        </tbody>
+        
+    </table>
+    
+    
+    <div class="btn-container">
+        <div class="yellow-btn" (click)="openGraphique($event)">
+            <fa-icon [icon]="faWandMagicSparkles" class="sparckle-icon"></fa-icon>
+            <p class="btn-text">Générer un graphique de tandance</p>
+        </div>
+    </div>
+    @if(graphiqueOpened()){
+        <app-graphique [analyseId]="analyseId()" (closeEvent)="closeGraphique()"></app-graphique>
+   }
+   @if(deleteDialog()){
+        <app-delete-dialog [endpoint]="deleteEndpoint" [itemId]="resultatAnalyse.id" (closeDialogEvent)="closeDeleteDialog($event)"></app-delete-dialog>
+    }
+    @if(modifyDialog()){
+        <app-ajouter-resultat [analyseId]="analyseId()" [resultat]="resultatAnalyse" (closeEvent)="closeModifyDialog()"></app-ajouter-resultat>
+    }
+    @if(addForm()){
+        <app-ajouter-resultat [analyseId]="analyseId()" (closeEvent)="closeAddForm()"></app-ajouter-resultat>
+    }
+</div>
+

@@ -1,0 +1,80 @@
+<div class="examen-plus-container" (click)="closeAnalyse()">
+    <div class="examen-plus-card"(click)="$event.stopPropagation()">
+        <div class="examen-time">
+            <p> {{analyse().date}} </p>
+        </div>
+        <div class="examen-plus-content">
+            <div class="menu">
+                <div class="menu-link" (click)="setActive($event, 0)" [class]="active()===0 ? 'active' : ''">
+                    Details
+                </div>
+                <div class="menu-link" (click)="setActive($event, 1)" [class]="active()===1 ? 'active' : ''">
+                   Résultats d'analyses
+                </div>
+            </div>
+
+            @if (active()=== 0) {
+                <div class="details">
+                    <div class="icons">
+                        <fa-icon [icon]="faTrashCan" class="icon" (click)="openDeleteDialog($event)"></fa-icon>
+                        <fa-icon [icon]="faPenToSquare" class="icon" (click)="openModifyDialog($event)"></fa-icon>
+                    </div>
+                    <div class="row">
+                        <p class="examen-plus-text">Médecin</p>
+                        <div class="nom-container">
+                            <p class="examen-plus-text gray"> {{analyse().technicien}} </p>
+                            <p class="examen-plus-text gray">Dr. {{analyse().nom_medecin+' '+ analyse().prenom_medecin}} </p>
+                        </div>
+                    </div>
+                    
+                    @if(resultatPret()){
+                        <div class="row">
+                            <p class="examen-plus-text">Laborantin</p>
+                            <div class="nom-container">
+                                <p class="examen-plus-text gray"> {{analyse().laborantin}} </p>
+                                <p class="examen-plus-text gray"> {{analyse().nom_lab+ ' '+ analyse().prenom_lab}} </p>
+                            </div>
+                        </div>
+                    }
+            
+                    <div class="row">
+                        <p class="examen-plus-text">Description</p>
+                        <p class="examen-plus-text gray"> {{analyse().description}} </p>
+                    </div>
+        
+                </div>
+            } @else {
+                @if(active()=== 1){
+                    
+                        @if(resultatPret()){
+                            <app-resultat [analyseId]="analyse().id"></app-resultat>
+                        }
+                        @else {
+                            <div class="no-result-container">
+                                <img class="no-result-img" src="../../../assets/analyse.svg" alt="Biologiste">
+                                <div class="align">
+                                    <p class="no-result"> Les résultats d'analyses sont prêts ? Enregistrez-les maintenant !</p>
+                                    <fa-icon [icon]="faPlusCircle" class="plus-icon" (click)="openAjouterResultat($event)"></fa-icon>  
+                                </div>
+                                
+                            </div>
+                            @if(ajouterResultat()){
+                                <app-ajouter-resultat [analyseId]="analyse().id" (closeEvent)="closeAjouterResultat()"></app-ajouter-resultat>
+                            }
+                        }
+                }
+
+            }
+            @if(deleteDialog()){
+                <app-delete-dialog [endpoint]="deleteEndpoint()" [itemId]="analyse().id" (closeDialogEvent)="closeDeleteDialog($event)"></app-delete-dialog>
+            }
+            @if(modifyDialog()){
+                <app-modifier-analyse [analyse]="analyse()" (closeEvent)="closeModifyDialog()"></app-modifier-analyse>
+            }
+            <div class="btn-container">
+                <button class="btn close" (click)="closeAnalyse()">Fermer</button>
+            </div>  
+        </div>
+    </div>
+</div>
+

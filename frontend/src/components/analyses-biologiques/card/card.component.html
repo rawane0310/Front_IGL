@@ -1,0 +1,18 @@
+<div class="card-container">
+    <div class="examen-time">
+        <p> {{analyse().date}} </p>
+    </div>
+    <div class="examen-content">
+        <div class="align">
+            <p class="examen-text">médecin: {{analyse().technicien}}</p>
+            <p class="examen-text">{{'Dr.' + analyse().nom_medecin + ' ' + analyse().prenom_medecin}}</p>
+        </div>
+        <p class="examen-text">description: {{analyse().description}} </p>
+    </div>
+    <div class="examen-action">
+        <button class="examen-btn" (click)="openPlus()">voir plus</button>
+    </div>
+    @if(plusOpened()){
+        <app-analyse-plus [analyse]="analyse()" (closeEvent)="closePlus()"></app-analyse-plus>
+    }
+</div>

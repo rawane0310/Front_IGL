@@ -1,0 +1,56 @@
+<div class="form-bg" (click)="closeAdd()" >
+    <div class="form-container" (click)="$event.stopPropagation()">
+        <form [formGroup]="formGroup" (submit)="onSubmit($event)">
+            @if(resultat()){
+                <h3 class="form-title">Modifiez les détails du résultat ! </h3>
+            }
+            @else {
+                <h3 class="form-title">Ajoutez un nouveau résultat! </h3>
+            }
+            <div class="form-inputs">
+
+                <div class="form-group">
+                    <label for="param">Paramètre</label>
+                    <input type="text" id="param" name="param" formControlName="parametre" placeholder="ex: Glycémie"  required>
+                    @if(formGroup.controls['parametre'].errors && (formGroup.controls['parametre'].dirty || formGroup.controls['parametre'].touched)){
+                        <small class="error"> *Ce champs est obligatoire </small>
+                    }
+                </div>
+
+                <div class="form-group">
+                    <label for="valeur">Valeur</label>
+                    <input type="number" id="valeur" name="valeur" formControlName="valeur" placeholder="ex: 1.2"  required>
+                    @if(formGroup.controls['valeur'].errors && (formGroup.controls['valeur'].dirty || formGroup.controls['valeur'].touched)){
+                        @if(formGroup.controls['valeur'].errors['required']){
+                            <small class="error"> *Ce champs est obligatoire et doit etre un nombre </small>
+                        }
+                    }
+                </div>
+
+                <div class="form-group">
+                    <label for="unit">Unité</label>
+                    <input type="text" id="unit" name="unit" formControlName="unite" placeholder="ex: g/l"  required>
+                    @if(formGroup.controls['unite'].errors && (formGroup.controls['unite'].dirty || formGroup.controls['unite'].touched)){
+                        <small class="error"> *Ce champs est obligatoire </small>
+                    }
+                </div>
+
+                <div class="form-group">
+                    <label for="com">Commentaire</label>
+                    <textarea id="com" name="com" placeholder="ex: Valeur élevée par rapport à la valeur normale" formControlName="commentaire" required></textarea>
+                    @if(formGroup.controls['commentaire'].errors && (formGroup.controls['commentaire'].dirty || formGroup.controls['commentaire'].touched)){
+                        <small class="error"> *Ce champs est obligatoire </small>
+                    }
+                </div>
+
+            </div>
+
+            <div class="next">
+                <button type="submit" class="btn" [disabled]=" userIndicatorsService.loadingData().isLoading ">Enregistrer</button>
+                <button class="btn close" (click)="closeAdd()">Fermer</button>  
+            </div>
+
+        </form>
+    </div>
+</div>
+

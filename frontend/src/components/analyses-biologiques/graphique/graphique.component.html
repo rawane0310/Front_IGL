@@ -1,0 +1,16 @@
+<div class="graph-bg"  (click)="closeGraphique()">
+    <div class="graph-container" (click)="$event.stopPropagation()">
+        <!-- <div class="examen-time">
+            <p> 06 décembre 2024</p>
+        </div> -->
+        <div class="examen-plus-content">
+            <div class="chart-container">
+                <canvas id="myChart" width="400" height="400"> {{chart}} </canvas>
+            </div>
+            <div class="btn-container">
+                <button class="btn close" (click)="closeGraphique()">Fermer</button>
+            </div>
+        </div>
+        
+    </div>
+</div>
