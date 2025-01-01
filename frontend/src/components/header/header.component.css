@@ -32,14 +32,15 @@
 
 .user-fullname {
     font-size: 1.1rem;
-    margin-left: 10px;
+    margin-left: 11px;
     color: #263238;
     font-weight: bold;
     cursor: pointer;
 }
+
 .user-fullname:hover {
     text-decoration: underline;
-   text-decoration-color: #28A7B8;
+    text-decoration-color: #28A7B8;
 }
 
 .user-id {
