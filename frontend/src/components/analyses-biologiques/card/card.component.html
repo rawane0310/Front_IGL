@@ -3,10 +3,7 @@
         <p> {{analyse().date}} </p>
     </div>
     <div class="examen-content">
-        <div class="align">
-            <p class="examen-text">médecin: {{analyse().technicien}}</p>
-            <p class="examen-text">{{'Dr.' + analyse().nom_medecin + ' ' + analyse().prenom_medecin}}</p>
-        </div>
+        <p class="examen-text">médecin: {{analyse().technicien+'   Dr.' + analyse().nom_medecin + ' ' + analyse().prenom_medecin}}</p>
         <p class="examen-text">description: {{analyse().description}} </p>
     </div>
     <div class="examen-action">

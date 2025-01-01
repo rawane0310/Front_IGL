@@ -1,15 +1,15 @@
 <div class="card-container">
     <div class="examen-time">
-        <p>06 décembre 2024</p>
+        <p> {{examen().date}} </p>
     </div>
     <div class="examen-content">
-        <p class="examen-text">médecin: 4  dr. mimi mimi </p>
-        <p class="examen-text">description: échographie </p>
+        <p class="examen-text">médecin: {{examen().technicien+'  Dr.' + examen().nom_medecin + ' ' + examen().prenom_medecin}}</p>
+        <p class="examen-text">description: {{examen().description}} </p>
     </div>
     <div class="examen-action">
         <button class="examen-btn" (click)="openPlus()">voir plus</button>
     </div>
     @if(plusOpened()){
-        <app-examen-plus (closeEvent)="closePlus()"></app-examen-plus>
+        <app-examen-plus [examen]="examen()" (closeEvent)="closePlus()"></app-examen-plus>
     }
 </div>

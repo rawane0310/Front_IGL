@@ -27,10 +27,13 @@ export interface ResultatAnalyse {
 
 export interface ExamenRadiologique extends Examen {
     radiologue: number;
+    nom_radiologue?: string; 
+    prenom_radiologue?: string;
     compte_rendu: string;
 }
 
 export interface RadiologyImage {
+    id: number;
     image: string;
     examen_radiologique: number;
     titre: string;

@@ -29,7 +29,8 @@ export class AjouterResultatComponent {
       valeur : new FormControl(this.resultat()?.valeur || '' , [Validators.required]),
       unite : new FormControl(this.resultat()?.unite || '' , [Validators.required]),
       commentaire : new FormControl(this.resultat()?.commentaire || '' , [Validators.required]),
-      examen_biologique: new FormControl(this.analyseId(), [Validators.required])
+      examen_biologique: new FormControl(this.analyseId(), [Validators.required]),
+      laborantin: new FormControl(localStorage.getItem('technicianID'), [Validators.required])
     });
   }
 

@@ -57,6 +57,13 @@
     background-color: #002B36;
 }
 
+.align{
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    gap: .75rem;
+}
+
 @media(max-width:940px){
     .examen-content{
         margin-left: 2rem;

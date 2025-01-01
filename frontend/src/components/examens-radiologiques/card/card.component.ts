@@ -1,5 +1,6 @@
-import { Component, signal } from '@angular/core';
+import { Component, input, signal } from '@angular/core';
 import { ExamenPlusComponent } from "../examen-plus/examen-plus.component";
+import { ExamenRadiologique } from '../../../models/Examen';
 
 
 @Component({
@@ -11,6 +12,7 @@ import { ExamenPlusComponent } from "../examen-plus/examen-plus.component";
 })
 export class CardComponent {
   plusOpened = signal(false)
+  examen = input.required<ExamenRadiologique>()
 
   openPlus(): void{
     this.plusOpened.set(true)

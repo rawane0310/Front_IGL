@@ -1,0 +1,38 @@
+<div class="form-bg" (click)="closeAdd()" >
+    <div class="form-container" (click)="$event.stopPropagation()">
+        <form [formGroup]="formGroup" (submit)="onSubmit()"  enctype="multipart/form-data">
+            <h3 class="form-title">Ajoutez une nouvelle image médicale ! </h3>
+            <div class="form-inputs">
+
+                <div class="form-group">
+                    <label for="titre">Titre</label>
+                    <input type="text" id="titre" name="titre" formControlName="titre" placeholder="ex: IRM cérébrale avec injection de produit de contraste - Coupe axiale"  required>
+                    @if(formGroup.controls['titre'].errors && (formGroup.controls['titre'].dirty || formGroup.controls['titre'].touched)){
+                        <small class="error"> *Ce champs est obligatoire </small>
+                    }
+                </div>
+
+                <div class="image-upload">
+                    <fa-icon [icon]="faCloudUpload" class="icon"></fa-icon>
+                    <label for="image">Uploader l'image médicale
+                        @if(imagePreview){
+                            <img [src]="imagePreview" alt="preview" class="preview" >
+                        }
+                    </label>
+
+                    <input type="file" accept="image/*" (change)="onFileChange($event)" id="image" name="image" required > 
+                    @if(formGroup.controls['image'].errors && (formGroup.controls['image'].dirty || formGroup.controls['image'].touched)){
+                        <small class="error"> *Ce champs est obligatoire </small>
+                    }
+                </div>
+            </div>
+
+            <div class="next">
+                <button type="submit" class="btn" [disabled]=" userIndicatorService.loadingData().isLoading ">Enregistrer</button>
+                <button class="btn close" (click)="closeAdd()">Fermer</button>  
+            </div>
+
+        </form>
+    </div>
+</div>
+

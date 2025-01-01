@@ -1,0 +1,45 @@
+<div class="compte-rendu-container">
+    <div class="row blue-bg">
+        <div class="align">
+            <h3 class="examen-plus-title">Compte-rendu</h3>
+            <fa-icon [icon]="faPenToSquare" class="icon"  (click)="openModifyForm($event)"></fa-icon>
+        </div>
+        
+        <p class="examen-plus-text less-bold">
+            {{examen().compte_rendu}}
+        </p>
+    </div>
+    <div class="row">
+        <div class="align">
+            <h3 class="examen-plus-text">Images médicales</h3>
+            <fa-icon [icon]="faPlusCircle" class="plus-icon" (click)="openAddForm($event)"></fa-icon>
+        </div>
+        <div class="imgs-container">
+            @for(image of radiologyImagesService.radiologyImages(); track image.id){
+                <div class="img-container">
+                    <div class="img-meta">
+                        <h4 class="examen-plus-text">  {{image.titre}}  </h4>
+                        <div class="img-actions">
+                            <fa-icon [icon]="faTrashCan" class="img-icon" (click)="openDeleteImgDialog($event, image.id)"></fa-icon>
+                            <fa-icon [icon]="faPenToSquare" class="img-icon" (click)="openModifyImgDialog($event, image)"></fa-icon>
+                        </div>
+                    </div>
+
+                    <img [src]="image.image" alt="images médicales">
+                </div>
+            }
+        </div>
+    </div>
+    @if(modifyForm()){
+        <app-modifier-compte-rendu [examen]="examen()" (closeEvent)="closeModifyForm()"></app-modifier-compte-rendu>
+    }
+    @if(deleteImgDialog()){
+        <app-delete-dialog [endpoint]="deleteImgEndpoint()" [itemId]="imgId()" (closeDialogEvent)="closeDeleteImgDialog($event)" ></app-delete-dialog>
+    }
+    @if(modifyImgDialog()){
+        <app-ajouter-radiology-image [examenId]="examen().id" [imageData]="imageData()" (closeEvent)="closeModifyImgDialog()"></app-ajouter-radiology-image>
+    }
+    @if(addForm()){
+        <app-ajouter-radiology-image [examenId]="examen().id" (closeEvent)="closeAddForm()"></app-ajouter-radiology-image>
+    }
+</div>
