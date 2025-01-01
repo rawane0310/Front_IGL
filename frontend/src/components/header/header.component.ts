@@ -72,6 +72,7 @@ export class HeaderComponent {
     const firstName = localStorage.getItem('nom');
     const lastName = localStorage.getItem('prenom');
     const userRole = localStorage.getItem('userRole');
+    const technicianRole = localStorage.getItem('technicianRole');
     let userID = ''
 
     if (userRole === 'technicien') {
@@ -84,6 +85,11 @@ export class HeaderComponent {
       userID = localStorage.getItem('adminID') || '';
     }
     if (firstName && lastName && userID) {
+      if (technicianRole === 'medecin') {
+        this.userFullName = `Dr.${firstName} ${lastName}`;
+        this.userId = userID;
+        return;
+      }
       this.userFullName = `${firstName} ${lastName}`;
       this.userId = userID;
     } else {
