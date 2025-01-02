@@ -11,11 +11,11 @@ export class AuthGuard implements CanActivate {
   canActivate(): boolean {
     const token = localStorage.getItem('accessToken');
     if (token) {
-      return true; 
+      return true;
     } else {
       Swal.fire({
         icon: 'warning',
-        text: 'Vous devez connecter au premier!.',
+        text: "Vous devez vous connecter d'abord !",
         confirmButtonColor: '#d33',
         width: '400px',
         iconColor: '#d33',

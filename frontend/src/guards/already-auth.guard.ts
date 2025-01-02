@@ -1,22 +1,31 @@
 import { Injectable } from '@angular/core';
-import { CanActivate, Router } from '@angular/router';
+import { CanActivate, Router, NavigationEnd } from '@angular/router';
+import { filter } from 'rxjs/operators';
 import Swal from 'sweetalert2';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AlreadyAuthGuard implements CanActivate {
-  constructor(private router: Router) { }
+  constructor(private router: Router) {
+
+    this.router.events.pipe(
+      filter(event => event instanceof NavigationEnd)
+    ).subscribe((event: NavigationEnd) => {
+      if (event.url !== '/login' && event.url !== '/') {
+        sessionStorage.setItem('lastValidRoute', event.url);
+      }
+    });
+  }
 
   canActivate(): boolean {
     const token = localStorage.getItem('accessToken');
-
     if (token) {
-      const actualRoute = this.router.url; 
-
+      const lastValidRoute = sessionStorage.getItem('lastValidRoute')
+      console.log('Last Valid Route:', lastValidRoute);
       Swal.fire({
         icon: 'warning',
-        text: 'Vous êtes déjà connecté! Veuillez vous déconnecter pour accéder à la page de connection.',
+        text: "Accès refusé : vous avez déjà une session active. Veuillez d'abord vous déconnecter!",
         confirmButtonColor: '#d33',
         width: '400px',
         iconColor: '#d33',
@@ -25,14 +34,9 @@ export class AlreadyAuthGuard implements CanActivate {
         },
       });
 
-      console.log('Actual Route:', actualRoute);
-      //i did this beacuse when tapping the login url it redirect me to the / and not the real actual path so i should clear the storage so i can log in again
-      if (actualRoute === '/') {
-        localStorage.clear();
-      
-      }
-      // Redirect to the current route (to stay on the same page)
-      this.router.navigate([actualRoute]);
+      console.log('Last Valid Route:', lastValidRoute);
+
+      this.router.navigate([lastValidRoute]);
       return false;
     } else {
       return true;

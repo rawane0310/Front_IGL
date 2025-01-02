@@ -13,12 +13,14 @@ import { DpiPageComponent } from '../components/dpi-page/dpi-page.component';
 
 import { AuthGuard } from './../guards/auth-guard';
 import { AlreadyAuthGuard } from './../guards/already-auth.guard';
+import { CreatePatientGuard } from '../guards/create-patient-guard';
+import { RechercheDossierGuard } from '../guards/recherche-patient-guard';
 
 export const routes: Routes = [
   { path: '', component: LandingPageComponent },
-  { path: 'login', component: LoginPageComponent , canActivate: [AlreadyAuthGuard]},
-  { path: 'recherche', component: RecherchePageComponent, canActivate: [AuthGuard] },
-  { path: 'create-patient', component: CreatePatientComponent, canActivate: [AuthGuard] },
+  { path: 'login', component: LoginPageComponent, canActivate: [AlreadyAuthGuard] },
+  { path: 'recherche', component: RecherchePageComponent, canActivate: [AuthGuard, RechercheDossierGuard] },
+  { path: 'create-patient', component: CreatePatientComponent, canActivate: [AuthGuard, CreatePatientGuard] },
   {
     path: 'dpi/:dpiId',
     component: DpiPageComponent,
