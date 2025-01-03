@@ -2,7 +2,7 @@ import { Component, input } from '@angular/core';
 import { NgIf } from '@angular/common';
 import { Router, RouterModule, RouterOutlet } from '@angular/router';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import {faUser, faNotesMedical, faUserNurse, faChartBar} from '@fortawesome/free-solid-svg-icons'
+import {faUser, faNotesMedical, faUserNurse, faChartBar, faBone} from '@fortawesome/free-solid-svg-icons'
 
 @Component({
   selector: 'app-menu-dpi',
@@ -16,6 +16,7 @@ export class MenuDpiComponent {
  faNotesMedical= faNotesMedical;
  faUserNurse= faUserNurse;
  faChartBar= faChartBar;
+ faBone= faBone;
 
  dpiId = input.required()
 }

@@ -1,0 +1,5 @@
+<div class="examens-container">
+    @for(examen of examensRadiologiquesService.examensRadiologiques(); track examen.id){
+        <app-card [examen]="examen"></app-card>
+    }
+</div>

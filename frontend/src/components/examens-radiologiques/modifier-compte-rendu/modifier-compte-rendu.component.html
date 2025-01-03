@@ -1,0 +1,25 @@
+<div class="form-bg" (click)="closeModify()" >
+    <div class="form-container" (click)="$event.stopPropagation()">
+        <form [formGroup]="formGroup" (submit)="onSubmit($event)">
+            <h3 class="form-title">Modifiez les détails de l'examen ! </h3>
+            <div class="form-inputs">
+
+                <div class="form-group">
+                    <label for="compte_rendu">Compte rendu</label>
+                    <textarea id="compte_rendu" name="compte_rendu"  formControlName="compte_rendu" required></textarea>
+                    @if(formGroup.controls['compte_rendu'].errors && (formGroup.controls['compte_rendu'].dirty || formGroup.controls['compte_rendu'].touched)){
+                        <small class="error"> *Ce champs est obligatoire </small>
+                    }
+                </div>
+
+            </div>
+
+            <div class="next">
+                <button type="submit" class="btn" [disabled]=" userIndicatorService.loadingData().isLoading ">Enregistrer</button>
+                <button class="btn close" (click)="closeModify()">Fermer</button>  
+            </div>
+
+        </form>
+    </div>
+</div>
+

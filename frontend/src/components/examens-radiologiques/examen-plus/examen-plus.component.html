@@ -1,0 +1,78 @@
+<div class="examen-plus-container" (click)="closeExamen()">
+    <div class="examen-plus-card"(click)="$event.stopPropagation()">
+        <div class="examen-time">
+            <p> {{examen().date}} </p>
+        </div>
+        <div class="examen-plus-content">
+            <div class="menu">
+                <div class="menu-link" (click)="setActive($event, 0)" [class]="active()===0 ? 'active' : ''">
+                    Details
+                </div>
+                <div class="menu-link" (click)="setActive($event, 1)" [class]="active()===1 ? 'active' : ''">
+                    Compte-rendu
+                </div>
+            </div>
+
+            @if (active()=== 0) {
+                <div class="details">
+                    <div class="icons">
+                        <fa-icon [icon]="faTrashCan" class="icon" (click)="opendeleteDialog($event)"></fa-icon>
+                        <fa-icon [icon]="faPenToSquare" class="icon" (click)="openModifyDialog($event)"></fa-icon>
+                    </div>
+                    <div class="row">
+                        <p class="examen-plus-text">Médecin</p>
+                        <div class="nom-container">
+                            <p class="examen-plus-text gray"> {{examen().technicien}} </p>
+                            <p class="examen-plus-text gray">Dr. {{examen().nom_medecin+' '+examen().prenom_medecin}} </p>
+                        </div>
+                    </div>
+
+                    @if(resultatPret()){
+                        <div class="row">
+                            <p class="examen-plus-text">Radiologue</p>
+                            <div class="nom-container">
+                                <p class="examen-plus-text gray"> {{examen().radiologue}} </p>
+                                <p class="examen-plus-text gray"> {{examen().nom_radiologue+' '+examen().prenom_radiologue}} </p>
+                            </div>
+                        </div>
+                    }
+
+                    <div class="row">
+                        <p class="examen-plus-text">Description</p>
+                        <p class="examen-plus-text gray"> {{examen().description}}  </p>
+                    </div>
+        
+                </div>
+            } @else {
+                @if(active()=== 1){
+                    @if(resultatPret()){
+                        <app-compte-rendu [examen]="examen()"></app-compte-rendu>
+                    }
+                    @else {
+                        <div class="no-result-container">
+                            <img class="no-result-img" src="../../../assets/examenRadiologique.svg" alt="Radiologues">
+                            <div class="align">
+                                <p class="no-result"> Le compte rendu et les images médicales sont prêts ? Enregistrez-les maintenant !</p>
+                                <fa-icon [icon]="faPlusCircle" class="plus-icon" (click)="openAddCompteRendu($event)" ></fa-icon>  
+                            </div>
+                        </div>  
+                    }
+                    
+                }
+
+            }
+            @if(deleteDialog()){
+                <app-delete-dialog [endpoint]="deleteEndpoint()" [itemId]="examen().id" (closeDialogEvent)="closeDeleteDialog($event)"></app-delete-dialog>
+            }
+            @if(modifyDialog()){
+                <app-modifier-examen [examen]="examen()" (closeEvent)="closeModifyDialog()"></app-modifier-examen>
+            }
+            @if(addCompteRendu()){
+                <app-ajouter-compte-rendu [examen]="examen()" (closeEvent)="closeAddCompteRendu()"></app-ajouter-compte-rendu>
+            }
+            <div class="btn-container">
+                <button class="btn close" (click)="closeExamen()">Fermer</button>
+            </div>  
+        </div>
+    </div>
+</div>

@@ -1,0 +1,86 @@
+<div class="form-bg" (click)="closeAdd()">
+    <div class="form-container" (click)="$event.stopPropagation()">
+        <div class="steps">
+            <div class="step" [class]="next() ? 'step-done' : 'step-active'">
+                <div class="step-number">1</div>
+                <div class="step-title">Rédaction du compte rendu</div>
+            </div>
+            <div class="bar" [class]="next() ? 'bar-done' : 'bar-active'" ></div>
+            <div class="step" [class]="next() ? 'step-active' : ''">
+                <div class="step-number">2</div>
+                <div class="step-title">Ajout des images médicales</div>
+            </div>
+        </div>
+        <div class="content">
+            @if(!next()){
+               <div class="details-container">
+                    <form [formGroup]="formGroup" (submit)="onSubmit($event)">
+                        <h3 class="form-title">Rédiger le compte rendu </h3>
+
+                        <div class="form-inputs">
+                            <div class="form-group">
+                                <label for="compte_rendu">Compte rendu</label>
+                                <textarea id="compte_rendu" name="compte_rendu"  formControlName="compte_rendu" required></textarea>
+                                @if(formGroup.controls['compte_rendu'].errors && (formGroup.controls['compte_rendu'].dirty || formGroup.controls['compte_rendu'].touched)){
+                                    <small class="error"> *Ce champs est obligatoire </small>
+                                }
+                            </div>
+                        </div>
+                        
+                        <div class="next">
+                            <button type="submit" class="btn" [disabled]="userIndicatorService.loadingData().isLoading">Suivant</button>
+                            <button class="btn close" (click)="closeAdd()" >Fermer</button>
+                        </div>
+
+                    </form>
+               </div>
+            }@else {
+                @if(imageAdded()){
+                    <div class="row">
+                        <div class="align">
+                            <h3 class="examen-plus-text">Images médicales</h3>
+                            <fa-icon [icon]="faPlusCircle" class="plus-icon" (click)="openAddForm($event)"></fa-icon>
+                        </div>
+                        <div class="imgs-container">
+                            @for(image of radiologyImagesService.radiologyImages(); track image.id){
+                                <div class="img-container">
+                                    <div class="img-meta">
+                                        <h4 class="examen-plus-text">  {{image.titre}}  </h4>
+                                        <div class="img-actions">
+                                            <fa-icon [icon]="faTrashCan" class="img-icon" (click)="openDeleteImgDialog($event, image.id)"></fa-icon>
+                                            <fa-icon [icon]="faPenToSquare" class="img-icon" (click)="openModifyImgDialog($event, image)"></fa-icon>
+                                        </div>
+                                    </div>
+                                    <img [src]="image.image" alt="images médicales">
+                                </div>
+                            }
+                        </div>
+                    </div>
+                    @if(deleteImgDialog()){
+                        <app-delete-dialog [endpoint]="deleteImgEndpoint()" [itemId]="imgId()" (closeDialogEvent)="closeDeleteImgDialog($event)" ></app-delete-dialog>
+                    }
+                    @if(modifyImgDialog()){
+                        <app-ajouter-radiology-image [examenId]="examen().id" [imageData]="imageData()" (closeEvent)="closeModifyImgDialog()"></app-ajouter-radiology-image>
+                    }
+                }
+                @else {
+                    <div class="no-result-container">
+                        <img class="no-result-img" src="../../../assets/examenRadiologique.svg" alt="Radiologues">
+                        <div class="align">
+                            <p class="no-result"> Ajoutez les images médicales maintenant !</p>
+                            <fa-icon [icon]="faPlusCircle" class="plus-icon" (click)="openAddForm($event)" ></fa-icon>  
+                        </div>
+                    </div>  
+                }
+                @if(addForm()){
+                    <app-ajouter-radiology-image [examenId]="examen().id" (closeEvent)="closeAddForm()" (imageAddedEvent)="setImageAdded($event)"></app-ajouter-radiology-image>
+                }
+                <div class="next">
+                    <button class="btn" [disabled]=" !imageAdded() || userIndicatorService.loadingData().isLoading" (click)="closeAdd()" >Terminer</button>
+                </div>
+                
+            }
+        </div>
+        
+    </div>
+</div>

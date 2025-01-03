@@ -54,9 +54,9 @@
                     @if(soinForm()){
                         <app-modifier-soin [soin]="soin()" (modifierSoinCloseEvent)="closeSoinForm()"></app-modifier-soin>
                       }
-                      @if(deleteDialog()){
+                    @if(deleteDialog()){
                         <app-delete-dialog [endpoint]="deleteEndpoint" [itemId]="soin().id" (closeDialogEvent)="closeDeleteDialog($event)"></app-delete-dialog>
-                      }
+                    }
                 </div>
             }
 

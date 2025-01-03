@@ -1,0 +1,5 @@
+<div class="analyses-container">
+    @for (analyse of analysesBiologiquesService.AnalysesBiologiques(); track analyse.id ){
+        <app-card [analyse]="analyse" ></app-card>
+    }
+</div>
