@@ -5,22 +5,20 @@
     flex-direction: column;
 }
 
-.container{
+.container {
     display: flex;
     justify-content: center;
     align-items: center;
     background-color: white;
-    flex-direction: row;
-    gap:1rem;
+    flex-direction: row-reverse;
+    gap: 3.8rem;
 }
 
 .illustration {
-    flex: 1;
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-right: 30px;
-    margin-bottom: 50px;
+    margin-left: 50px;
     max-width: 40%;
 }
 
@@ -29,20 +27,22 @@
     object-fit: cover;
 }
 
-.form-container {
+.section-title {
     flex: 1;
-    max-width: 450px;
-    text-align: center;
+    max-width: 500px;
     padding-top: 20px;
-    margin: 10px;
+    margin-right: 50px;
+    margin-left: 20px;
+    margin-bottom: 30px;
+    margin-top: 20px;
 }
 
-.form-container h1 {
-    font-size: 2rem;
+.section-title h1 {
+    font-size: 2.5rem;
     color: #263238;
-    margin-bottom: 8px;
-    font-weight: bold;
     font-family: Poppins, sans-serif;
+    text-align: start;
+    width: 100%;
 }
 
 .highlight {
@@ -50,11 +50,29 @@
     font-weight: bold;
 }
 
-.form-container p {
-    font-size: 1rem;
+.section-title p {
+    font-size: 1.3rem;
     color: #6C757D;
-    margin-bottom: 10px;
     font-family: Urbanist, sans-serif;
+    text-align: start;
+}
+
+.section {
+    margin-bottom: 2rem;
+}
+
+.section h2 {
+    font-size: 1.3rem;
+    font-family: Poppins, sans-serif;
+    color: #263238;
+    margin-left: 80px;
+}
+
+.section p {
+    font-size: 1rem;
+    color: #6c757d;
+    font-family: Urbanist, sans-serif;
+    margin-left: 75px;
 }
 
 .input-group {
@@ -62,9 +80,24 @@
     align-items: center;
     margin-bottom: 1rem;
     border: 2px solid #28A7B8;
-    border-radius: 10px;
+    border-radius: 11px;
     padding: 0.4rem;
     background-color: white;
+    width: 100%;
+    margin-left: 75px;
+}
+
+input[type="date"] {
+    font-family: inherit;
+    color: #6C757D;
+
+    &::-webkit-calendar-picker-indicator {
+        visibility: hidden;
+    }
+
+    &::-webkit-calendar-picker-indicator:hover {
+        opacity: 2;
+    }
 }
 
 .input-icon {
@@ -74,9 +107,9 @@
 }
 
 .input-group input {
-    width: 150px;
+    width: 100%;
     padding: 5px 5px;
-    font-size: 0.8rem;
+    font-size: 0.9rem;
     outline: none;
     border: none;
     font-family: Urbanist, sans-serif;
@@ -97,15 +130,56 @@
     border-color: #28A7B8;
 }
 
+.second-form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    gap: 1rem;
+}
+
+
+.illustration2 {
+    flex: 1;
+    display: flex;
+    /* justify-content: center;
+    align-items: center; */
+    max-width: 60%;
+    margin-left: 100px;
+    margin-right: 80px;
+}
+
+.illustration2 img {
+    width: 100%;
+    object-fit: cover;
+}
+
+.group {
+    width: 30%;
+}
+
+.group2 {
+    margin-right: 160px;
+    width: 30%;
+    flex-direction: column;
+    display: flex;
+}
+
+.div-button {
+    width: 35%;
+    margin-left: 75px;
+}
+
 button {
     background-color: #28A7B8;
     color: #fff;
     padding: 10px 20px;
     border: none;
     border-radius: 9px;
-    font-size: 1.3rem;
+    font-size: 1.1rem;
     cursor: pointer;
-    width: 35%;
+    margin-top: 20px;
+    width: 100%;
     font-family: Urbanist, sans-serif;
 }
 
@@ -120,38 +194,115 @@ button:hover {
     width: 400px !important;
 }
 
-/* Responsive Styles */
-@media screen and (max-width: 768px) {
 
+/* Responsive Styles */
+@media (max-width: 1300px) {
+
+    .illustration2 {
+        flex: 2;
+        margin: 0;
+    }
+
+    .div-button {
+        width: 60%;
+        margin-left: 75px;
+    }
+
+    .button {
+        width: 90%;
+    }
+}
+
+
+@media screen and (max-width: 850px) {
     .create-patient-container {
+        padding: 0 1rem;
+    }
+
+    .container {
         flex-direction: column;
-        height: auto;
-        padding: 20px;
+        align-items: center;
+        gap: 1rem;
     }
 
     .illustration {
+        max-width: 90%;
+        margin-left: 0;
+    }
+
+    .illustration2 {
         display: none;
+
     }
 
-    .form-container {
-        max-width: 100%;
-        padding: 10px;
-        margin-top: 40px;
+    .section-title {
+        margin: 0;
+        padding: 0;
+        text-align: center;
+        margin-bottom: 60px;
     }
 
-    .form-container h1 {
-        font-size: 1.5rem;
+    .section-title h1 {
+        font-size: 1.6rem;
+        text-align: center;
     }
 
-    .form-container p {
-        font-size: 0.9rem;
+    .section-title p {
+        font-size: 1.1rem;
+        text-align: center;
+    }
+
+    .section h2 {
+        margin-left: 0px;
+        text-align: center;
+    }
+
+    .section p {
+        margin-left: 0px;
+        text-align: center;
+    }
+
+    .second-form {
+        flex-direction: column;
+        gap: 0rem;
+    }
+
+    .group2 {
+        margin: 0;
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+    }
+
+    .group {
+        margin: 0;
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+    }
+
+    .input-group {
+        margin-left: 0;
+        width: 80%;
+        align-self: center;
     }
 
     button {
         width: 100%;
+        align-self: center;
+        font-size: 0.9rem;
     }
 
-    .small-swal-popup {
-        width: 100px !important;
+    .div-button {
+        width: 40%;
+        align-self: center;
+        margin: 0;
+        display: flex;
+        justify-self: center;
+        align-items: center;
     }
 }

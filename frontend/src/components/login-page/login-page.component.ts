@@ -57,6 +57,7 @@ export class LoginPageComponent {
         localStorage.clear()
 
         localStorage.setItem('accessToken', response.access);
+        localStorage.setItem('refreshToken', response.refresh);
         localStorage.setItem('userRole', userRole);
         localStorage.setItem('userID', response.userID);
         localStorage.setItem('nom', response.nom);
@@ -88,8 +89,11 @@ export class LoginPageComponent {
             this.router.navigate(['/create-patient']);
           } else if (userRole === 'patient') {
             this.router.navigate(['/dpi/', response.dossier_id]);
+          } else {
+            this.router.navigate(['/']); // Default route for other roles
           }
         }, 2000);
+        
       },
       (error) => {
         this.showMessage('Échec de la connexion. Veuillez vérifier vos informations!', 'error');

@@ -2,10 +2,25 @@
     <img src="../../assets/logo.png" alt="Logo" class="logo" />
 
     <div class="header-user-info" *ngIf="!isLandingPage && !isLoginPage">
-        <button class="add-dpi-btn" *ngIf="isAdministrativeRole" (click)="redirectToCreateDpi()">Ajouter DPI</button>
         <div class="user-details">
-            <span class="user-fullname">{{ userFullName }}</span>
-            <span class="user-id">ID: {{ userId }}</span>
+            <span class="user-id">{{ userId }}</span>
+            <span class="user-fullname" (click)="togglePopup()">{{ userFullName }}</span>
+
+            <!-- Pop-up menu -->
+            <div class="user-popup" *ngIf="isPopupVisible">
+                <div class="popup-item" *ngIf="isAdministrativeRole" (click)="redirectToCreateDpi()">
+                    <fa-icon [icon]="faFolderOpen" ></fa-icon>
+                    <span>Créer un DPI</span>
+                </div>
+                <div class="popup-item" *ngIf="isTechnicienRole" (click)="search()">
+                    <fa-icon [icon]="faMagnifyingGlass"></fa-icon>
+                    <span>Rechercher</span>
+                </div>
+                <div class="popup-item" (click)="logout()">
+                    <fa-icon [icon]="faArrowRightFromBracket"></fa-icon>
+                    <span>Déconnection</span>
+                </div>
+            </div>
         </div>
     </div>
 </header>

@@ -1,26 +1,106 @@
 <div class="create-patient-container">
   <app-header></app-header>
+
   <div class="container">
     <div class="illustration">
       <img src="../../assets/Medicine-rafiki.png" alt="Patient Illustration" />
     </div>
-    <div class="form-container">
-      <h1> <span class="highlight">Créer</span> Un Dossier Patient</h1>
-      <p>Remplissez les informations nécessaires pour créer un nouveau DPI.</p>
-      <form (ngSubmit)="onSubmit()">
-  
-        <!-- Input Fields -->
-        <div *ngFor="let field of fields" class="input-group">
-          <img src="../../assets/{{ field.key }}.png" alt="Icon" class="input-icon" />
-          <input [type]="field.key === 'email' ? 'email' : field.key === 'tel' ? 'tel' : field.key === 'password' ? 'password' : 'text'"
-            [placeholder]="field.placeholder" [(ngModel)]="formData[field.key]" [name]="field.key" [required]="true"
-            [pattern]="field.key === 'tel' ? '[0-9]+' : ''" />
-  
-        </div>
-  
-        <button type="submit">Créer</button>
-      </form>
+    <div class="section-title">
+      <h1> <span class="highlight">Création</span> d'un Dossier Patient Informatisé</h1>
+      <p>Complétez les informations nécessaires pour créer un nouveau Dossier Patient Informatique (DPI) et assurer une
+        gestion optimale des données de santé.</p>
     </div>
+
+
   </div>
-  
+
+  <form (ngSubmit)="onSubmit()">
+
+    <!-- Section 1 -->
+    <section class="section">
+      <h2>1. Informations relatifs au compte du patient</h2>
+      <p>Entrer l'email et le mot de passe choisis par le patient pour sa prochaine connexion</p>
+      <div class="group">
+        <div class="input-group">
+          <img src="../../assets/email.png" alt="Icon" class="input-icon" />
+          <input type="email" placeholder="Adresse mail" required [(ngModel)]="formData['email'] "
+            [ngModelOptions]="{standalone: true}" />
+        </div>
+        <div class="input-group">
+          <img src="../../assets/password.png" alt="Icon" class="input-icon" />
+          <input type="password" placeholder="Mot de passe" required [(ngModel)]="formData['password']"
+            [ngModelOptions]="{standalone: true}" />
+        </div>
+      </div>
+    </section>
+
+
+
+    <!-- Section 2 -->
+    <section class="section">
+      <h2>2. Informations relatifs au Dossier Patient Informatisé</h2>
+      <p>Saisissez les informations realtifs au DPI</p>
+      <div class="second-form">
+
+
+        <div class="group2">
+          <div class="input-group">
+            <img src="../../assets/nss.png" alt="Icon" class="input-icon" />
+            <input type="text" placeholder="Numéro de sécurité sociale" required [(ngModel)]="formData['nss']"
+              [ngModelOptions]="{standalone: true}" />
+          </div>
+          <div class="input-group">
+            <img src="../../assets/nom.png" alt="Icon" class="input-icon" />
+            <input type="text" placeholder="Nom" required [(ngModel)]="formData['nom']"
+              [ngModelOptions]="{standalone: true}" />
+          </div>
+          <div class="input-group">
+            <img src="../../assets/prenom.png" alt="Icon" class="input-icon" />
+            <input type="text" placeholder="Prénom" required [(ngModel)]="formData['prenom']"
+              [ngModelOptions]="{standalone: true}" />
+          </div>
+          <div class="input-group">
+            <img src="../../assets/date_naissance.png" alt="Icon" class="input-icon" />
+            <input type="date" placeholder="Date de naissance" required [(ngModel)]="formData['date_naissance']"
+              [ngModelOptions]="{standalone: true}" />
+          </div>
+          <div class="input-group">
+            <img src="../../assets/adresse.png" alt="Icon" class="input-icon" />
+            <input type="text" placeholder="Adresse" required [(ngModel)]="formData['adresse']"
+              [ngModelOptions]="{standalone: true}" />
+          </div>
+          <div class="input-group">
+            <img src="../../assets/tel.png" alt="Icon" class="input-icon" />
+            <input type="tel" placeholder="Téléphone" required [(ngModel)]="formData['tel']"
+              [ngModelOptions]="{standalone: true}" />
+          </div>
+          <div class="input-group">
+            <img src="../../assets/mutuelle.png" alt="Icon" class="input-icon" />
+            <input type="text" placeholder="Mutuelle" required [(ngModel)]="formData['mutuelle']"
+              [ngModelOptions]="{standalone: true}" />
+          </div>
+          <div class="input-group">
+            <img src="../../assets/medecin_traitant.png" alt="Icon" class="input-icon" />
+            <input type="text" placeholder="Médecin traitant" required [(ngModel)]="formData['medecin_traitant']"
+              [ngModelOptions]="{standalone: true}" />
+          </div>
+          <div class="input-group">
+            <img src="../../assets/personne_a_contacter.png" alt="Icon" class="input-icon" />
+            <input type="tel" placeholder="Personne à contacter" required [(ngModel)]="formData['personne_a_contacter']"
+              [ngModelOptions]="{standalone: true}" />
+          </div>
+          <div class="div-button"> <button type="submit">Créer le DPI</button></div>
+        </div>
+
+        <div class="illustration2">
+          <img src="../../assets/Doctor-pana 1.png" alt="Doctor" />
+        </div>
+
+      </div>
+
+    </section>
+
+  </form>
+
+
 </div>
