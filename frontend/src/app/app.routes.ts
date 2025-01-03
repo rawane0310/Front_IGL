@@ -22,16 +22,15 @@ export const routes: Routes = [
   { path: 'login', component: LoginPageComponent, canActivate: [AlreadyAuthGuard] },
   { path: 'recherche', component: RecherchePageComponent, canActivate: [AuthGuard, RechercheDossierGuard] },
   { path: 'create-patient', component: CreatePatientComponent, canActivate: [AuthGuard, CreatePatientGuard] },
-  {
-    path: 'dpi/:dpiId',
-    component: DpiPageComponent,
-    canActivate: [AuthGuard],
-    children: [
-      { path: '', redirectTo: 'infos-dpi', pathMatch: 'full' },
-      { path: 'infos-dpi', component: InfosDpiComponent },
-      { path: 'consultations-dpi', component: ConsultationsDpiComponent },
-      { path: 'soins-dpi', component: SoinsDpiComponent },
-      { path: 'examens-dpi', component: ExamensDpiComponent },
-    ],
-  },
+  { path: 'dpi/:dpiId',
+      component: DpiPageComponent,
+      children: [
+          { path: '', redirectTo: 'infos-dpi', pathMatch: 'full' },
+          { path: 'infos-dpi', component: InfosDpiComponent },
+          { path: 'consultations-dpi', component: ConsultationsDpiComponent },
+          { path: 'soins-dpi', component: SoinsDpiComponent },
+          { path: 'examens-radiologiques-dpi', component: ExamensRadiologiquesComponent},
+          { path: 'analyses-biologiques-dpi', component: AnalysesBiologiquesComponent}  
+      ],
+    },
 ];
