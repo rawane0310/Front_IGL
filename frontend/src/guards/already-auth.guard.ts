@@ -1,27 +1,19 @@
 import { Injectable } from '@angular/core';
-import { CanActivate, Router, NavigationEnd } from '@angular/router';
+import { CanActivate, Router, NavigationEnd, NavigationStart, RouterEvent } from '@angular/router';
 import { filter } from 'rxjs/operators';
 import Swal from 'sweetalert2';
+import { TrackRouteService } from '../services/track-route.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AlreadyAuthGuard implements CanActivate {
-  constructor(private router: Router) {
-
-    this.router.events.pipe(
-      filter(event => event instanceof NavigationEnd)
-    ).subscribe((event: NavigationEnd) => {
-      if (event.url !== '/login' && event.url !== '/') {
-        sessionStorage.setItem('lastValidRoute', event.url);
-      }
-    });
-  }
+  constructor(public router: Router, public trackRouteService: TrackRouteService) {}
 
   canActivate(): boolean {
     const token = localStorage.getItem('accessToken');
     if (token) {
-      const lastValidRoute = sessionStorage.getItem('lastValidRoute')
+      const lastValidRoute = this.trackRouteService.getLastValidRouteValue()
       console.log('Last Valid Route:', lastValidRoute);
       Swal.fire({
         icon: 'warning',

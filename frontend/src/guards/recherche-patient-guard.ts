@@ -2,20 +2,13 @@ import { Injectable } from '@angular/core';
 import { CanActivate, NavigationEnd, Router } from '@angular/router';
 import { filter } from 'rxjs';
 import Swal from 'sweetalert2';
+import { TrackRouteService } from '../services/track-route.service';
 
 @Injectable({
     providedIn: 'root',
 })
 export class RechercheDossierGuard implements CanActivate {
-    constructor(private router: Router) {
-        this.router.events.pipe(
-            filter(event => event instanceof NavigationEnd)
-        ).subscribe((event: NavigationEnd) => {
-            if (event.url !== '/login' && event.url !== '/') {
-                sessionStorage.setItem('lastValidRoute', event.url);
-            }
-        });
-    }
+    constructor(private router: Router, public trackRouteService: TrackRouteService) {}
 
 
     canActivate(): boolean {
@@ -24,7 +17,7 @@ export class RechercheDossierGuard implements CanActivate {
         if (userRole !== 'patient' && userRole !== 'administratif') {
             return true;
         } else {
-            const lastValidRoute = sessionStorage.getItem('lastValidRoute')
+            const lastValidRoute = this.trackRouteService.getLastValidRouteValue();
             Swal.fire({
                 icon: 'warning',
                 text: "Vous n'avez pas accès à cette page !",

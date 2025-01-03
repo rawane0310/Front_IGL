@@ -10,6 +10,7 @@ import { UserIndicatorsServiceService } from '../services/user-indicators-servic
 import { LoadingIndicatorComponent } from '../components/loading-indicator/loading-indicator.component';
 import { SuccesIndicatorComponent } from '../components/succes-indicator/succes-indicator.component';
 import { ErrorIndicatorComponent } from '../components/error-indicator/error-indicator.component';
+import { TrackRouteService } from '../services/track-route.service';
 
 @Component({
   selector: 'app-root',
@@ -21,7 +22,7 @@ import { ErrorIndicatorComponent } from '../components/error-indicator/error-ind
 export class AppComponent   {
   title = 'frontend';
 
-  constructor(public userIndicatorService: UserIndicatorsServiceService) {} 
+  constructor(public userIndicatorService: UserIndicatorsServiceService, public trackRouteService: TrackRouteService) {} 
 
   
 }

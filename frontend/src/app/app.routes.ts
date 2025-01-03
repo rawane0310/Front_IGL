@@ -16,11 +16,13 @@ import { AuthGuard } from './../guards/auth-guard';
 import { AlreadyAuthGuard } from './../guards/already-auth.guard';
 import { CreatePatientGuard } from '../guards/create-patient-guard';
 import { RechercheDossierGuard } from '../guards/recherche-patient-guard';
+import { dpiAnalyseBiologiqueGuard } from '../guards/dpi.analyse-biologique.guard';
+import { dpiExamenRadiologiqueGuard } from '../guards/dpi.examen-radiologique.guard';
 
 export const routes: Routes = [
   { path: '', component: LandingPageComponent },
   { path: 'login', component: LoginPageComponent, canActivate: [AlreadyAuthGuard] },
-  { path: 'recherche', component: RecherchePageComponent, canActivate: [AuthGuard, RechercheDossierGuard] },
+  { path: 'recherche', component: RecherchePageComponent, canActivate: [AuthGuard] },
   { path: 'create-patient', component: CreatePatientComponent, canActivate: [AuthGuard, CreatePatientGuard] },
   { path: 'dpi/:dpiId',
       component: DpiPageComponent,
@@ -29,8 +31,9 @@ export const routes: Routes = [
           { path: 'infos-dpi', component: InfosDpiComponent },
           { path: 'consultations-dpi', component: ConsultationsDpiComponent },
           { path: 'soins-dpi', component: SoinsDpiComponent },
-          { path: 'examens-radiologiques-dpi', component: ExamensRadiologiquesComponent},
-          { path: 'analyses-biologiques-dpi', component: AnalysesBiologiquesComponent}  
+          { path: 'examens-radiologiques-dpi', component: ExamensRadiologiquesComponent, canActivate: [dpiExamenRadiologiqueGuard] },
+          { path: 'analyses-biologiques-dpi', component: AnalysesBiologiquesComponent, canActivate: [dpiAnalyseBiologiqueGuard] }  
       ],
-    },
+      canActivate: [AuthGuard]
+  },
 ];
