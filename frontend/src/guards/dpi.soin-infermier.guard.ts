@@ -1,12 +1,16 @@
 import { inject } from "@angular/core"
 import { UserRoleService } from "../services/user-role.service"
 import Swal from "sweetalert2"
+import { CanActivateFn, Router } from "@angular/router"
+import { TrackRouteService } from "../services/track-route.service"
 
-export function dpiAnalyseBiologiqueGuard (): boolean{
+export const dpiSoinInfermierGuard: CanActivateFn = (route, state) => {
     const userRoleService = inject(UserRoleService)
     const role = userRoleService.getRole()
-    if( role == 'laborantin' || role == 'medecin' || role == 'patient') return true
+    if( role == 'infermier' || role == 'medecin' || role == 'patient') return true
 
+    const router = inject(Router);
+    const trackRouteService = inject(TrackRouteService);
     Swal.fire({
         icon: 'warning',
         text: "Accès refusé : vos droits d'accès ne vous permettent pas de consulter cette section du DPI.",
@@ -18,5 +22,6 @@ export function dpiAnalyseBiologiqueGuard (): boolean{
         },
     })
 
+    router.navigate([trackRouteService.getLastValidRouteValue()])
     return false
 }

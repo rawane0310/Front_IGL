@@ -20,4 +20,8 @@ export class UserRoleService {
   checkRole(role: string): boolean {
     return this.getRole() === role;
   }
+
+  checkUserRole(role: string): boolean {
+    return this.getUserRole() === role;
+  }
 }
