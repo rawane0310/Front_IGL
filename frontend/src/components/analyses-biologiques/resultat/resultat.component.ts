@@ -12,8 +12,9 @@ import { UserRoleService } from '../../../services/user-role.service';
 
 
 /**
- * Component to manage and display results of biological analyses.
- * Allows modification, deletion, and viewing of graphical data related to results.
+ * Component for managing and displaying results of biological analyses.
+ * Provides functionality for adding, modifying, deleting, and viewing analysis results with graphical and dialog interfaces.
+ * @component
  */
 @Component({
   selector: 'app-resultat',
@@ -24,8 +25,8 @@ import { UserRoleService } from '../../../services/user-role.service';
 })
 export class ResultatComponent {
 
-   /**
-   * Injected service for handling biological analysis results.
+  /**
+   * Service for handling operations related to biological analysis results.
    */
   resultatsAnalyseService = inject(ResultatAnalyseService)
 

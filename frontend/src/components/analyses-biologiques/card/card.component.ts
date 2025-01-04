@@ -6,7 +6,8 @@ import { UserIndicatorsServiceService } from '../../../services/user-indicators-
 
 /**
  * Component representing a card for displaying a single biological analysis.
- * Allows users to expand the card to show detailed information or perform actions.
+ * The card can be expanded to show more details, allowing users to perform actions such as viewing or modifying the analysis.
+ * @component
  */
 @Component({
   selector: 'app-card:not(p)',
@@ -18,38 +19,58 @@ import { UserIndicatorsServiceService } from '../../../services/user-indicators-
 export class CardComponent {
 
   /**
-   * Service for managing biological analyses.
+   * Service for managing biological analyses, used to fetch and update analysis data.
+   * 
+   * @type {AnalysesBiologiquesService}
    */
   analysesBiologiquesService = inject(AnalysesBiologiquesService)
 
+
   /**
-   * Signal to track whether the "plus" (detailed view) dialog is open.
+   * Signal to track whether the detailed view ("plus") dialog for the analysis is open.
+   * This controls the visibility of the expanded card view.
+   * 
+   * @signal
+   * @type {Signal<boolean>}
    */
   plusOpened = signal(false)
 
   /**
-   * Input for the biological analysis data displayed on this card.
+   * Input property for the biological analysis data displayed on this card.
+   * The analysis is required for this card to be properly rendered.
+   * 
+   * @input
+   * @type {AnalyseBiologique}
    */
   analyse = input.required<AnalyseBiologique>()
 
 
   /**
-   * Constructor for injecting required services.
-   * @param userIndicatorsService Service for managing user feedback and loading/error states.
+   * Constructor for injecting the necessary services into the component.
+   * 
+   * @param {UserIndicatorsServiceService} userIndicatorsService Service for managing user feedback, loading states, and error handling.
    */
   constructor(public userIndicatorsService: UserIndicatorsServiceService){}
 
 
   /**
-   * Opens the detailed "plus" view of the card.
+   * Opens the detailed view (or "plus" view) of the card to display more information about the biological analysis.
+   * 
+   * @public
+   * @method openPlus
+   * @returns {void}
    */
   openPlus(): void{
     this.plusOpened.set(true)
   }
 
 
-  /**
-   * Closes the detailed "plus" view of the card.
+   /**
+   * Closes the detailed "plus" view of the card, hiding the expanded analysis details.
+   * 
+   * @public
+   * @method closePlus
+   * @returns {void}
    */
   closePlus(): void{
     this.plusOpened.set(false)

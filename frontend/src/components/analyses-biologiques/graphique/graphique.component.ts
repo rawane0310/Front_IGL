@@ -10,6 +10,8 @@ Chart.register(...registerables)
 /**
  * Component for rendering a graphical representation of data using Chart.js.
  * It fetches data from the server and displays a stacked bar chart.
+ * The chart is customizable with dynamic data based on the provided analysis ID.
+ * @component
  */
 @Component({
   selector: 'app-graphique',
@@ -20,30 +22,47 @@ Chart.register(...registerables)
 })
 export class GraphiqueComponent {
 
-  /**
-   * Output event emitter to notify parent component when the chart should be closed.
+  
+   /**
+   * Output event emitter to notify the parent component when the chart should be closed.
+   * This emits an event when the user wants to close the chart view.
+   * 
+   * @output
+   * @type {EventEmitter<void>}
    */
   closeEvent = output()
 
   /**
    * Input for the analysis ID used to fetch data for the chart.
+   * This ID is required to pull the relevant data from the server.
+   * 
+   * @input
+   * @type {number}
    */
   analyseId = input.required()
 
   /**
-   * Chart.js instance for rendering the chart.
+   * Instance of the Chart.js object for rendering the chart on the page.
+   * 
+   * @type {Chart}
    */
   chart: any;
 
   /**
-   * Data fetched from the server for the chart.
+   * Data fetched from the server to populate the chart.
+   * 
+   * @type {any}
    */
+
   chartData: any;
 
 
 
-  /**
-   * Configuration for the Chart.js chart.
+   /**
+   * Configuration for the Chart.js chart, defining the chart's type, labels, datasets, and options.
+   * This includes settings for stacked bars.
+   * 
+   * @type {any}
    */
   public config: any =  {
     type: 'bar',
@@ -77,15 +96,18 @@ export class GraphiqueComponent {
 
 
   /**
-   * Constructor to inject services.
-   * @param userIndicatorService Service for handling user feedback and loading indicators.
+   * Constructor for injecting necessary services into the component.
+   * 
+   * @param {UserIndicatorsServiceService} userIndicatorService Service for handling user feedback, loading indicators, and error messages.
    */
   constructor(public userIndicatorService: UserIndicatorsServiceService){}
 
   
   /**
-   * Fetches data for the chart from the server.
-   * @returns The fetched chart data or sets an error state if the request fails.
+   * Fetches data for the chart from the server using the analysis ID.
+   * Handles loading and error states, and returns the chart data on success.
+   * 
+   * @returns {Promise<any>} The fetched chart data or an error state if the request fails.
    */
   async fetchGraphiqueData(): Promise<any> {
     try {
@@ -126,7 +148,11 @@ export class GraphiqueComponent {
 
 
   /**
-   * Initializes the component by fetching data and rendering the chart.
+   * Initializes the component by fetching the chart data and rendering the chart.
+   * This method is called when the component is initialized.
+   * 
+   * @async
+   * @returns {Promise<void>}
    */
   async ngOnInit(): Promise<void> {
     this.chartData = await this.fetchGraphiqueData()
@@ -139,6 +165,11 @@ export class GraphiqueComponent {
   
   /**
    * Closes the chart and emits the `closeEvent` to notify the parent component.
+   * This method is called when the user wants to close the chart view.
+   * 
+   * @public
+   * @method closeGraphique
+   * @returns {void}
    */
   closeGraphique(){
     this.closeEvent.emit()

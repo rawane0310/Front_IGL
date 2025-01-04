@@ -10,8 +10,10 @@ import { AnalysesBiologiquesService } from '../../../services/analyses-biologiqu
 import { UserRoleService } from '../../../services/user-role.service';
 
 /**
- * Component for managing a detailed view of a single biological analysis, 
- * including deletion, modification, and adding results.
+ * Component for managing the detailed view of a single biological analysis.
+ * Includes functionality for viewing, modifying, deleting, and adding results to an analysis.
+ * It manages UI visibility for different actions such as deleting and modifying the analysis.
+ * @component
  */
 @Component({
   selector: 'app-analyse-plus',
@@ -24,11 +26,15 @@ export class AnalysePlusComponent {
 
   /**
    * Service for managing biological analyses.
+   * 
+   * @type {AnalysesBiologiquesService}
    */
   analysesBiologiquesService = inject(AnalysesBiologiquesService)
 
   /**
-   * Icons for UI actions.
+   * Icons for UI actions such as delete, modify, and add.
+   * 
+   * @type {IconDefinition}
    */
   faTrashCan=faTrashCan
   faPenToSquare=faPenToSquare
@@ -37,39 +43,59 @@ export class AnalysePlusComponent {
 
   /**
    * Event emitted when the analysis dialog is closed.
+   * 
+   * @output
    */
   closeEvent = output()
 
   /**
-   * Signal to track the active tab index in the component.
+   * Signal to track the active tab index within the component.
+   * 
+   * @signal
+   * @type {Signal<number>}
    */
   active = signal(0)
 
   /**
-   * Signal to track the visibility of the delete confirmation dialog.
+   * Signal to control the visibility of the delete confirmation dialog.
+   * 
+   * @signal
+   * @type {Signal<boolean>}
    */
   deleteDialog = signal(false)
 
   /**
-   * Signal to track the visibility of the modify analysis dialog.
+   * Signal to control the visibility of the modify analysis dialog.
+   * 
+   * @signal
+   * @type {Signal<boolean>}
    */
   modifyDialog = signal(false)
 
 
   /**
-   * Signal to track the visibility of the add result dialog.
+   * Signal to control the visibility of the add result dialog.
+   * 
+   * @signal
+   * @type {Signal<boolean>}
    */
   ajouterResultat= signal(false)
 
 
   /**
    * The current biological analysis being managed.
+   * 
+   * @input
+   * @type {AnalyseBiologique}
    */
   analyse = input.required<AnalyseBiologique>()
 
 
-  /**
-   * Computed property to generate the delete endpoint for the analysis.
+   /**
+   * Computed property to generate the delete endpoint URL for the current analysis.
+   * 
+   * @computed
+   * @returns {string} The endpoint URL for the analysis deletion.
    */
   deleteEndpoint= computed(()=>{
     return "http://localhost:8000/examens/examen_biologique/"+this.analyse().id+"/"
@@ -77,7 +103,10 @@ export class AnalysePlusComponent {
 
 
   /**
-   * Computed property to check if the result is ready (laborantin is assigned).
+   * Computed property to check if the result is ready (i.e., the laborantin is assigned).
+   * 
+   * @computed
+   * @returns {boolean} True if the result is ready, otherwise false.
    */
   resultatPret = computed(()=>{
     return this.analyse().laborantin !== null
@@ -85,14 +114,19 @@ export class AnalysePlusComponent {
 
 
   /**
-   * Constructor to inject required services.
-   * @param userRoleService Service for managing user roles and permissions.
+   * Constructor to inject the necessary services for managing user roles and biological analyses.
+   * 
+   * @param {UserRoleService} userRoleService Service for managing user roles and permissions.
    */
   constructor(public userRoleService: UserRoleService) { }
 
  
   /**
-   * Closes the detailed view of the analysis.
+   * Emits the closeEvent to close the analysis dialog and return to the previous view.
+   * 
+   * @public
+   * @method closeAnalyse
+   * @returns {void}
    */
   closeAnalyse(): void{
     this.closeEvent.emit();
@@ -100,9 +134,13 @@ export class AnalysePlusComponent {
 
 
   /**
-   * Sets the active tab index.
-   * @param event The event object for the tab click.
-   * @param tabIndex The index of the tab to activate.
+   * Sets the active tab index when a tab is clicked.
+   * 
+   * @public
+   * @method setActive
+   * @param {Event} event The event object for the tab click.
+   * @param {number} tabIndex The index of the tab to activate.
+   * @returns {void}
    */
   setActive(event: Event,tabIndex: number): void {
     event.stopPropagation();
@@ -110,8 +148,12 @@ export class AnalysePlusComponent {
   }
 
   /**
-   * Opens the delete confirmation dialog.
-   * @param event The event object for the delete action.
+   * Opens the delete confirmation dialog when the delete action is triggered.
+   * 
+   * @public
+   * @method openDeleteDialog
+   * @param {Event} event The event object for the delete action.
+   * @returns {void}
    */
   openDeleteDialog(event: Event): void {
     event.stopPropagation();
@@ -120,8 +162,12 @@ export class AnalysePlusComponent {
 
 
   /**
-   * Closes the delete confirmation dialog and removes the analysis from the service.
-   * @param id The ID of the analysis to be deleted.
+   * Closes the delete confirmation dialog and deletes the analysis from the list.
+   * 
+   * @public
+   * @method closeDeleteDialog
+   * @param {number} id The ID of the analysis to be deleted.
+   * @returns {void}
    */
   closeDeleteDialog(id: number): void {
     this.analysesBiologiquesService.AnalysesBiologiques.set(this.analysesBiologiquesService.AnalysesBiologiques().filter(analyse => analyse.id !== id))
@@ -130,8 +176,12 @@ export class AnalysePlusComponent {
 
 
   /**
-   * Opens the modify analysis dialog.
-   * @param event The event object for the modify action.
+   * Opens the modify analysis dialog when the modify action is triggered.
+   * 
+   * @public
+   * @method openModifyDialog
+   * @param {Event} event The event object for the modify action.
+   * @returns {void}
    */
   openModifyDialog(event: Event): void {
     event.stopPropagation();
@@ -140,15 +190,23 @@ export class AnalysePlusComponent {
 
 
   /**
-   * Closes the modify analysis dialog.
+   * Closes the modify analysis dialog when the modification is finished.
+   * 
+   * @public
+   * @method closeModifyDialog
+   * @returns {void}
    */
   closeModifyDialog(){
     this.modifyDialog.set(false)
   }
 
   /**
-   * Opens the add result dialog.
-   * @param event The event object for the add result action.
+   * Opens the add result dialog when the add result action is triggered.
+   * 
+   * @public
+   * @method openAjouterResultat
+   * @param {Event} event The event object for the add result action.
+   * @returns {void}
    */
   openAjouterResultat(event: Event): void {
     event.stopPropagation();
@@ -157,7 +215,11 @@ export class AnalysePlusComponent {
 
 
   /**
-   * Closes the add result dialog.
+   * Closes the add result dialog when the action is finished.
+   * 
+   * @public
+   * @method closeAjouterResultat
+   * @returns {void}
    */
   closeAjouterResultat(): void {
     this.ajouterResultat.set(false)
