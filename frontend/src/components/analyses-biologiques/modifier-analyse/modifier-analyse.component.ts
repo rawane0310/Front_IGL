@@ -5,6 +5,10 @@ import { UserIndicatorsServiceService } from '../../../services/user-indicators-
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import axios from 'axios';
 
+/**
+ * Component to modify an existing biological analysis.
+ * Uses a reactive form to capture updates and communicates with a backend API.
+ */
 @Component({
   selector: 'app-modifier-analyse',
   standalone: true,
@@ -13,15 +17,40 @@ import axios from 'axios';
   styleUrl: './modifier-analyse.component.css'
 })
 export class ModifierAnalyseComponent {
+
+  /**
+   * Injected service for managing biological analyses.
+   */
   analysesBiologiquesService = inject(AnalysesBiologiquesService)
 
+  /**
+   * Output event emitter to notify the parent component when the dialog is closed.
+   */
   closeEvent = output()
 
+  /**
+   * Input containing the current analysis to be modified.
+   */
   analyse = input.required<AnalyseBiologique>()
+
+  /**
+   * Reactive form group for the analysis modification form.
+   */
   formGroup !: FormGroup
 
+
+  /**
+   * Constructor to inject the user indicator service.
+   * @param userIndicatorService Service for handling user feedback and indicators.
+   */
   constructor(public userIndicatorService: UserIndicatorsServiceService){}
 
+
+
+  /**
+   * Initializes the form group with existing analysis data.
+   * This lifecycle hook is called when the component is initialized.
+   */
   ngOnInit(){
    this.formGroup = new FormGroup({
     date : new FormControl(this.analyse().date, [Validators.required]),
@@ -30,10 +59,22 @@ export class ModifierAnalyseComponent {
    }) 
   }
 
+
+
+  /**
+   * Closes the modification dialog and emits the `closeEvent`.
+   */
   closeModify():void{
     this.closeEvent.emit()
   }
 
+
+
+  /**
+   * Handles the form submission to update the analysis.
+   * Sends a PUT request to the backend with the updated analysis data.
+   * @param event The submit event triggered by the form.
+   */
   async onSubmit(event: Event){
     if(this.formGroup.valid){
       console.log(this.formGroup.value)

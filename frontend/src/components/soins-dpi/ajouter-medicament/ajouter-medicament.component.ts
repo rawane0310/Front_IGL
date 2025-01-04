@@ -6,6 +6,12 @@ import axios from 'axios';
 import SoinInfermier from '../../../models/SoinInfermier';
 import Medicament from '../../../models/Medicament';
 
+/**
+ * This component handles the creation and modification of medication for a specific "soin" (nursing treatment).
+ * It allows the user to input medication details and submit them to the server.
+ * 
+ * @component
+ */
 @Component({
   selector: 'app-ajouter-medicament',
   standalone: true,
@@ -14,18 +20,59 @@ import Medicament from '../../../models/Medicament';
   styleUrl: './ajouter-medicament.component.css'
 })
 export class AjouterMedicamentComponent {
+
+  /**
+   * The service that handles the medicaments-related data.
+   * @type {MedicamentsService}
+   */
   medicamentsService = inject(MedicamentsService)
+
+  /**
+   * Output event for closing the modal.
+   */
   ajouterMedCloseEvent = output()
 
+
+   /**
+   * The ID of the current soin (nursing treatment).
+   * @type {number}
+   */
   soinId = input.required()
+
+  /**
+   * The medicament to modify or create.
+   * @type {Medicament}
+   */
   medicament = input<Medicament>()
+
+
+  /**
+   * The form group containing the medication details.
+   * @type {FormGroup}
+   */
   formGroup !: FormGroup
 
+  /**
+   * Creates an instance of the `AjouterMedicamentComponent`.
+   * 
+   * @param {UserIndicatorsServiceService} userIndicatorService - The service responsible for managing user indicators (loading, success, and error states).
+   */
   constructor(public userIndicatorService: UserIndicatorsServiceService) { }
+
+
+  /**
+   * Closes the "add medication" modal.
+   * @returns {void}
+   */
   closeAjouterMed(): void{
     this.ajouterMedCloseEvent.emit()
   }
 
+
+   /**
+   * Initializes the form with values from the existing medication if present.
+   * @returns {void}
+   */
   ngOnInit(): void{
     this.formGroup = new FormGroup({
       nom: new FormControl(this.medicament()?.nom || '',[Validators.required]),
@@ -37,6 +84,11 @@ export class AjouterMedicamentComponent {
     })
   }
 
+  /**
+   * Modifies an existing medication.
+   * Sends a PUT request to update the medicament on the server.
+   * @returns {Promise<void>}
+   */
   async modifierMedicamente(): Promise<void>{
     try {
       this.userIndicatorService.loadingData.set({
@@ -92,6 +144,12 @@ export class AjouterMedicamentComponent {
     }
   }
 
+
+   /**
+   * Adds a new medication.
+   * Sends a POST request to create the medicament on the server.
+   * @returns {Promise<void>}
+   */
   async ajouterMedicament(): Promise<void>{
     try {
       this.userIndicatorService.loadingData.set({
@@ -143,10 +201,18 @@ export class AjouterMedicamentComponent {
     }
   }
 
+  /**
+   * Handles the form submission to either add or modify a medication.
+   * Based on the medicament state, it either calls the modifierMedicamente or ajouterMedicament method.
+   * @returns {Promise<void>}
+   */
   async onSubmit(): Promise<void> {
     console.log("Form submited medicament/create/",this.formGroup.value)
-    if(this.medicament()) await this.modifierMedicamente()
-    else await this.ajouterMedicament()
+    if(this.formGroup.valid){
+      if(this.medicament()) await this.modifierMedicamente()
+      else await this.ajouterMedicament()
+    }
+    
   }
 
 }

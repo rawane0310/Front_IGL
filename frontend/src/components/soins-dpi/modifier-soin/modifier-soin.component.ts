@@ -5,6 +5,22 @@ import { UserIndicatorsServiceService } from '../../../services/user-indicators-
 import axios from 'axios';
 import { SoinsInfermiersService } from '../../../services/soins-infermiers.service';
 
+
+/**
+ * A component that allows the modification of a nurse's care (soin). It includes a form where users can update details
+ * like the date, time, observation, and other care-related data for a specific care instance.
+ * 
+ * @component
+ * 
+ * @property {SoinInfermier} soin - The care instance that is being modified. This is a required input.
+ * @property {FormGroup} formGroup - The form group used for managing the form controls and validation.
+ * @property {Signal<boolean>} modifierSoinCloseEvent - A signal to emit when the user wants to close the form. This will notify the parent component.
+ * 
+ * @method ngOnInit - Initializes the form with the data from the selected care instance (`soin`). This sets the form controls based on the input values.
+ * @method closeSoin - Emits the `modifierSoinCloseEvent` to notify the parent component to close the form.
+ * @method onSubmit - Handles the form submission. It sends an HTTP PUT request to modify the care instance and updates the local data on success.
+ * @method constructor - Initializes the component and injects the required services for user indicators and soins management.
+ */
 @Component({
   selector: 'app-modifier-soin',
   standalone: true,
@@ -13,13 +29,47 @@ import { SoinsInfermiersService } from '../../../services/soins-infermiers.servi
   styleUrl: './modifier-soin.component.css'
 })
 export class ModifierSoinComponent {
+
+  /** 
+   * The service that manages the list of soins (nurse's care).
+   * @type {SoinsInfermiersService}
+   */
   soinsInfermiersService = inject(SoinsInfermiersService)
+
+
+  /** 
+   * A signal that will emit when the modification form should be closed.
+   * @type {Signal<void>}
+   */
   modifierSoinCloseEvent = output()
 
+
+  /**
+   * The care instance being modified. This is a required input.
+   * @type {SoinInfermier}
+   */
   soin = input.required<SoinInfermier>()
+
+
+  /** 
+   * The form group used to manage the modification form.
+   * @type {FormGroup}
+   */
   formGroup ! :  FormGroup;
 
+
+  /**
+   * Constructor for the `ModifierSoinComponent`. It injects the necessary services for handling user indicators.
+   * 
+   * @param {UserIndicatorsServiceService} userIndicatorService - The service for managing user indicators (loading, success, error messages).
+   */
   constructor(public userIndicatorService: UserIndicatorsServiceService){}
+
+
+  /**
+   * Initializes the form with the values from the selected care instance (`soin`).
+   * Sets up the form controls with the required validators and existing values.
+   */
   ngOnInit() {
     const soinValue = this.soin(); // Access the input value dynamically
     this.formGroup = new FormGroup({
@@ -32,10 +82,20 @@ export class ModifierSoinComponent {
     });
   }
 
+
+  /**
+   * Emits the `modifierSoinCloseEvent` to notify the parent component that the form should be closed.
+   */
   closeSoin(){
     this.modifierSoinCloseEvent.emit()
   }
 
+
+  /**
+   * Handles the form submission. If the form is valid, sends an HTTP PUT request to modify the care instance.
+   * 
+   * @param {Event} event - The form submit event.
+   */
   async onSubmit(event: Event) {
     event.preventDefault();
 

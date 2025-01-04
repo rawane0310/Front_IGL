@@ -5,6 +5,11 @@ import { ActivatedRoute } from '@angular/router';
 import { UserIndicatorsServiceService } from '../../services/user-indicators-service.service';
 import axios from 'axios';
 
+
+/**
+ * The ExamensRadiologiquesComponent fetches and displays a list of radiological exams 
+ * related to a particular patient, using the patient's dossier ID (`dpiId`).
+ */
 @Component({
   selector: 'app-examens-radiologiques',
   standalone: true,
@@ -13,10 +18,29 @@ import axios from 'axios';
   styleUrl: './examens-radiologiques.component.css'
 })
 export class ExamensRadiologiquesComponent {
+
+  /**
+  * Inject the ExamensRadiologiquesService to manage and retrieve radiological exams data.
+  */
   examensRadiologiquesService = inject(ExamensRadiologiquesService)
 
-  constructor(private route: ActivatedRoute, public userIndicatorService: UserIndicatorsServiceService){}
 
+  /**
+   * Constructor for the ExamensRadiologiquesComponent.
+   * 
+   * @param route - ActivatedRoute to access route parameters
+   * @param userIndicatorService - Service to handle loading, success, and error indicators
+   */
+  constructor(
+    private route: ActivatedRoute, 
+    public userIndicatorService: UserIndicatorsServiceService
+  ){}
+
+
+  /**
+   * ngOnInit lifecycle hook that is triggered when the component is initialized.
+   * It fetches the radiological exams data and handles loading, success, and error states.
+   */
   async ngOnInit(): Promise<void>{
     try {
       this.userIndicatorService.loadingData.set({

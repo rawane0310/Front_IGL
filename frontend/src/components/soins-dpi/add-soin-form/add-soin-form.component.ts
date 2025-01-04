@@ -10,6 +10,12 @@ import { UserIndicatorsServiceService } from '../../../services/user-indicators-
 import axios from 'axios';
 import { UserRoleService } from '../../../services/user-role.service';
 
+/**
+ * Component to handle the creation of a new "soin infermier" (nursing care) record.
+ * Provides a form for adding nursing care details and includes options to manage medications.
+ * 
+ * @component
+ */
 @Component({
   selector: 'app-add-soin-form',
   standalone: true,
@@ -18,17 +24,63 @@ import { UserRoleService } from '../../../services/user-role.service';
   styleUrl: './add-soin-form.component.css'
 })
 export class AddSoinFormComponent {
+
+  /**
+   * The service for managing soins infermiers data.
+   * @type {SoinsInfermiersService}
+   */
   soinsInfermiersService = inject(SoinsInfermiersService)
 
+
+  /**
+   * FontAwesome icon for the "plus circle" icon.
+   * @type {IconDefinition}
+   */
   faPlusCircle=faPlusCircle
+
+
+  /**
+   * Event emitter for closing the form.
+   * @type {EventEmitter<void>}
+   */
   closeEvent = output()
+
+
+  /**
+   * Signal for managing navigation to the next step.
+   * @type {Signal<boolean>}
+   */
   next = signal(false)
+
+
+  /**
+   * Signal for showing the "ajouter medicament" modal.
+   * @type {Signal<boolean>}
+   */
   ajouterMed = signal(false)
 
+
+  /**
+   * ID of the created soin (nursing care) record.
+   * @type {number}
+   */
   soinId !: number
 
-  constructor(public userIndicatorService: UserIndicatorsServiceService, public userRoleService: UserRoleService){}
+  /**
+     * Constructor for initializing the component and injecting services.
+     * 
+     * @param {UserIndicatorsServiceService} userIndicatorService - Service for managing user indicators (loading, success, error states).
+     * @param {UserRoleService} userRoleService - Service for managing user roles and permissions.
+     */
+  constructor(
+    public userIndicatorService: UserIndicatorsServiceService,
+    public userRoleService: UserRoleService
+  ) {}
 
+  /**
+   * Reactive form group to manage form controls and validation for the nursing care record.
+   * @type {FormGroup}
+   */
   formGroup = new FormGroup({
     date: new FormControl('',[Validators.required]),
     heure: new FormControl('',[Validators.required]),
@@ -39,24 +91,59 @@ export class AddSoinFormComponent {
   })
 
 
+  /**
+   * Emits an event to close the form when triggered.
+   * 
+   * @returns {void}
+   */
   closeAddSoin(){
     this.closeEvent.emit() ;
   }
 
+
+  /**
+   * Advances to the next step in the form process.
+   * 
+   * @param {Event} event - The event that triggered the method.
+   * @returns {void}
+   */
   nextStep(event: Event){
     event.stopPropagation();
     this.next.set(true)
   }
 
+
+
+  /**
+   * Opens the "ajouter medicament" modal to add medications to the nursing care record.
+   * 
+   * @param {Event} event - The event that triggered the method.
+   * @returns {void}
+   */
   openAjouterMedicament(event: Event){
     event.stopPropagation();
     this.ajouterMed.set(true)
   }
 
+
+
+  /**
+   * Closes the "ajouter medicament" modal.
+   * 
+   * @returns {void}
+   */
   closeAjouterMedicament(){
     this.ajouterMed.set(false)
   }
 
+
+  /**
+   * Submits the form to create a new "soin infermier" record.
+   * It includes validation, API request, and success/error handling.
+   * 
+   * @param {Event} event - The event that triggered the form submission.
+   * @returns {void}
+   */
   async onSubmit(event: Event){
     
     if(this.formGroup.valid){

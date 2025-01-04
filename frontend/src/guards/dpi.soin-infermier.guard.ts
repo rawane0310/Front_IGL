@@ -4,6 +4,21 @@ import Swal from "sweetalert2"
 import { CanActivateFn, Router } from "@angular/router"
 import { TrackRouteService } from "../services/track-route.service"
 
+
+/**
+ * Guard function to control access to the nursing care (Soin Infirmer) section of the DPI.
+ * 
+ * This guard allows access to the section only for users with the roles of 'infermier' (nurse), 
+ * 'medecin' (doctor), or 'patient'. If the user has a different role, access is denied and a 
+ * warning message is shown, redirecting them to the last valid route.
+ * 
+ * @guard
+ * 
+ * @param {import('@angular/router').ActivatedRouteSnapshot} route The current route snapshot.
+ * @param {import('@angular/router').RouterStateSnapshot} state The current router state snapshot.
+ * 
+ * @returns {boolean} `true` if the user has an allowed role ('infermier', 'medecin', or 'patient'), `false` otherwise.
+ */
 export const dpiSoinInfermierGuard: CanActivateFn = (route, state) => {
     const userRoleService = inject(UserRoleService)
     const role = userRoleService.getRole()

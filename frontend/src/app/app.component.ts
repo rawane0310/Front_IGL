@@ -12,6 +12,16 @@ import { SuccesIndicatorComponent } from '../components/succes-indicator/succes-
 import { ErrorIndicatorComponent } from '../components/error-indicator/error-indicator.component';
 import { TrackRouteService } from '../services/track-route.service';
 
+/**
+ * Root component of the application that manages user indicators and route tracking.
+ * 
+ * The component includes loading, success, and error indicators and listens to changes in
+ * route navigation through the `TrackRouteService`.
+ * 
+ * @component
+ * @selector app-root
+ * @imports CommonModule, RouterOutlet, LoadingIndicatorComponent, SuccesIndicatorComponent, ErrorIndicatorComponent
+ */
 @Component({
   selector: 'app-root',
   standalone: true,
@@ -20,9 +30,29 @@ import { TrackRouteService } from '../services/track-route.service';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent   {
+
+
+  /**
+   * The title of the application.
+   * 
+   * @public
+   * @type {string}
+   * @default 'frontend'
+   */
   title = 'frontend';
 
-  constructor(public userIndicatorService: UserIndicatorsServiceService, public trackRouteService: TrackRouteService) {} 
+
+  /**
+   * Creates an instance of the `AppComponent`.
+   * 
+   * @constructor
+   * @param {UserIndicatorsServiceService} userIndicatorService Service for managing user indicators (loading, success, error).
+   * @param {TrackRouteService} trackRouteService Service for tracking the last valid route.
+   */
+  constructor(
+    public userIndicatorService: UserIndicatorsServiceService, 
+    public trackRouteService: TrackRouteService
+  ) {} 
 
   
 }
