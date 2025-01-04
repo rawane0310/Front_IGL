@@ -1,12 +1,13 @@
 import { Component, inject, input, output, signal } from '@angular/core';
-import { MedicamentsComponent } from "../../medicaments/medicaments.component";
+import { MedicamentsComponent } from "../medicaments/medicaments.component";
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faTrashCan, faPenToSquare, faPlusCircle } from '@fortawesome/free-solid-svg-icons';
-import { AjouterMedicamentComponent } from '../../ajouter-medicament/ajouter-medicament.component';
+import { AjouterMedicamentComponent } from '../ajouter-medicament/ajouter-medicament.component';
 import { DeleteDialogComponent } from '../../delete-dialog/delete-dialog.component';
-import { ModifierSoinComponent } from "../../modifier-soin/modifier-soin.component";
+import { ModifierSoinComponent } from "../modifier-soin/modifier-soin.component";
 import SoinInfermier from '../../../models/SoinInfermier';
 import { SoinsInfermiersService } from '../../../services/soins-infermiers.service';
+import { UserRoleService } from '../../../services/user-role.service';
 
 @Component({
   selector: 'app-soins-plus',
@@ -21,6 +22,7 @@ export class SoinsPlusComponent {
   faPenToSquare=faPenToSquare
   faPlusCircle=faPlusCircle
 
+  constructor(public userRoleService: UserRoleService){}
   closeEvent = output()
   activeMedicament = signal(false);
   ajouterMed = signal(false)

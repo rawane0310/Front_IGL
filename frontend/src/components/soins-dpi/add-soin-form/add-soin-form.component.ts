@@ -4,10 +4,11 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faPlusCircle } from '@fortawesome/free-solid-svg-icons';
 import { AjouterMedicamentComponent } from "../ajouter-medicament/ajouter-medicament.component";
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import SoinInfermier from '../../models/SoinInfermier';
-import { SoinsInfermiersService } from '../../services/soins-infermiers.service';
-import { UserIndicatorsServiceService } from '../../services/user-indicators-service.service';
+import SoinInfermier from '../../../models/SoinInfermier';
+import { SoinsInfermiersService } from '../../../services/soins-infermiers.service';
+import { UserIndicatorsServiceService } from '../../../services/user-indicators-service.service';
 import axios from 'axios';
+import { UserRoleService } from '../../../services/user-role.service';
 
 @Component({
   selector: 'app-add-soin-form',
@@ -26,7 +27,7 @@ export class AddSoinFormComponent {
 
   soinId !: number
 
-  constructor(public userIndicatorService: UserIndicatorsServiceService){}
+  constructor(public userIndicatorService: UserIndicatorsServiceService, public userRoleService: UserRoleService){}
 
   formGroup = new FormGroup({
     date: new FormControl('',[Validators.required]),

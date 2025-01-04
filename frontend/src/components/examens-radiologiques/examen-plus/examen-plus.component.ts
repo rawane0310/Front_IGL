@@ -7,6 +7,7 @@ import { ExamensRadiologiquesService } from '../../../services/examens-radiologi
 import { ModifierExamenComponent } from '../modifier-examen/modifier-examen.component';
 import { CompteRenduComponent } from '../compte-rendu/compte-rendu.component';
 import { AjouterCompteRenduComponent } from "../ajouter-compte-rendu/ajouter-compte-rendu.component";
+import { UserRoleService } from '../../../services/user-role.service';
 
 @Component({
   selector: 'app-examen-plus',
@@ -36,6 +37,8 @@ export class ExamenPlusComponent {
   active = signal(0)
   deleteDialog = signal(false)
   modifyDialog = signal(false)
+
+  constructor(public userRoleService: UserRoleService) {}
 
   closeExamen(): void{
     this.closeEvent.emit();

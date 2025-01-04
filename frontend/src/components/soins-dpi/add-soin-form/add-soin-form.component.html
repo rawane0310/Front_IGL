@@ -61,7 +61,7 @@
             }@else {
                 <div class="med-container">
                     <h3 class="form-title align">Ajoutez des médicaments <fa-icon [icon]="faPlusCircle" class="plus-icon" (click)="openAjouterMedicament($event)" > </fa-icon></h3>
-                    <app-medicaments [soinId]="soinId" ></app-medicaments>
+                    <app-medicaments [soinId]="soinId" [infermierId]="userRoleService.getIdNumber()" ></app-medicaments>
                     @if(ajouterMed()){
                         <app-ajouter-medicament [soinId]="soinId" (ajouterMedCloseEvent)="closeAjouterMedicament()"></app-ajouter-medicament>
                     }  

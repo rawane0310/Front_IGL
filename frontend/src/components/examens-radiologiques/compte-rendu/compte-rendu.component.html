@@ -2,7 +2,9 @@
     <div class="row blue-bg">
         <div class="align">
             <h3 class="examen-plus-title">Compte-rendu</h3>
-            <fa-icon [icon]="faPenToSquare" class="icon"  (click)="openModifyForm($event)"></fa-icon>
+            @if(userRoleService.checkRole('radiologue') && userRoleService.checkId(examen().radiologue)){
+                <fa-icon [icon]="faPenToSquare" class="icon"  (click)="openModifyForm($event)"></fa-icon>
+            }
         </div>
         
         <p class="examen-plus-text less-bold">
@@ -12,22 +14,35 @@
     <div class="row">
         <div class="align">
             <h3 class="examen-plus-text">Images médicales</h3>
-            <fa-icon [icon]="faPlusCircle" class="plus-icon" (click)="openAddForm($event)"></fa-icon>
+            @if(userRoleService.checkRole('radiologue') && userRoleService.checkId(examen().radiologue)){
+                <fa-icon [icon]="faPlusCircle" class="plus-icon" (click)="openAddForm($event)"></fa-icon>
+            }
         </div>
         <div class="imgs-container">
-            @for(image of radiologyImagesService.radiologyImages(); track image.id){
-                <div class="img-container">
-                    <div class="img-meta">
-                        <h4 class="examen-plus-text">  {{image.titre}}  </h4>
-                        <div class="img-actions">
-                            <fa-icon [icon]="faTrashCan" class="img-icon" (click)="openDeleteImgDialog($event, image.id)"></fa-icon>
-                            <fa-icon [icon]="faPenToSquare" class="img-icon" (click)="openModifyImgDialog($event, image)"></fa-icon>
-                        </div>
-                    </div>
-
-                    <img [src]="image.image" alt="images médicales">
+            @if(radiologyImagesService.radiologyImages().length === 0){
+                <div class="no-result-container">
+                    <img class="no-result-img" src="../../../assets/examenRadiologique.svg" alt="Radiologues">
+                    <p class="no-result"> Aucune image médicale n'a été ajoutée pour cet examen. </p>
                 </div>
             }
+            @else {
+                @for(image of radiologyImagesService.radiologyImages(); track image.id){
+                    <div class="img-container">
+                        <div class="img-meta">
+                            <h4 class="examen-plus-text">  {{image.titre}}  </h4>
+                            <div class="img-actions">
+                                @if(userRoleService.checkRole('radiologue') && userRoleService.checkId(examen().radiologue)){
+                                    <fa-icon [icon]="faTrashCan" class="img-icon" (click)="openDeleteImgDialog($event, image.id)"></fa-icon>
+                                    <fa-icon [icon]="faPenToSquare" class="img-icon" (click)="openModifyImgDialog($event, image)"></fa-icon>
+                                }
+                            </div>
+                        </div>
+    
+                        <img [src]="image.image" alt="images médicales">
+                    </div>
+                }
+            }
+
         </div>
     </div>
     @if(modifyForm()){

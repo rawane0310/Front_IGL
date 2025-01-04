@@ -472,6 +472,9 @@ input:focus{
     gap: 0;
 }
 
+.mgt{
+    margin-top: 1rem;
+}
 
 @media (max-width: 768px){
     .examen-plus-card{

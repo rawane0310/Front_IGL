@@ -15,10 +15,13 @@
 
             @if (active()=== 0) {
                 <div class="details">
-                    <div class="icons">
-                        <fa-icon [icon]="faTrashCan" class="icon" (click)="opendeleteDialog($event)"></fa-icon>
-                        <fa-icon [icon]="faPenToSquare" class="icon" (click)="openModifyDialog($event)"></fa-icon>
-                    </div>
+                    @if(userRoleService.checkRole('medecin') && userRoleService.checkId(examen().technicien) ) {
+                        <div class="icons">
+                            <fa-icon [icon]="faTrashCan" class="icon" (click)="opendeleteDialog($event)"></fa-icon>
+                            <fa-icon [icon]="faPenToSquare" class="icon" (click)="openModifyDialog($event)"></fa-icon>
+                        </div>
+                    }
+
                     <div class="row">
                         <p class="examen-plus-text">Médecin</p>
                         <div class="nom-container">
@@ -51,10 +54,16 @@
                     @else {
                         <div class="no-result-container">
                             <img class="no-result-img" src="../../../assets/examenRadiologique.svg" alt="Radiologues">
-                            <div class="align">
-                                <p class="no-result"> Le compte rendu et les images médicales sont prêts ? Enregistrez-les maintenant !</p>
-                                <fa-icon [icon]="faPlusCircle" class="plus-icon" (click)="openAddCompteRendu($event)" ></fa-icon>  
-                            </div>
+                            @if(userRoleService.checkRole('radiologue')){
+                                <div class="align">
+                                    <p class="no-result"> Le compte rendu et les images médicales sont prêts ? Enregistrez-les maintenant !</p>
+                                    <fa-icon [icon]="faPlusCircle" class="plus-icon" (click)="openAddCompteRendu($event)" ></fa-icon>  
+                                </div>
+                            }
+                            @else {
+                                <p class="no-result"> Le compte rendu et les images médicales ne sont pas encore prêts. </p>
+                            }
+
                         </div>  
                     }
                     

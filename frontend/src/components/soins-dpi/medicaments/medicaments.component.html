@@ -16,12 +16,14 @@
             <td data-title="Dose"> {{medicament.dose}} </td>
             <td data-title="Fréquence"> {{medicament.frequence}} </td>
             <td data-title="Durée"> {{medicament.duree}} </td>
-            <td> 
-              <div class="icons">
-                <fa-icon [icon]="faTrashCan" class="icon" (click)="opendeleteDialog($event, medicament.id)"></fa-icon>
-                <fa-icon [icon]="faPenToSquare" class="icon" (click)="openMedForm($event, medicament)"></fa-icon>
-              </div>
-            </td>
+            @if(userRoleService.checkRole('infermier') && userRoleService.checkId(infermierId())){
+              <td> 
+                <div class="icons">
+                  <fa-icon [icon]="faTrashCan" class="icon" (click)="opendeleteDialog($event, medicament.id)"></fa-icon>
+                  <fa-icon [icon]="faPenToSquare" class="icon" (click)="openMedForm($event, medicament)"></fa-icon>
+                </div>
+              </td>
+            }
           </tr>
         }
       </tbody>
@@ -30,7 +32,12 @@
   @else {
     <div class="no-result-container">
       <img src="../../assets/noResult.svg" alt="no results" class="no-result-img">
-      <p class="no-result">Ajoutez un nouveau médicament en cliquant sur l'icône + ci-dessus.</p>
+      @if(userRoleService.checkRole('infermier') && userRoleService.checkId(infermierId())){
+        <p class="no-result">Ajoutez un nouveau médicament en cliquant sur l'icône + ci-dessus.</p>
+      }
+      @else {
+        <p class="no-result">Aucun médicament n'a été enregistré pour le moment.</p>
+      }
     </div>
   }
     

@@ -1,9 +1,9 @@
 import { Component, inject, input, output } from '@angular/core';
-import SoinInfermier from '../../models/SoinInfermier';
+import SoinInfermier from '../../../models/SoinInfermier';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { UserIndicatorsServiceService } from '../../services/user-indicators-service.service';
+import { UserIndicatorsServiceService } from '../../../services/user-indicators-service.service';
 import axios from 'axios';
-import { SoinsInfermiersService } from '../../services/soins-infermiers.service';
+import { SoinsInfermiersService } from '../../../services/soins-infermiers.service';
 
 @Component({
   selector: 'app-modifier-soin',

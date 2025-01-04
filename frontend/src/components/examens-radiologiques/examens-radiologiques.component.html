@@ -1,3 +1,9 @@
+@if(!examensRadiologiquesService.examensRadiologiques().length){
+    <div class="no-result-container">
+        <img class="no-result-img" src="../../../assets/examenRadiologique.svg" alt="Biologiste">
+        <p class="no-result">Aucun examen n'a été enregistré pour le moment.</p>
+    </div>
+}
 <div class="examens-container">
     @for(examen of examensRadiologiquesService.examensRadiologiques(); track examen.id){
         <app-card [examen]="examen"></app-card>

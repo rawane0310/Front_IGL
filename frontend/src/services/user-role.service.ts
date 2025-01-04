@@ -24,4 +24,15 @@ export class UserRoleService {
   checkUserRole(role: string): boolean {
     return this.getUserRole() === role;
   }
+
+  getId(): string {
+    return localStorage.getItem('technicianID') || localStorage.getItem('administratifID') || localStorage.getItem('patientID') || localStorage.getItem('userID') || '';
+  }
+
+  getIdNumber(): number {
+    return Number(localStorage.getItem('technicianID') || localStorage.getItem('administratifID') || localStorage.getItem('patientID') || localStorage.getItem('userID') || '0');
+  }
+  checkId(id: string | number): boolean {
+    return localStorage.getItem('technicianID') === String(id) ;
+  }
 }

@@ -3,12 +3,13 @@ import { MenuDpiComponent } from '../menu-dpi/menu-dpi.component';
 import { CardComponent } from "./card/card.component";
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faCirclePlus } from '@fortawesome/free-solid-svg-icons';
-import { AddSoinFormComponent } from "../add-soin-form/add-soin-form.component";
+import { AddSoinFormComponent } from "./add-soin-form/add-soin-form.component";
 import { ActivatedRoute } from '@angular/router';
 import axios from 'axios';
 import SoinInfermier from '../../models/SoinInfermier';
 import { UserIndicatorsServiceService } from '../../services/user-indicators-service.service';
 import { SoinsInfermiersService } from '../../services/soins-infermiers.service';
+import { UserRoleService } from '../../services/user-role.service';
 
 @Component({
   selector: 'app-soins-dpi',
@@ -33,7 +34,7 @@ export class SoinsDpiComponent {
     this.addFormOpened.set(false);
   }
 
-  constructor(private route: ActivatedRoute, public userIndicatorService: UserIndicatorsServiceService) {}
+  constructor(private route: ActivatedRoute, public userIndicatorService: UserIndicatorsServiceService, public userRoleService: UserRoleService) {}
 
   async ngOnInit() {
     

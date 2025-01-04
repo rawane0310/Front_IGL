@@ -1,5 +1,14 @@
-<div class="analyses-container">
-    @for (analyse of analysesBiologiquesService.AnalysesBiologiques(); track analyse.id ){
-        <app-card [analyse]="analyse" ></app-card>
-    }
-</div>
+@if(!analysesBiologiquesService.AnalysesBiologiques().length){
+    <div class="no-result-container">
+        <img class="no-result-img" src="../../../assets/analyse.svg" alt="Biologiste">
+        <p class="no-result">Aucun analyse n'a été enregistré pour le moment.</p>
+    </div>
+}
+@else {
+    <div class="analyses-container">
+        @for (analyse of analysesBiologiquesService.AnalysesBiologiques(); track analyse.id ){
+            <app-card [analyse]="analyse" ></app-card>
+        }
+    </div>
+}
+

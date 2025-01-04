@@ -76,7 +76,7 @@
                     <app-ajouter-radiology-image [examenId]="examen().id" (closeEvent)="closeAddForm()" (imageAddedEvent)="setImageAdded($event)"></app-ajouter-radiology-image>
                 }
                 <div class="next">
-                    <button class="btn" [disabled]=" !imageAdded() || userIndicatorService.loadingData().isLoading" (click)="closeAdd()" >Terminer</button>
+                    <button class="btn mgt" [disabled]=" !imageAdded() || userIndicatorService.loadingData().isLoading" (click)="closeAdd()" >Terminer</button>
                 </div>
                 
             }

@@ -9,6 +9,7 @@ import { ExamensRadiologiquesService } from '../../../services/examens-radiologi
 import axios from 'axios';
 import { DeleteDialogComponent } from '../../delete-dialog/delete-dialog.component';
 import { AjouterRadiologyImageComponent } from '../ajouter-radiology-image/ajouter-radiology-image.component';
+import { UserRoleService } from '../../../services/user-role.service';
 
 @Component({
   selector: 'app-compte-rendu',
@@ -37,7 +38,7 @@ export class CompteRenduComponent {
    )
   imageData = signal<RadiologyImage | undefined>(undefined)
 
-  constructor(public userIndicatorService: UserIndicatorsServiceService){}
+  constructor(public userIndicatorService: UserIndicatorsServiceService, public userRoleService: UserRoleService){}
 
 
   openModifyForm(event: Event): void {

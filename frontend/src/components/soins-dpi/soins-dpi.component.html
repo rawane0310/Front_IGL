@@ -1,7 +1,12 @@
 @if(!soinsInfermiersService.soinsInfermiers().length){
     <div class="no-result-container">
         <img src="../../assets/noResult.svg" alt="no results" class="no-result-img">
-        <p class="no-result">Ajoutez un nouveau soin en cliquant sur l'icône + ci-desous.</p>
+        @if(userRoleService.checkRole('infermier')){
+            <p class="no-result">Ajoutez un nouveau soin en cliquant sur l'icône + ci-desous.</p>
+        }
+        @else {
+            <p class="no-result">Aucun soin n'a été enregistré pour le moment.</p>
+        }
     </div>
 }
 @else {
@@ -11,7 +16,9 @@
         }
     </div>
 }
-<fa-icon [icon]="faCirclePlus" class="plus-icon" (click)="openAddForm($event)"></fa-icon>
+@if(userRoleService.checkRole('infermier')){
+    <fa-icon [icon]="faCirclePlus" class="plus-icon" (click)="openAddForm($event)"></fa-icon>
+}
 @if(addFormOpened()){
     <app-add-soin-form (closeEvent)="closeAddForm()"></app-add-soin-form>
 }

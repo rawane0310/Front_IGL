@@ -1,38 +1,60 @@
 <div class="resultats-container">
     <div class="align">
         <h3 class="resultats-title">Résultats d'analyses biologiques</h3>
-        <fa-icon [icon]="faPlusCircle" class="plus-icon" (click)="openAddForm($event)"></fa-icon>
+        @if(userRoleService.checkRole('laborantin') && userRoleService.checkId(laborantinId())){
+            <fa-icon [icon]="faPlusCircle" class="plus-icon" (click)="openAddForm($event)"></fa-icon>
+        }
     </div>
-    <table>
-        <tbody>
-            @for ( resultat of resultatsAnalyseService.resultatsAnalyse(); let i = $index; track resultat.id ) {
-                <tr class="resultat-container" (click)="toggleCommentaire(i)">
-                    <td class="resultat-param"> {{resultat.parametre}} </td>
-                    <td class="resultat-value"> {{resultat.valeur}} <span class="resultat-unit"> {{resultat.unite}} </span> </td>
-                    <td class="resultat-actions">
-                        <fa-icon [icon]="faPenToSquare" class="icon" (click)="openModifyDialog($event, resultat)"></fa-icon>
-                        <fa-icon [icon]="faTrashCan" class="icon" (click)="openDeleteDialog($event, resultat.id)"></fa-icon>
-                    </td>
-                </tr>
-                @if(commentaire()[i]){
-                    <tr class="commentaire">
-                        <td class="resultat-comment" colspan="3">
-                            {{resultat.commentaire}}
-                        </td>
-                    </tr>
-                }
+    @if(!resultatsAnalyseService.resultatsAnalyse().length){
+        <div class="no-result-container">
+            <img class="no-result-img" src="../../../assets/analyse.svg" alt="Biologiste">
+            @if(userRoleService.checkRole('laborantin') && userRoleService.checkId(laborantinId())){
+                <div class="align">
+                    <p class="no-result"> Les résultats d'analyses sont prêts ? Enregistrez-les maintenant !</p>
+                </div>
             }
-        </tbody>
-        
-    </table>
-    
-    
-    <div class="btn-container">
-        <div class="yellow-btn" (click)="openGraphique($event)">
-            <fa-icon [icon]="faWandMagicSparkles" class="sparckle-icon"></fa-icon>
-            <p class="btn-text">Générer un graphique de tandance</p>
+            @else {
+                <div class="align">
+                    <p class="no-result"> Aucun résultat d'analyse n'est enregistré pour le moment.</p>
+                </div>
+            }
         </div>
-    </div>
+    }
+    @else {
+        <table>
+            <tbody>
+                @for ( resultat of resultatsAnalyseService.resultatsAnalyse(); let i = $index; track resultat.id ) {
+                    <tr class="resultat-container" (click)="toggleCommentaire(i)">
+                        <td class="resultat-param"> {{resultat.parametre}} </td>
+                        <td class="resultat-value"> {{resultat.valeur}} <span class="resultat-unit"> {{resultat.unite}} </span> </td>
+                        @if(userRoleService.checkRole('laborantin') && userRoleService.checkId(laborantinId())){
+                            <td class="resultat-actions">
+                                <fa-icon [icon]="faPenToSquare" class="icon" (click)="openModifyDialog($event, resultat)"></fa-icon>
+                                <fa-icon [icon]="faTrashCan" class="icon" (click)="openDeleteDialog($event, resultat.id)"></fa-icon>
+                            </td>
+                        }
+                    </tr>
+                    @if(commentaire()[i]){
+                        <tr class="commentaire">
+                            <td class="resultat-comment" colspan="3">
+                                {{resultat.commentaire}}
+                            </td>
+                        </tr>
+                    }
+                }
+            </tbody>
+            
+        </table>
+        @if(userRoleService.checkRole('laborantin') && userRoleService.checkId(laborantinId())){
+            <div class="btn-container">
+                <div class="yellow-btn" (click)="openGraphique($event)">
+                    <fa-icon [icon]="faWandMagicSparkles" class="sparckle-icon"></fa-icon>
+                    <p class="btn-text">Générer un graphique de tandance</p>
+                </div>
+            </div> 
+        } 
+    }
+
     @if(graphiqueOpened()){
         <app-graphique [analyseId]="analyseId()" (closeEvent)="closeGraphique()"></app-graphique>
    }
