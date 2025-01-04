@@ -15,10 +15,13 @@
 
             @if (active()=== 0) {
                 <div class="details">
-                    <div class="icons">
-                        <fa-icon [icon]="faTrashCan" class="icon" (click)="openDeleteDialog($event)"></fa-icon>
-                        <fa-icon [icon]="faPenToSquare" class="icon" (click)="openModifyDialog($event)"></fa-icon>
-                    </div>
+                    @if(userRoleService.checkRole('medecin') && userRoleService.checkId(analyse().technicien)){
+                        <div class="icons">
+                            <fa-icon [icon]="faTrashCan" class="icon" (click)="openDeleteDialog($event)"></fa-icon>
+                            <fa-icon [icon]="faPenToSquare" class="icon" (click)="openModifyDialog($event)"></fa-icon>
+                        </div>
+                    }
+
                     <div class="row">
                         <p class="examen-plus-text">Médecin</p>
                         <div class="nom-container">
@@ -47,16 +50,20 @@
                 @if(active()=== 1){
                     
                         @if(resultatPret()){
-                            <app-resultat [analyseId]="analyse().id"></app-resultat>
+                            <app-resultat [analyseId]="analyse().id" [laborantinId]="analyse().laborantin"></app-resultat>
                         }
                         @else {
                             <div class="no-result-container">
                                 <img class="no-result-img" src="../../../assets/analyse.svg" alt="Biologiste">
                                 <div class="align">
-                                    <p class="no-result"> Les résultats d'analyses sont prêts ? Enregistrez-les maintenant !</p>
-                                    <fa-icon [icon]="faPlusCircle" class="plus-icon" (click)="openAjouterResultat($event)"></fa-icon>  
+                                    @if(userRoleService.checkRole('laborantin')){
+                                        <p class="no-result"> Les résultats d'analyses sont prêts ? Enregistrez-les maintenant !</p>
+                                        <fa-icon [icon]="faPlusCircle" class="plus-icon" (click)="openAjouterResultat($event)"></fa-icon>  
+                                    }
+                                    @else {
+                                        <p class="no-result"> Aucun résultat d'analyse est enregistré ! </p>
+                                    }
                                 </div>
-                                
                             </div>
                             @if(ajouterResultat()){
                                 <app-ajouter-resultat [analyseId]="analyse().id" (closeEvent)="closeAjouterResultat()"></app-ajouter-resultat>

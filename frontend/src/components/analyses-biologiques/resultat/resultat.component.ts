@@ -8,6 +8,7 @@ import { UserIndicatorsServiceService } from '../../../services/user-indicators-
 import axios from 'axios';
 import { AjouterResultatComponent } from '../ajouter-resultat/ajouter-resultat.component';
 import { ResultatAnalyse } from '../../../models/Examen';
+import { UserRoleService } from '../../../services/user-role.service';
 
 @Component({
   selector: 'app-resultat',
@@ -25,6 +26,7 @@ export class ResultatComponent {
   faWandMagicSparkles=faWandMagicSparkles
 
   analyseId = input.required()
+  laborantinId = input.required<number>()
 
   graphiqueOpened = signal(false)
   deleteDialog = signal(false)
@@ -42,7 +44,7 @@ export class ResultatComponent {
     );
   });
 
-  constructor(public userIndicatorService: UserIndicatorsServiceService){}
+  constructor(public userIndicatorService: UserIndicatorsServiceService, public userRoleService: UserRoleService){}
 
   openGraphique(event: Event): void {
     event.stopPropagation();
@@ -124,10 +126,15 @@ export class ResultatComponent {
     }
     catch (error) {
       console.log(error);
-      this.userIndicatorService.errorData.set({
-        isError: true,
-        errorMessage: 'Erreur lors de la récupération des résultats'
-      })
+      if(axios.isAxiosError(error) && error.response?.status === 404 ){
+        this.resultatsAnalyseService.resultatsAnalyse.set([])
+      }
+      else{
+        this.userIndicatorService.errorData.set({
+          isError: true,
+          errorMessage: 'Erreur lors de la récupération des résultats'
+        })
+      }
     }
     finally{
       this.userIndicatorService.loadingData.set({

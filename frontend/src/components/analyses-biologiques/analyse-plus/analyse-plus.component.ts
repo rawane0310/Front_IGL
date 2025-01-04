@@ -7,6 +7,7 @@ import { ModifierAnalyseComponent } from '../modifier-analyse/modifier-analyse.c
 import { ResultatComponent } from '../resultat/resultat.component';
 import { AjouterResultatComponent } from '../ajouter-resultat/ajouter-resultat.component';
 import { AnalysesBiologiquesService } from '../../../services/analyses-biologiques.service';
+import { UserRoleService } from '../../../services/user-role.service';
 
 @Component({
   selector: 'app-analyse-plus',
@@ -28,6 +29,7 @@ export class AnalysePlusComponent {
   modifyDialog = signal(false)
   ajouterResultat= signal(false)
  
+  constructor(public userRoleService: UserRoleService) { }
 
   analyse = input.required<AnalyseBiologique>()
   deleteEndpoint= computed(()=>{
