@@ -9,9 +9,8 @@ import { UserRoleService } from './user-role.service';
 
 export class TrackRouteService {
   inValidRoutes: Array<string> = [];
-
+  i: number = 0;
   constructor(private router: Router, private userRoleService: UserRoleService) {
-    this.initLastValidRoute()
     this.setInValidRoutes()
     this.router.events.pipe(
       filter(event => event instanceof NavigationEnd)
@@ -24,17 +23,15 @@ export class TrackRouteService {
   setInValidRoutes(): void{
     this.inValidRoutes = ['/login', '/']
   }
-  initLastValidRoute(): void {
-    if( this.userRoleService.checkUserRole('patient')) 
-      sessionStorage.setItem('lastValidRoute', '/dpi/'+ localStorage.getItem('dpiID'));
-
-    else if( this.userRoleService.checkUserRole('administratif')) 
-      sessionStorage.setItem('lastValidRoute', '/create-patient');
-
-    else if( this.userRoleService.checkUserRole('technicien')) 
-      sessionStorage.setItem('lastValidRoute', '/recherche');
+  initLastValidRouteValue(): string {
+    console.log('initLastValidRoute called')
+    if( this.userRoleService.checkUserRole('patient')) return '/dpi/'+ localStorage.getItem('dpiID')
+    else if( this.userRoleService.checkUserRole('administratif')) return '/create-patient'
+    else if( this.userRoleService.checkUserRole('technicien')) return '/recherche'
+    else return '/login'
   }
   getLastValidRouteValue(): string | null {
-    return sessionStorage.getItem('lastValidRoute');
+    
+    return sessionStorage.getItem('lastValidRoute') || this.initLastValidRouteValue();
   }
 }
