@@ -19,10 +19,12 @@
                 <div class="med-admin">
                     <div class="soin-plus-text align" >
                         <p class="soin-plus-text">Médicaments utilisés</p>
-                        <fa-icon [icon]="faPlusCircle" class="plus-icon" (click)="openAjouterMedicament($event)" > </fa-icon>
+                        @if(userRoleService.checkRole('infermier') && userRoleService.checkId(soin().infirmier_id)){
+                            <fa-icon [icon]="faPlusCircle" class="plus-icon" (click)="openAjouterMedicament($event)" > </fa-icon>
+                        }
                     </div>
                     
-                    <app-medicaments [soinId]="soin().id" ></app-medicaments>
+                    <app-medicaments [soinId]="soin().id" [infermierId]="soin().infirmier_id" ></app-medicaments>
 
                     @if(ajouterMed()){
                         <app-ajouter-medicament [soinId]="soin().id" (ajouterMedCloseEvent)="closeAjouterMedicament()"></app-ajouter-medicament>
@@ -31,8 +33,10 @@
             } @else {
                 <div class="details">
                     <div class="icons">
-                        <fa-icon [icon]="faTrashCan" class="icon" (click)="opendeleteDialog($event)"></fa-icon>
-                        <fa-icon [icon]="faPenToSquare" class="icon" (click)="openSoinForm($event)"></fa-icon>
+                        @if(userRoleService.checkRole('infermier') && userRoleService.checkId(soin().infirmier_id)){
+                            <fa-icon [icon]="faTrashCan" class="icon" (click)="opendeleteDialog($event)"></fa-icon>
+                            <fa-icon [icon]="faPenToSquare" class="icon" (click)="openSoinForm($event)"></fa-icon>
+                        }
                     </div>
                     <div class="row">
                         <p class="soin-plus-text">Infermier</p>

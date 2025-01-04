@@ -2,11 +2,12 @@ import { Component, inject, input, signal, ViewChild } from '@angular/core';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faTrashCan, faPenToSquare } from '@fortawesome/free-solid-svg-icons';
 import { AjouterMedicamentComponent } from "../ajouter-medicament/ajouter-medicament.component";
-import { DeleteDialogComponent } from '../delete-dialog/delete-dialog.component';
-import { UserIndicatorsServiceService } from '../../services/user-indicators-service.service';
-import { MedicamentsService } from '../../services/medicaments.service';
+import { DeleteDialogComponent } from '../../delete-dialog/delete-dialog.component';
+import { UserIndicatorsServiceService } from '../../../services/user-indicators-service.service';
+import { MedicamentsService } from '../../../services/medicaments.service';
 import axios from 'axios';
-import Medicament from '../../models/Medicament';
+import Medicament from '../../../models/Medicament';
+import { UserRoleService } from '../../../services/user-role.service';
 
 @Component({
   selector: 'app-medicaments',
@@ -25,14 +26,13 @@ export class MedicamentsComponent {
   deleteDialog = signal(false)
 
   soinId = input.required()
+  infermierId = input.required<number>()
 
   deleteEndpoint !: string
   itemId !: number
   medicament : Medicament | undefined 
 
-  constructor(public userIndicatorService: UserIndicatorsServiceService) {
-    
-  }
+  constructor(public userIndicatorService: UserIndicatorsServiceService, public userRoleService: UserRoleService){} 
   openMedForm(event: Event, medicament: Medicament){
     event.stopPropagation()
     this.medicament = medicament

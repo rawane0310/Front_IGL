@@ -1,10 +1,10 @@
 import { Component, inject, input, output } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { UserIndicatorsServiceService } from '../../services/user-indicators-service.service';
-import { MedicamentsService } from '../../services/medicaments.service';
+import { UserIndicatorsServiceService } from '../../../services/user-indicators-service.service';
+import { MedicamentsService } from '../../../services/medicaments.service';
 import axios from 'axios';
-import SoinInfermier from '../../models/SoinInfermier';
-import Medicament from '../../models/Medicament';
+import SoinInfermier from '../../../models/SoinInfermier';
+import Medicament from '../../../models/Medicament';
 
 @Component({
   selector: 'app-ajouter-medicament',
