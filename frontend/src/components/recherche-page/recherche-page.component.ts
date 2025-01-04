@@ -7,6 +7,10 @@ import { BarcodeFormat } from '@zxing/library';
 import { PatientService } from '../../services/patient_service';
 import { Router } from '@angular/router';
 
+/**
+ * Composant représentant la page de recherche des patients.
+ * Permet la recherche de patients par NSS (Numéro de Sécurité Sociale) ou via un code QR.
+ */
 @Component({
   selector: 'app-recherche-page',
   standalone: true,
@@ -15,21 +19,59 @@ import { Router } from '@angular/router';
   styleUrl: './recherche-page.component.css',
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
-
 export class RecherchePageComponent {
+  /**
+   * Indique si le scanner de code QR est affiché.
+   * @type {boolean}
+   */
   showScanner: boolean = false;
-  scannerEnabled: boolean = false;
-
-  nss: string = '';
-  patientData: any;
-  message: string = '';
-  messageType: string = '';
-
-  constructor(private patientService: PatientService, private router: Router) { }
-
 
   /**
-   * Search for a patient using NSS.
+   * Indique si le scanner de code QR est activé.
+   * @type {boolean}
+   */
+  scannerEnabled: boolean = false;
+
+  /**
+   * NSS (Numéro de Sécurité Sociale) saisi par l'utilisateur.
+   * @type {string}
+   */
+  nss: string = '';
+
+  /**
+   * Données du patient récupérées suite à la recherche.
+   * @type {any}
+   */
+  patientData: any;
+
+  /**
+   * Message à afficher à l'utilisateur.
+   * @type {string}
+   */
+  message: string = '';
+
+  /**
+   * Type du message (success ou error).
+   * @type {string}
+   */
+  messageType: string = '';
+
+  /**
+   * Formats pris en charge pour le scanner (ex. QR Code).
+   * @type {BarcodeFormat[]}
+   */
+  formats: BarcodeFormat[] = [BarcodeFormat.QR_CODE];
+
+  /**
+   * Constructeur du composant.
+   * @param {PatientService} patientService - Service pour la gestion des patients.
+   * @param {Router} router - Service pour la navigation.
+   */
+  constructor(private patientService: PatientService, private router: Router) { }
+
+  /**
+   * Recherche un patient par NSS.
+   * Affiche un message d'erreur si le NSS est vide ou inexistant.
    */
   searchByNSS() {
     this.patientData = null;
@@ -46,33 +88,30 @@ export class RecherchePageComponent {
         setTimeout(() => {
           this.router.navigate(['/dpi/', data.id]);
         }, 3000);
-        console.log(data);
       },
       error: (err) => {
-        console.log(err.error);
-        this.showMessage(err.error?.detail || 'Une erreur est produite lors dela recherche', 'error');
+        this.showMessage(err.error?.detail || 'Une erreur est produite lors de la recherche', 'error');
       },
     });
   }
 
   /**
-   * Toggle the QR scanner on/off.
+   * Bascule l'affichage du scanner de code QR.
    */
-
   toggleQRScanner() {
     this.showScanner = !this.showScanner;
     this.scannerEnabled = this.showScanner;
   }
 
   /**
-    * Handle successful QR code scan.
-    * @param result The QR code scan result containing id and name.
-    */
+   * Gère le résultat d'un code QR scanné.
+   * Tente de rechercher un patient à partir des informations contenues dans le code QR.
+   * @param {string} result - Résultat du scan du code QR.
+   */
   onQRCodeScanned(result: string) {
     this.scannerEnabled = false;
 
     try {
-      //console.log('QR code scanned:', result);
       const qrData = JSON.parse(result);
       const id = qrData.ID;
       const name = qrData.Patient;
@@ -85,30 +124,27 @@ export class RecherchePageComponent {
           this.patientData = data;
           setTimeout(() => {
             this.router.navigate(['/dpi/', data.id]);
-
           }, 3000);
-          console.log(data);
         },
         error: (err) => {
-          this.showMessage(err.error?.detail || 'Une erreur est produite lors de scan du code QR!', 'error');
+          this.showMessage(err.error?.error || 'Une erreur est produite lors du scan du code QR!', 'error');
         },
       });
     } catch (e) {
-      console.error('Error parsing QR code:', e);
-      this.showMessage("QR code invalide. Ressayez svp!.", 'error');
+      this.showMessage('QR code invalide. Ressayez svp!', 'error');
     }
   }
 
-
-  formats = [BarcodeFormat.QR_CODE];
-
-  // Method to show success or error messages
+  /**
+   * Affiche un message temporaire (success ou error) à l'utilisateur.
+   * @param {string} message - Message à afficher.
+   * @param {'success' | 'error'} type - Type du message.
+   */
   showMessage(message: string, type: 'success' | 'error') {
     this.message = message;
     this.messageType = type;
     setTimeout(() => {
       this.message = '';
-    }, 3000); // Clear the message after 3 seconds
+    }, 3000); // Efface le message après 3 secondes.
   }
-
 }

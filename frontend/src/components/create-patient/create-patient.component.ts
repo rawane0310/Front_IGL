@@ -3,12 +3,11 @@ import { HeaderComponent } from '../header/header.component';
 import { FormsModule } from '@angular/forms';
 import { NgFor } from '@angular/common';
 import { PatientService } from '../../services/patient_service';
-import Swal from 'sweetalert2'
-import 'sweetalert2/src/sweetalert2.scss'
+import Swal from 'sweetalert2';
+import 'sweetalert2/src/sweetalert2.scss';
 
 /**
- * Type définissant les clés possibles pour les champs du formulaire d'un patient.
- * Chaque clé représente un champ spécifique dans le formulaire.
+ * Type représentant les clés du formulaire de création de patient.
  */
 type PatientFormKeys =
   | 'nss'
@@ -24,22 +23,19 @@ type PatientFormKeys =
   | 'password';
 
 /**
- * Composant Angular représentant le formulaire de création d'un patient.
- * Ce composant permet de capturer et de soumettre les informations relatives à un patient.
- * Il utilise une liste de champs définis avec des placeholders pour chaque entrée.
+ * Composant Angular pour la création de dossiers patients.
  */
 @Component({
   selector: 'app-create-patient',
   standalone: true,
-  templateUrl: './create-patient.component.html',  // URL du template HTML pour le formulaire
-  styleUrls: ['./create-patient.component.css'],   // URL des styles CSS associés
-  imports: [HeaderComponent, FormsModule, NgFor]   // Importation des composants et modules nécessaires
+  templateUrl: './create-patient.component.html',
+  styleUrls: ['./create-patient.component.css'],
+  imports: [HeaderComponent, FormsModule, NgFor]
 })
 export class CreatePatientComponent {
+
   /**
-   * Objet `formData` qui stocke les valeurs des champs du formulaire.
-   * Chaque clé dans cet objet correspond à une clé définie dans `PatientFormKeys` et
-   * les valeurs sont de type `string`, initialisées à une chaîne vide.
+   * Objet contenant les données du formulaire de création de patient.
    */
   formData: Record<PatientFormKeys, string> = {
     nss: '',
@@ -55,14 +51,22 @@ export class CreatePatientComponent {
     password: ''
   };
 
-
+  /**
+   * Service pour gérer les opérations liées aux patients.
+   * @param patientService Service injecté pour interagir avec les données des patients.
+   */
   constructor(private patientService: PatientService) { }
 
-
+  /**
+   * Valide les données du formulaire de création de patient.
+   * - Vérifie que tous les champs sont remplis.
+   * - Valide le format de la date de naissance.
+   * - Valide le format de l'adresse email.
+   * 
+   * @returns {boolean} `true` si le formulaire est valide, sinon `false`.
+   */
   validateForm(): boolean {
-    // Check if all fields are filled
     for (const key in this.formData) {
-      console.log('Key:', key);
       if (!this.formData[key as PatientFormKeys].trim()) {
         Swal.fire({
           icon: 'warning',
@@ -71,16 +75,12 @@ export class CreatePatientComponent {
           confirmButtonColor: '#d33',
           width: '400px',
           iconColor: '#d33',
-          customClass: {
-            popup: 'small-swal-popup'
-          },
-
+          customClass: { popup: 'small-swal-popup' },
         });
         return false;
       }
     }
 
-    // Validate date format
     const dateRegex = /^\d{4}-\d{2}-\d{2}$/;
     if (!dateRegex.test(this.formData.date_naissance)) {
       Swal.fire({
@@ -90,14 +90,11 @@ export class CreatePatientComponent {
         confirmButtonColor: '#d33',
         iconColor: '#d33',
         width: '400px',
-        customClass: {
-          popup: 'small-swal-popup',
-        },
+        customClass: { popup: 'small-swal-popup' },
       });
       return false;
     }
 
-    // Validate email format
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(this.formData.email)) {
       Swal.fire({
@@ -107,9 +104,7 @@ export class CreatePatientComponent {
         confirmButtonColor: '#d33',
         iconColor: '#d33',
         width: '400px',
-        customClass: {
-          popup: 'small-swal-popup',
-        },
+        customClass: { popup: 'small-swal-popup' },
       });
       return false;
     }
@@ -117,15 +112,19 @@ export class CreatePatientComponent {
     return true;
   }
 
-
+  /**
+   * Soumet le formulaire de création de patient.
+   * - Valide les données du formulaire.
+   * - Envoie les données au service PatientService pour la création du dossier.
+   * - Gère les réponses ou erreurs avec des notifications visuelles.
+   */
   onSubmit(): void {
-    console.log('Form data:', this.formData);
     if (!this.validateForm()) {
       return;
     }
+
     this.patientService.createDossierPatient(this.formData).subscribe({
       next: (response) => {
-        console.log('Dossier créé avec succès:', response);
         Swal.fire({
           icon: 'success',
           title: 'Succès',
@@ -135,9 +134,7 @@ export class CreatePatientComponent {
           confirmButtonText: 'Ok',
           width: '400px',
           padding: '1rem',
-          customClass: {
-            popup: 'small-swal-popup',
-          },
+          customClass: { popup: 'small-swal-popup' },
         }).then((result) => {
           if (result.isConfirmed) {
             window.location.reload();
@@ -145,7 +142,6 @@ export class CreatePatientComponent {
         });
       },
       error: (error) => {
-        console.error('Erreur lors de la création du dossier:', error);
         Swal.fire({
           icon: 'error',
           title: 'Erreur',
@@ -155,12 +151,9 @@ export class CreatePatientComponent {
           confirmButtonText: 'Réessayer',
           width: '400px',
           padding: '1rem',
-          customClass: {
-            popup: 'small-swal-popup',
-          },
+          customClass: { popup: 'small-swal-popup' },
         });
       }
     });
   }
-
 }
