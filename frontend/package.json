@@ -24,10 +24,16 @@
     "@fortawesome/free-brands-svg-icons": "^6.5.2",
     "@fortawesome/free-regular-svg-icons": "^6.5.2",
     "@fortawesome/free-solid-svg-icons": "^6.5.2",
+    "@types/chai": "^5.0.1",
+    "@types/mocha": "^10.0.10",
+    "@types/selenium-webdriver": "^4.1.28",
     "@zxing/ngx-scanner": "^19.0.0",
     "axios": "^1.7.9",
+    "chai": "^5.1.2",
     "chart.js": "^4.4.7",
+    "mocha": "^11.1.0",
     "rxjs": "~7.8.0",
+    "selenium-webdriver": "^4.28.1",
     "sweetalert2": "^11.15.3",
     "tslib": "^2.3.0",
     "zone.js": "~0.14.10"
@@ -43,6 +49,7 @@
     "karma-coverage": "~2.2.0",
     "karma-jasmine": "~5.1.0",
     "karma-jasmine-html-reporter": "~2.1.0",
+    "ts-node": "^10.9.2",
     "typescript": "~5.5.2"
   }
 }
