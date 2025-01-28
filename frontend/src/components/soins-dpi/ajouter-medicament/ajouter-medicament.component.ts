@@ -79,7 +79,7 @@ export class AjouterMedicamentComponent {
       dose: new FormControl(this.medicament()?.dose || '',[Validators.required]) ,
       frequence: new FormControl(this.medicament()?.frequence || '',[Validators.required]),
       duree: new FormControl(this.medicament()?.duree || '',[Validators.required]),
-      ordonnance_id: new FormControl(null,[Validators.required]),
+      
       soin_id: new FormControl(this.soinId(),[Validators.required])
     })
   }
