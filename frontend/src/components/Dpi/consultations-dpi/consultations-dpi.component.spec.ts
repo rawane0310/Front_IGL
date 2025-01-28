@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { MenuDpiComponent } from '../menu-dpi/menu-dpi.component';
 import { ConsultationsDpiComponent } from './consultations-dpi.component';
+import { MatDialogModule } from '@angular/material/dialog';
 
 describe('ConsultationsDpiComponent', () => {
   let component: ConsultationsDpiComponent;
@@ -8,7 +9,7 @@ describe('ConsultationsDpiComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ConsultationsDpiComponent]
+      imports: [ConsultationsDpiComponent, MatDialogModule]
     })
     .compileComponents();
 

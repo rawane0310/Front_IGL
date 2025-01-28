@@ -1,0 +1,93 @@
+<div class="form-bg" (click)="closeAddConsultation()">
+  <div class="form-container" (click)="$event.stopPropagation()">
+      <div class="steps">
+          <div class="step" [class]="next() ? 'step-done' : 'step-active'">
+              <div class="step-number">1</div>
+              <div class="step-title">Détails de la consultation</div>
+          </div>
+          <div class="bar" [class]="next() ? 'bar-done' : 'bar-active'" ></div>
+          <div class="step" [class]="next() ? 'step-active' : ''">
+              <div class="step-number">2</div>
+              <div class="step-title"> Resume de la consultation</div>
+          </div>
+          
+      </div>
+      <div class="content">
+          @if(!next()){
+             <div class="details-container">
+                  <form [formGroup]="formGroup" (submit)="onSubmit($event)">
+                      <h3 class="form-title" style="color:#05445E ;">Remplissez les détails de la consultation ! </h3>
+
+                      <div class="form-inputs">
+                       
+
+      <!-- Date de la consultation -->
+      <div class="form-group">
+        <label  for="date">Date de la consultation</label>
+        <input type="date" formControlName="date" />
+        @if(formGroup.controls['date'].errors && (formGroup.controls['date'].dirty || formGroup.controls['date'].touched)){
+          <small class="error"> *Ce champs est obligatoire </small>
+      } 
+      </div>
+  
+      <!-- Médecin traitant -->
+      <div class="form-group">
+        <label  for="medecin">Médecin traitant</label>
+        <input type="number" formControlName="medecin"  />
+        @if(formGroup.controls['medecin'].errors && (formGroup.controls['medecin'].dirty || formGroup.controls['medecin'].touched)){
+          <small class="error"> *Ce champs est obligatoire </small>
+      } 
+      </div>
+  
+      <!-- État de diagnostique -->
+      <div class="form-group">
+        <label  for="DiagnosticStatut">État de diagnostique</label>
+        <select formControlName="diagnosticStatut" >
+          <option [value]="false"  >Pas encore effectué</option>
+          <option [value]="true" >Effectué</option>
+        </select>
+        @if(formGroup.controls['diagnosticStatut'].errors && (formGroup.controls['diagnosticStatut'].dirty || formGroup.controls['diagnosticStatut'].touched)){
+          <small class="error"> *Ce champs est obligatoire </small>
+      } 
+      </div>
+      
+      
+      
+  </div>
+  <div class="next">
+    <!-- 'Suivant' button -->
+    <button type="submit" class="btn" [disabled]="userIndicatorService.loadingData().isLoading">Suivant</button>
+    
+    <!-- 'Fermer' button -->
+    <button type="button" class="btn close" (click)="closeAddConsultation()">Fermer</button>
+  </div>
+  </form>
+</div>
+}@else {
+<div class="med-container">
+<h3 class="form-title align" (click)="openAjouterResume($event)"> Resume  </h3>
+
+
+
+                        <app-ajouter-resume [consId]="consId" [consDate]="consDate" (ajouterResCloseEvent)="closeAjouterResume()"></app-ajouter-resume>
+                    
+ 
+<div class="next">
+    <button class="btn" [disabled]="userIndicatorService.loadingData().isLoading" (click)="closeAddConsultation()" >Terminer</button>
+</div>
+</div>
+}
+</div>
+
+</div>
+</div>
+    
+
+    
+    
+
+    
+
+   
+  
+    

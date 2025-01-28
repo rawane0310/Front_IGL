@@ -1,0 +1,110 @@
+@import url('https://fonts.googleapis.com/css2?family=Urbanist:wght@400;700&display=swap');
+
+
+
+body {
+    margin: 0; /* Remove any default margins from the body */
+    padding: 0;
+    overflow-x: hidden; /* Prevent horizontal scrolling */
+    box-sizing: border-box; /* Consistent sizing model */
+}
+
+.container {
+    display: flex; /* Enables flexbox layout */
+    flex-wrap: wrap; /* Allows items to wrap to the next row if necessary */
+    gap: 15px; /* Adjust the spacing between the boxes */
+    justify-content: center; /* Centers all boxes in the container */
+    margin: 1rem auto; /* Center the container and add vertical spacing */
+    width: 100%; /* Ensures container spans the available width */
+    max-width: 100%; /* Prevents container from exceeding the viewport */
+    box-sizing: border-box; /* Ensures padding/margins don’t affect width */
+    overflow-x: hidden; /* Extra precaution to avoid scrollbars */
+}
+
+.box {
+    width: calc(30% - 15px); /* Ensures three boxes per row, matching gap */
+    height: 220px; /* Keeps a fixed height */
+    padding: 15px; /* Adds padding inside the box */
+    background-color: #FFFFFF; /* Light gray background */
+    border-radius: 15px; /* Smooth corners */
+    border: 1px solid #C1D1DC; /* Light border */
+    text-align: center; /* Centers content inside */
+    box-sizing: border-box; /* Ensures padding doesn’t increase box width */
+    margin-bottom: 10px;
+}
+
+/* Responsive design for smaller screens */
+@media (max-width: 1024px) {
+    .box {
+        width: calc(48% - 15px); /* Two boxes per row on medium screens */
+    }
+}
+
+@media (max-width: 768px) {
+    .box {
+        width: 100%; /* One box per row on small screens */
+    }
+}
+
+.title {
+    font-family: 'Urbanist';
+    font-size: 20px;
+    font-weight: 500;
+    color: #263238;
+    text-align: center;
+}
+
+.txt {
+    text-align: start;
+    font-family: 'Urbanist';
+    font-size: 16px;
+    color: #263238;
+    padding-right: 10px;
+}
+
+.btn {
+    color: #6C757D;
+    background-color: #05445E;
+    color: #FFFFFF;
+    border-radius: 10px;
+    font-family: 'Urbanist', sans-serif;
+    outline: none; 
+    border: none; 
+    padding: 5px 10px; 
+    cursor: pointer; 
+    display: inline-block; 
+}
+
+.btncontainer {
+    display: flex;
+    justify-content: flex-end; 
+    align-items: center;
+    width: 100%;
+}
+
+.circle {
+    width: 10px; /* Adjust size as needed */
+    height: 10px; /* Make it a circle */
+    background-color: #9B59B6; /* Purple color */
+    border-radius: 50%; /* Turns the square into a circle */
+    margin-right: 8px; /* Space between the circle and the text */
+}
+
+.diagnostic {
+    display: flex;
+    align-items: center; /* Aligns the circle and text vertically */
+    font-family: 'Poppins', sans-serif; /* Match your font style */
+    font-size: 14px; /* Adjust as needed */
+    color: #333; /* Text color */
+}
+.smallcontainer{
+    display: flex;
+    justify-content: center; /* Center horizontally */
+    align-items: center; 
+  }
+
+.divajouter{
+display: flex;
+align-items: center;
+justify-content: center;
+}

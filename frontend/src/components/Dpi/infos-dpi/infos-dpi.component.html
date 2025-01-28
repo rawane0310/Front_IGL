@@ -1,0 +1,56 @@
+<app-menu-dpi></app-menu-dpi>
+
+<div class="bigcontainer">
+  <div class="container">
+
+    <div class="ligne">
+      <p class="title">Numéro de sécurité sociale:</p>
+      <p class="content">{{ patient?.nss }}</p>
+    </div>
+
+    <div class="ligne">
+      <p class="title">Nom:</p>
+      <p class="content">{{ patient?.nom }}</p>
+    </div>
+
+    <div class="ligne">
+      <p class="title">Prénom:</p>
+      <p class="content">{{ patient?.prenom }}</p>
+    </div>
+
+    <div class="ligne">
+      <p class="title">Date de naissance:</p>
+      <p class="content">{{ patient?.date_naissance }}</p>
+    </div>
+
+    <div class="ligne">
+      <p class="title">Adresse:</p>
+      <p class="content">{{ patient?.adresse }}</p>
+    </div>
+
+    <div class="ligne">
+      <p class="title">Téléphone:</p>
+      <p class="content">{{ patient?.tel }}</p>
+    </div>
+
+    <div class="ligne">
+      <p class="title">Personne à contacter:</p>
+      <p class="content">{{ patient?.personne_a_contacter }}</p>
+    </div>
+
+    <div class="ligne">
+      <p class="title">Médecin traitant:</p>
+      <p class="content">{{ patient?.medecin_traitant }}</p>
+    </div>
+
+    <div class="ligne">
+      <p class="title">Mutuelle:</p>
+      <p class="content">{{ patient?.mutuelle }}</p>
+    </div>
+
+  </div>
+  
+  <div class="qr-code-container">
+    <img src="../../assets/qrcodefrfr.svg" class="image">
+  </div>
+</div>

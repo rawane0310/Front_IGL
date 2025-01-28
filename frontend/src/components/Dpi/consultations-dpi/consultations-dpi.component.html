@@ -1,0 +1,27 @@
+<app-menu-dpi></app-menu-dpi>
+<div class="divajouter" style=" justify-content: right; justify-items: right;">
+
+    <button class="btn" style="background-color: #FFFFFF; color: #05445E; font-size: 16px; font-weight: bold; " (click)="AjouterConsultation()"> + Ajouter Consultation</button>
+    <button class="btn" style="background-color: #FFFFFF; color: #05445E; font-size: 16px; font-weight: bold; " (click)="AjouterExamenRadio()"> + Ajouter examen radiologique</button>
+    <button class="btn" style="background-color: #FFFFFF; color: #05445E; font-size: 16px; font-weight: bold; " (click)="AjouterExamenBio()"> + Ajouter examen Biologique</button>
+</div>
+<div class="container">
+<div class="box" *ngFor="let consultation of consultationsService.consultations()">
+<p class="title">{{ consultation.date }}</p>
+<p class="txt">Medecin :{{ consultation.medecin }}</p>
+
+<div class="diagnostic">
+<p class="txt">Diagnostic:  </p>
+<span class="circle"></span>
+<p class="txt">{{ consultation.diagnosticStatut ? 'Effectué' : 'Non effectué' }}</p>
+</div>
+<div class="btncontainer">
+<button class="btn" (click)="openDialog(consultation)">voir plus</button>
+</div>
+</div>
+
+
+   
+
+
+                </div>

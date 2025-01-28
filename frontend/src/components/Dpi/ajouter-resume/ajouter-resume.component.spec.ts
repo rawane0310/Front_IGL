@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { InfosDpiComponent } from './infos-dpi.component';
+import { AjouterResumeComponent } from './ajouter-resume.component';
 
-describe('InfosDpiComponent', () => {
-  let component: InfosDpiComponent;
-  let fixture: ComponentFixture<InfosDpiComponent>;
+describe('AjouterResumeComponent', () => {
+  let component: AjouterResumeComponent;
+  let fixture: ComponentFixture<AjouterResumeComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [InfosDpiComponent]
+      imports: [AjouterResumeComponent]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(InfosDpiComponent);
+    fixture = TestBed.createComponent(AjouterResumeComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
